@@ -185,10 +185,10 @@ The pills of each type (`page.pills` in `src/lib/categories.ts`):
 | --- | --- |
 | about, team | `Published on 29.09.2025` (`date`), `#keyword`… |
 | event | `08.05.2026` (`date`), `location` or else `venue`, `#keyword`… |
-| publication | `venue`, `20.05.2026` (`date`), `#keyword`…, `publication-type` |
+| publication | `20.05.2026` (`date`), `#keyword`…, `publication-type` |
 | artifact | `Online since 03.2026` (`date`), `kind`, `#keyword`… |
 
-A pill longer than its row is cut with an ellipsis (the full venue is in the publication header).
+A pill longer than its row is cut with an ellipsis. The venue of a publication is not a pill: it is in the publication header.
 
 ### Blocks and notes
 

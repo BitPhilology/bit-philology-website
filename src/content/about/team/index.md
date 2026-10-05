@@ -70,7 +70,7 @@ members:
   role: Research Associate
   affiliation: Universität Bern
   photo: https://picsum.photos/200
-  external-url: https://example.com/tommaso-elli
+  external-url:
 
 # About page only: the advisory board, shown where the text has {{advisory-board}}.
 # To add a person, copy these lines without the "#":
@@ -107,10 +107,10 @@ tags: website/team-page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/eXfd9t1LQui9OWZKRwYY0A
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
-The team working on the research project is composed by experts in Phylology, Digital Archives, Digital Born Materials, Information Visualization, and Digital Design.
+The team working on the research project is composed by experts in Philology, Digital Archives, Born-Digital Materials, Information Visualization, and Digital Design.
 
 The project is based at the Digital Humanities Center of the University of Bern, part of the Walter Benjamin Kolleg, and is funded by the Swiss National Science Foundation for the years 2025 to 2030. It is led by Elena Spadini, SNSF Assistant Professor, whose research covers digital philology and the technologies of text. Doctoral students and a research associate work with her on the description, edition and analysis of born-digital literary archives.
 

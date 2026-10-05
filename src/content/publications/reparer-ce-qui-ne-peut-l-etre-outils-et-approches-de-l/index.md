@@ -28,7 +28,7 @@ keywords:
 # ── WHEN AND WHERE ────────────────────────────────────────────────────
 # The day of the event, or when the page or the publication came out.
 # Write YEAR-MONTH-DAY (2026-05-08) or only the year (2026).
-date: 2026-11-13
+date: 2026-11-14
 # Events and publications only: the institution, the conference or the journal.
 venue: Huma-Num ARIANE Conference
 # Events and publications only: the room or the city, when it adds something to the venue.
@@ -40,9 +40,9 @@ authors:
 # Publications only: what it is, for example: Poster, Oral Communication, Article.
 publication-type: Oral Communication
 # Publications only: the DOI (10.5281/zenodo.1234567) or its link.
-doi: test/1.2.3.4.5
+doi:
 # Publications only: the link to the file to download.
-download-link: https://example.com/download
+download-link:
 # Artifacts only: what kind of object it is, for example: Tool, Dataset.
 kind:
 
@@ -91,7 +91,9 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/idRHfXJOTK6WttOfUjS_fg
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
-[An abstract will be made available soon]
+[no-lead]The Bit Philology project team will held a talk entitled "Réparer ce qui ne peut l’être : outils et approches de l’établissement de textes nativement numériques" at the Congrès international conclusif du consortium Huma-Numa ARIANE, held 12–14 November 2026 at the Sorbonne University, Paris.
+
+Conference website: [csthn-ariane.sciencesconf.org](https://csthn-ariane.sciencesconf.org/)

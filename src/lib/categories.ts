@@ -129,10 +129,10 @@ export const POST_TYPES: Record<PostType, PostEntry> = {
 			description: () => undefined,
 			pills: (post) => present([post.date && yearOf(post.date), post.publicationType])
 		},
-		// The venue, the date, the keywords and the publication type (Figma "Publications").
+		// The date, the keywords and the publication type. The venue is in the header, not a pill.
 		page: {
 			pills: (post) =>
-				present([post.venue, post.date && longDate(post.date), ...hashtags(post), post.publicationType])
+				present([post.date && longDate(post.date), ...hashtags(post), post.publicationType])
 		}
 	},
 	artifact: {

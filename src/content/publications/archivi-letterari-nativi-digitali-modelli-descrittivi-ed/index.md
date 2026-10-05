@@ -36,7 +36,7 @@ location:
 
 # ── PUBLICATIONS AND ARTIFACTS ONLY ───────────────────────────────────
 # Who made it, for example: E. Spadini, E. Barchielli.
-authors:
+authors: "Elena Barchielli, Simon Willemin, Elena Spadini"
 # Publications only: what it is, for example: Poster, Oral Communication, Article.
 publication-type: Poster
 # Publications only: the DOI (10.5281/zenodo.1234567) or its link.
@@ -45,23 +45,6 @@ doi:
 download-link:
 # Artifacts only: what kind of object it is, for example: Tool, Dataset.
 kind:
-
-# ── LISTS OF PEOPLE ───────────────────────────────────────────────────
-# Team page only: the people of the team, shown where the text has {{team}}.
-# A photo is uploaded to HedgeDoc like any image (see the end of these settings): here goes only its link.
-# To add a person, copy these lines without the "#":
-# - name: Jane Doe
-#   role: PhD Student
-#   affiliation: Universität Bern
-#   photo: https://pad.dsl.unibe.ch/uploads/1a2b3c4d.jpg
-#   external-url: https://link-to-her-web-page
-members:
-# About page only: the advisory board, shown where the text has {{advisory-board}}.
-# To add a person, copy these lines without the "#":
-# - name: Jane Doe
-#   affiliation: Universität Bern
-#   external-url: https://link-to-her-web-page
-advisory-board:
 
 # ── HOME PAGE ─────────────────────────────────────────────────────────
 # The text on the card of the page (About, Team and Artifact only).
@@ -88,15 +71,11 @@ tags: website/publication
 #      ![A hand-drawn map of the archive](https://pad.dsl.unibe.ch/uploads/1a2b3c4d.png "The archive in 1998")
 #    Between [ ]: the description of the image, read aloud to people who cannot see it. Always write it.
 #    Between " ", after a space: the caption, shown beside the image. You can leave it out.
-
-# ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
-source: https://pad.dsl.unibe.ch/v66-dbipQ6msO0vn9NcMtw
-importedAt: 2026-10-02T15:47:15Z
 ---
 
-The Bit Philology project presented a poster at the XV Annual Conference of the Association for Humanities Computing and Digital Culture (AIUCD 2026), held 3–5 June 2026 at the University of Cagliari.
+The Bit Philology project team presented a poster at the XV Annual Conference of the Association for Humanities Computing and Digital Culture (AIUCD 2026), held 3–5 June 2026 at the University of Cagliari.
 
-![Conference poster divided into three sections — Description, Edition, Analysis — with a photograph of a floppy disk connected to a forensic acquisition device, a screenshot of an IIIF viewing interface, a hexadecimal dump excerpt of a Word document with annotations, and a flowchart of the analysis process (text files, topic modelling/phylogenetic analysis, clusters, metadata analysis).](./assets/fc47e8a4-9db0-4759-8da6-524d47b59af4.png "Born-digital literary archives: descriptive models, experimental editions and analysis — poster by Elena Barchielli, Simon Willemin and Elena Spadini (University of Bern), presented at the XV Annual AIUCD 2026 Conference, University of Cagliari.")
+![Conference poster divided into three sections — Description, Edition, Analysis — with a photograph of a floppy disk connected to a forensic acquisition device, a screenshot of an IIIF viewing interface, a hexadecimal dump excerpt of a Word document with annotations, and a flowchart of the analysis process (text files, topic modelling/phylogenetic analysis, clusters, metadata analysis).](https://pad.dsl.unibe.ch/uploads/fc47e8a4-9db0-4759-8da6-524d47b59af4.png "Born-digital literary archives: descriptive models, experimental editions and analysis — poster by Elena Barchielli, Simon Willemin and Elena Spadini (University of Bern), presented at the XV Annual AIUCD 2026 Conference, University of Cagliari.")
 
 
 The poster, "Archivi letterari nativi digitali: modelli descrittivi ed edizioni sperimentali", presents descriptive models and experimental editions for born-digital literary archives developed within the project.

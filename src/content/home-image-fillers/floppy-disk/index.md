@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/Dx1dAyfARmWInM8OKl4hRQ
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
 ![BitPhilology logo: the word "BitPhilology" in a black pixelated monospaced typeface, centered between two stacks of horizontal black lines. The lines swell and taper like lens shapes, forming a roughly circular disc in the upper and lower halves. The top-left corner of the overall outline is cut diagonally, giving the shape of a floppy disk.](./assets/7d1c45a7-b83a-468b-bf08-07afd53af52f.png "The BitPhilology logo. The pixelated monospaced lettering recalls the writing environments of the first digital devices, on which many literary works were composed. The overall outline, with its cut corner, takes the shape of a floppy disk, one of the main storage media of the period the project investigates. The lines of varying thickness evoke the magnetic tracks of storage devices from the 1980s to the early 2000s, and together they form the circular magnetic disc housed inside the square plastic casing.")

@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/sLHtAaHLQZel4gJtZnkI3w
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
 ![Black-and-white line drawing of a hard disk seen from above. A large circular platter is covered in thin concentric rings, with a small central hub held by six screws. A long arm on the left, labelled "Suspension Arm", reaches from a round "Rotary Actuator" toward the platter, where its tip, labelled "Slider", touches the surface.](./assets/2aa049f0-6238-4922-a865-79235268af4a.png

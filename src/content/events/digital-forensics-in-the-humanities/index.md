@@ -91,7 +91,7 @@ tags: website/event
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/ghrdFbhVQy-herciaypa8Q
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
 ![Photograph of a projected slide titled “Down the rabbit-hole: forensic examination and born-digitals”. Boxes labelled “provenance”, “authentication”, “materiality” and “format” are joined by lines to a rabbit drawing at the bottom of the slide.](./assets/94a91846-a0ee-4e83-b52e-ea7385a3597c.jpeg "A slide from the workshop: “Down the rabbit-hole: forensic examination and born-digitals”.")
@@ -99,23 +99,24 @@ importedAt: 2026-10-02T15:47:15Z
 
 A full-day workshop organized by the Bit Philology project team and funded by the Swiss National Science Foundation (SNSF), taking place Friday 8 May 2026 at the University of Bern.
 
-The program runs from 9:00 AM to 5:00 PM and includes welcome remarks, a keynote on digital forensics and vintage computing, three panel sessions on archival work with electronic materials, digital preservation practices, and forensic methodologies, followed by a closing discussion, a GameLab visit, and an aperitif.
+The program ran from 9:00 AM to 5:00 PM and included welcome remarks, a keynote on digital forensics and vintage computing, three panel sessions on archival work with electronic materials, digital preservation practices, and forensic methodologies, followed by a closing discussion, a [GameLab](https://dhbern.github.io/content/services/gamelab/) visit, and an aperitif.
 
-#### Speakers
+#### Contents and speakers
 
-* Bruce Nikkel (Digital Forensics Professor, Bern University of Applied Sciences)
-* Elena Barchielli, Simon Willemin, Elena Spadini (University of Bern)
-* Emmanuela Carbé, Mariangela Giglio (Universities of Venice/Bologna)
-* Kristel Roder (Swiss National Library)
-* Moritz Feichtinger (University of Basel)
-* Moritz Mähr (University of Bern/ETH Library)
+* **Digital Forensics and Vintage Computing**\
+  Bruce Nikkel (Digital Forensics Professor, Bern University of Applied Sciences)\
+  [slides](https://zenodo.org/records/20595949)
+* **From Electronic Word Processors to Computers: Experiences with the Archives of Swiss Writers**\
+  Elena Barchielli, Simon Willemin, Elena Spadini (University of Bern)\
+  [slides](https://doi.org/10.5281/zenodo.20490926)
+* **Between Philology and Digital Forensics: The Case of Franco Fortini**\
+  Emmanuela Carbé, Mariangela Giglio (Universities of Venice/Bologna)\
+  [slides](https://doi.org/10.5281/zenodo.20646793)
+* **Digitale Archivierung im Schweizerischen Literaturarchiv – aktueller Stand und Vorgehensweise**\
+  Kristel Roder (Swiss National Library)
+* **Levels, Limits and Ethics of Forensic Approaches in the Social Sciences and Humanities**\
+  Moritz Feichtinger (University of Basel)
+* **Manuals as Forensic Evidence: Reconstructing Digital Systems and Administrative Practice**\
+  Moritz Mähr (University of Bern/ETH Library)\
+  [slides](https://doi.org/10.5281/zenodo.20080878)
 
-#### Registration
-
-This workshop is a registration-only event. Interested participants should contact [elena.spadini@unibe.ch](mailto:elena.spadini@unibe.ch) to register.
-
-#### Getting there
-
-University of Bern, Unitobler F-112 (lower ground floor, Lerchenweg 36)
-
-From Bern train station, take the elevator to Grosse Schanze, then follow the directions to Unitobler.

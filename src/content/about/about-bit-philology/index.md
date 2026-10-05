@@ -21,9 +21,7 @@ title: About Bit Philology
 subtitle:
 # The topics of the page, one per line, each after "- ". They are shown as #keyword labels.
 keywords:
-- lorem
-- ipsum
-- dolor
+- 
 
 # ── WHEN AND WHERE ────────────────────────────────────────────────────
 # The day of the event, or when the page or the publication came out.
@@ -83,7 +81,7 @@ advisory-board:
   external-url: https://www.unibo.it/sitoweb/francesca.tomasi/en
 
 - name: Joris van Zundert
-  affiliation: Huygens Institute (KNAW)
+  affiliation: Huygens Institute — KNAW
   external-url: https://jorisvanzundert.net/
 
 # ── HOME PAGE ─────────────────────────────────────────────────────────
@@ -114,10 +112,10 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/IMcrjOtPTSuAKrw46RXggg
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
-Today, much **literature** is created ~~on paper~~ *digitally*. Literary archives, which preserve the manuscripts of writers, increasingly include digital documents (known as *born-digital*), which pose challenges for their study. The **Bit Philology project** will propose innovative solutions for describing, editing and analyzing digital literary archives, while meeting the scientific and societal needs of our digital age.
+Today, much literature is created *digitally*. Literary archives, which preserve the manuscripts of writers, increasingly include digital documents (known as *born-digital*), which pose challenges for their study. The Bit Philology project will propose innovative solutions for describing, editing and analyzing digital literary archives, while meeting the scientific and societal needs of our digital age.
 
 ![Two big circles with a hole in the middle, their surface is covered with radial sectors and rings (simialr to trees) colored by various red shades](./assets/cb0c1dae-48b9-432a-8b56-7190a99aa412.webp
  "A floppy disk, seen as magnetic traces. Both sides of one disk, showing the raw magnetic signal a drive reads before it becomes files. Each thin ring is a track (a circular path the read head follows). The finely striped grey wedges are sectors (blocks of data), the lighter bands are the markers between them, and the smooth, even area on the right is empty filler space at the end of each track.")

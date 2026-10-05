@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/cfiNjBbwRy2FBIV4EHTcVA
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
 ![Diagram of the magnetic field lines of a bar magnet, drawn in grey on a white background. The lines loop out of the top of the central dot, curve around to both sides and return at the bottom, forming nested closed loops that are densest near the centre. Arrows show the direction of the field, pointing upward through the centre and downward around the outside.](./assets/12ec2e6b-21d6-4d55-9a97-1fc253ed81cd.png "Magnetic field lines of a dipole, showing the closed loops that emerge from one pole and return to the other.")

@@ -91,11 +91,13 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/LVHdIwSuS2isE3pDWPLJnA
-importedAt: 2026-10-02T15:47:15Z
+importedAt: 2026-10-05T21:57:04Z
 ---
 
-The Bit Philology project presented a poster at the Colloque Humanistica 2026, held 20–22 May 2026 at EPITA, Paris.
+The Bit Philology project team presented a poster at the Colloque Humanistica 2026, held 20–22 May 2026 at EPITA, Paris.
 
-The poster, "Les défis du born-digital de l'acquisition des corpus à l'édition numérique", discusses the challenges of born-digital materials from corpus acquisition through to digital edition.
+The poster, "Les défis du born-digital de l’acquisition des corpus à l’édition numérique", discusses the challenges of born-digital materials from corpus acquisition to digital edition.
+
+The poster is available at: [hal.science/hal-05644854v1](https://hal.science/hal-05644854v1)
 
 Conference website: [humanistica2026.sciencesconf.org](https://humanistica2026.sciencesconf.org/)

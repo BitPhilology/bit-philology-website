@@ -16,7 +16,7 @@ type: about
 
 # ── WHAT THE PAGE IS ABOUT ────────────────────────────────────────────
 # The title of the page, also shown on its card on the Home page.
-title: Mailing list
+title: Stay in touch
 # A line under the title. Not used on publications.
 subtitle:
 # The topics of the page, one per line, each after "- ". They are shown as #keyword labels.
@@ -63,7 +63,7 @@ advisory-board:
 excerpt:
 # Where the card sits in the Home grid: 1 is the first tile, 2 the second…; -1 is the last one.
 # Empty: the cards follow their date, newest first.
-position: -3
+position: -4
 # Write "true" to not display the content in the home page (e.g., as done for the "credits" page).
 hidden-from-home:
 
@@ -85,7 +85,7 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/NaBPQbauRpm1zsB8-N4JhQ
-importedAt: 2026-10-06T20:38:24Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
 To receive news and updates on the Bit Philology project, join our mailing list: write a message with subject "Subscribe" to bitphilology.dh-request@lists.unibe.ch

@@ -50,25 +50,25 @@ kind:
 members:
 - name: Prof. Dr. Elena Spadini
   role: Principal Investigator
-  affiliation: Universität Bern
+  affiliation: University of Bern
   photo: ./assets/ElenaSpadini_eng.jpg
   external-url: https://www.dh.unibe.ch/about_us/people/prof_dr_spadini_elena/index_eng.html
 
 - name: Elena Barchielli
   role: PhD Student
-  affiliation: Universität Bern
+  affiliation: University of Bern
   photo: ./assets/ElenaBarilli_eng.png
   external-url: https://www.dh.unibe.ch/about_us/people/barchielli_elena/index_eng.html
 
 - name: Simon Willemin
   role: PhD Student
-  affiliation: Universität Bern
+  affiliation: University of Bern
   photo: ./assets/portrait-660_SimonFrancoisWille_eng.png
   external-url: https://www.dh.unibe.ch/about_us/people/willemin_simon/index_eng.html
 
 - name: Tommaso Elli
   role: Research Associate
-  affiliation: Universität Bern
+  affiliation: University of Bern
   photo: https://picsum.photos/200
   external-url:
 
@@ -85,7 +85,7 @@ advisory-board:
 excerpt:
 # Where the card sits in the Home grid: 1 is the first tile, 2 the second…; -1 is the last one.
 # Empty: the cards follow their date, newest first.
-position: -1
+position: -2
 # Write "true" to not display the content in the home page (e.g., as done for the "credits" page).
 hidden-from-home:
 
@@ -107,11 +107,13 @@ tags: website/team-page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/eXfd9t1LQui9OWZKRwYY0A
-importedAt: 2026-10-06T11:30:36Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
-The team working on the research project is composed by experts in Philology, Digital Archives, Born-Digital Materials, Information Visualization, and Digital Design.
+The team working on the research project is composed by experts in Digital Humanities, Textual Scholarship, Literary Studies, Born-Digital Archives, Information Visualization, and Digital Design.
 
-The project is based at the Digital Humanities Center of the University of Bern, part of the Walter Benjamin Kolleg, and is funded by the Swiss National Science Foundation for the years 2025 to 2030. It is led by Elena Spadini, SNSF Assistant Professor, whose research covers digital philology and the technologies of text. Doctoral students and a research associate work with her on the description, edition and analysis of born-digital literary archives.
+The project is based at the Digital Humanities Center of the University of Bern, part of the Walter Benjamin Kolleg, and is funded by the Swiss National Science Foundation for the years 2025 to 2030. It is led by Elena Spadini, SNSF Assistant Professor, whose research covers digital philology and technologies of text. A growing team works with her on the description, edition and analysis of born-digital literary archives.
+
+We will be hiring soon!
 
 {{team}}

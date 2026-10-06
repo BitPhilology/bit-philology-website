@@ -21,9 +21,9 @@ title: "Description, edition and analysis of born-digital literary sources: case
 subtitle:
 # The topics of the page, one per line, each after "- ". They are shown as #keyword labels.
 keywords:
-- born-digital literary sources
-- scholarly editing
-- digital forensics
+- description
+- edition
+- analysis
 
 # ── WHEN AND WHERE ────────────────────────────────────────────────────
 # The day of the event, or when the page or the publication came out.
@@ -38,7 +38,7 @@ location: University of Wuppertal
 # Who made it, for example: E. Spadini, E. Barchielli.
 authors: "E. Barchielli, S. Willemin, E. Spadini"
 # Publications only: what it is, for example: Poster, Oral Communication, Article.
-publication-type: Oral Communication
+publication-type: Paper
 # Publications only: the DOI (10.5281/zenodo.1234567) or its link.
 doi:
 # Publications only: the link to the file to download.
@@ -91,9 +91,14 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/KO1IWPVqQ5ubc2MPBMkymQ
-importedAt: 2026-10-06T11:30:36Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
-[no-lead]The team partake the conference Editopia conference, held 2–4 September 2026 at the University of Wuppertal, with a paper presentation.
+[no-lead]The team presented a paper at the conference Editopia, held 2–4 September 2026 at the University of Wuppertal.
+
+The slides are available at: https://doi.org/10.5281/zenodo.23196580.
 
 Conference website: [editopia2026.i-d-e.de](https://editopia2026.i-d-e.de/)
+
+![First slide from our presentation, including the title and the authors of the presentation and an image from the artwork "My Desktop" by JODI exposed at MOMA in 2002](./assets/e9d78e33-f5e6-4e52-a0b7-fe311e8a188f.png "First slide from our presentation, including a picture of My Desktop by JODI exposed at MOMA in 2002")
+

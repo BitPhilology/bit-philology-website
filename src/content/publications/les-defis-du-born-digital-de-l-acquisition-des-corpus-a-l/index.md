@@ -21,9 +21,9 @@ title: Les défis du *born-digital* de l'acquisition des corpus à l'édition nu
 subtitle:
 # The topics of the page, one per line, each after "- ". They are shown as #keyword labels.
 keywords:
-- corpus acquisition
-- digital edition
-- born-digital
+- description
+- edition
+- analysis
 
 # ── WHEN AND WHERE ────────────────────────────────────────────────────
 # The day of the event, or when the page or the publication came out.
@@ -91,7 +91,7 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/LVHdIwSuS2isE3pDWPLJnA
-importedAt: 2026-10-06T11:30:36Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
 The Bit Philology project team presented a poster at the Colloque Humanistica 2026, held 20–22 May 2026 at EPITA, Paris.

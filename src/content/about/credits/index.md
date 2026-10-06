@@ -67,9 +67,9 @@ advisory-board:
 excerpt:
 # Where the card sits in the Home grid: 1 is the first tile, 2 the second…; -1 is the last one.
 # Empty: the cards follow their date, newest first.
-position:
+position: -1
 # Write "true" to not display the content in the home page (e.g., as done for the "credits" page).
-hidden-from-home: true
+hidden-from-home:
 
 # ── TECHNICAL SETTINGS ────────────────────────────────────────────────
 # Leave it empty: the address of the page is computed from its title when the page is imported.
@@ -89,7 +89,7 @@ tags: website/Credits Page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/Pccv0jyDQIuq0ENqbjinxQ
-importedAt: 2026-10-06T11:30:36Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
 [no-lead]The Bit Philology website stands on the work of many open-source communities, who made the typefaces, the icons and the software that you are using right now. Thank you.

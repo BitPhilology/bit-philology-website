@@ -39,8 +39,8 @@ about:
     url: https://pad.dsl.unibe.ch/Pccv0jyDQIuq0ENqbjinxQ
     synced: 2026-10-06
 
-  - page: mailing-list
-    title: Mailing list
+  - page: stay-in-touch
+    title: Stay in touch
     url: https://pad.dsl.unibe.ch/NaBPQbauRpm1zsB8-N4JhQ
     synced: 2026-10-06
 
@@ -111,6 +111,11 @@ home-image-fillers:
   - page: magnetic-field
     title: Magnetic Field
     url: https://pad.dsl.unibe.ch/cfiNjBbwRy2FBIV4EHTcVA
+    synced: 2026-10-06
+
+  - page: hexadecimal
+    title: Hexadecimal
+    url: https://pad.dsl.unibe.ch/oBpgEWB5Tka8GkwiOd2TKg
     synced: 2026-10-06
 
   - page: hard-drive

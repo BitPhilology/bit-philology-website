@@ -91,7 +91,7 @@ tags: website/event
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/ghrdFbhVQy-herciaypa8Q
-importedAt: 2026-10-06T11:30:36Z
+importedAt: 2026-10-06T21:19:06Z
 ---
 
 ![Photograph of a projected slide titled “Down the rabbit-hole: forensic examination and born-digitals”. Boxes labelled “provenance”, “authentication”, “materiality” and “format” are joined by lines to a rabbit drawing at the bottom of the slide.](./assets/94a91846-a0ee-4e83-b52e-ea7385a3597c.jpeg "A slide from the workshop: “Down the rabbit-hole: forensic examination and born-digitals”.")
@@ -115,7 +115,8 @@ The program ran from 9:00 AM to 5:00 PM and included welcome remarks, a keynote 
 * **Digitale Archivierung im Schweizerischen Literaturarchiv – aktueller Stand und Vorgehensweise**\
   Kristel Roder (Swiss National Library)
 * **Levels, Limits and Ethics of Forensic Approaches in the Social Sciences and Humanities**\
-  Moritz Feichtinger (University of Basel)
+  Moritz Feichtinger (University of Basel)\
+  [slides](https://doi.org/10.5281/zenodo.23184709)
 * **Manuals as Forensic Evidence: Reconstructing Digital Systems and Administrative Practice**\
   Moritz Mähr (University of Bern/ETH Library)\
   [slides](https://doi.org/10.5281/zenodo.20080878)

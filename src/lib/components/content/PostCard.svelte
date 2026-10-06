@@ -1,7 +1,7 @@
 <!--
 	Post card (Figma "Post"): the tile of a post on Home, and later on the category pages. A shared
-	shell (the meta row at the top, and the fade of long text) around a body that the registry picks:
-	stacked (title over a description) or two-column (publications). The title links to the post,
+	shell (the meta row at the bottom, and the fade of long text) around a body that the registry
+	picks: stacked (title over a description) or two-column (publications). The title links to the post,
 	and its link covers the whole card (CardLink). Under the pointer or the keyboard focus the card
 	comes forward: it grows by 5% around its centre, above its neighbours, without moving them.
 -->
@@ -27,7 +27,6 @@
 
 <CategoryTheme category={categoryOf(post.type)}>
 	<Tile element="article" surface="card" class={['flex flex-col gap-3', ZOOM]}>
-		<PostMeta icon={entry.icon} label={entry.label} pills={entry.card.pills(post)} />
 		<Body {post} />
 		{#if entry.card.fade}
 			<div
@@ -35,5 +34,6 @@
 				class="pointer-events-none absolute inset-x-0 bottom-0 h-34 bg-linear-to-b from-surface-light-background/0 to-surface-light-background to-75%"
 			></div>
 		{/if}
+		<PostMeta icon={entry.icon} label={entry.label} pills={entry.card.pills(post)} />
 	</Tile>
 </CategoryTheme>

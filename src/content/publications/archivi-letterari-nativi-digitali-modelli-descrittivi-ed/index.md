@@ -71,11 +71,15 @@ tags: website/publication
 #      ![A hand-drawn map of the archive](https://pad.dsl.unibe.ch/uploads/1a2b3c4d.png "The archive in 1998")
 #    Between [ ]: the description of the image, read aloud to people who cannot see it. Always write it.
 #    Between " ", after a space: the caption, shown beside the image. You can leave it out.
+
+# ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
+source: https://pad.dsl.unibe.ch/v66-dbipQ6msO0vn9NcMtw
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 The Bit Philology project team presented a poster at the XV Annual Conference of the Association for Humanities Computing and Digital Culture (AIUCD 2026), held 3–5 June 2026 at the University of Cagliari.
 
-![Conference poster divided into three sections — Description, Edition, Analysis — with a photograph of a floppy disk connected to a forensic acquisition device, a screenshot of an IIIF viewing interface, a hexadecimal dump excerpt of a Word document with annotations, and a flowchart of the analysis process (text files, topic modelling/phylogenetic analysis, clusters, metadata analysis).](https://pad.dsl.unibe.ch/uploads/fc47e8a4-9db0-4759-8da6-524d47b59af4.png "Born-digital literary archives: descriptive models, experimental editions and analysis — poster by Elena Barchielli, Simon Willemin and Elena Spadini (University of Bern), presented at the XV Annual AIUCD 2026 Conference, University of Cagliari.")
+![Conference poster divided into three sections — Description, Edition, Analysis — with a photograph of a floppy disk connected to a forensic acquisition device, a screenshot of an IIIF viewing interface, a hexadecimal dump excerpt of a Word document with annotations, and a flowchart of the analysis process (text files, topic modelling/phylogenetic analysis, clusters, metadata analysis).](./assets/fc47e8a4-9db0-4759-8da6-524d47b59af4.png "Born-digital literary archives: descriptive models, experimental editions and analysis — poster by Elena Barchielli, Simon Willemin and Elena Spadini (University of Bern), presented at the XV Annual AIUCD 2026 Conference, University of Cagliari.")
 
 
 The poster, "Archivi letterari nativi digitali: modelli descrittivi ed edizioni sperimentali", presents descriptive models and experimental editions for born-digital literary archives developed within the project.

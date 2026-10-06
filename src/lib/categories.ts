@@ -51,7 +51,7 @@ interface PostEntry extends Entry {
 	card: {
 		/** stacked: title over a description · two-column: title beside authors and venue. */
 		body: 'stacked' | 'two-column';
-		/** Where a stacked body sits in the space under the meta row. */
+		/** Where a stacked body sits in the space above the meta row. */
 		align: 'top' | 'center';
 		/** Long text fades out at the bottom of the card. */
 		fade: boolean;

@@ -26,7 +26,7 @@ keywords:
 # ── WHEN AND WHERE ────────────────────────────────────────────────────
 # The day of the event, or when the page or the publication came out.
 # Write YEAR-MONTH-DAY (2026-05-08) or only the year (2026).
-date: 2025-09-29
+date: 2025-10-05
 # Events and publications only: the institution, the conference or the journal.
 venue: Universität Bern
 # Events and publications only: the room or the city, when it adds something to the venue.
@@ -112,7 +112,7 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/IMcrjOtPTSuAKrw46RXggg
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 Today, much literature is created *digitally*. Literary archives, which preserve the manuscripts of writers, increasingly include digital documents (known as *born-digital*), which pose challenges for their study. The Bit Philology project will propose innovative solutions for describing, editing and analyzing digital literary archives, while meeting the scientific and societal needs of our digital age.

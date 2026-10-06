@@ -91,9 +91,9 @@ The logo is content, not code: it is the image filler at position 1. The build f
 
 `PostCard` is the Figma "Post" component: a square `Tile` with, from the top,
 
-- `PostMeta`: the icon of the post type in an icon pill on the left, and the pills of the card on the right (`card.pills` in `src/lib/categories.ts`): the keywords for About, Team and Artifact, the date and the place for an Event, the year and the publication type for a Publication. The last pill is cut with an ellipsis when the row is full.
-- the body: `PostBody` (the title over a description line) or `PublicationBody` (the title beside the authors and the venue). `card.align` says whether a stacked body starts at the top (About, Team) or is centred (Event, Artifact); `card.description` picks the line and its text style.
-- the fade of long text (`card.fade`), over the bottom of the tile.
+- the body: `PostBody` (the title over a description line) or `PublicationBody` (the title beside the authors and the venue). `card.align` says whether a stacked body starts at the top (About, Team) or is centred, with 12 px of padding above (Event, Artifact); `card.description` picks the line and its text style.
+- the fade of long text (`card.fade`), over the bottom of the body and under the meta row.
+- `PostMeta`, the bottom row: the icon of the post type in an icon pill on the left, and the pills of the card on the right (`card.pills` in `src/lib/categories.ts`): the keywords for About, Team and Artifact, the date and the place for an Event, the year and the publication type for a Publication. The last pill is cut with an ellipsis when the row is full. The row lets the pointer through to the card's link.
 
 The card has no arrow button: its title is the link to the post (`CardLink`), stretched over the whole tile, so the card is one click target and one keyboard stop, with the focus ring drawn inside the tile.
 

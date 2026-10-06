@@ -13,7 +13,7 @@
 
 	const card = $derived(POST_TYPES[post.type].card);
 	const description = $derived(card.description(post));
-	const ALIGN = { top: '', center: 'justify-center' };
+	const ALIGN = { top: '', center: 'justify-center pt-3' };
 	const DESCRIPTION_STYLES = {
 		subtitle: TEXT['card/subtitle'],
 		authors: TEXT['card/authors'],

@@ -31,43 +31,52 @@
 # ══════════════════════════════════════════════════════════════════════
 
 new:
-  - https://pad.dsl.unibe.ch/v66-dbipQ6msO0vn9NcMtw
 
 # The pages of About: /about/<page>
 about:
+  - page: credits
+    title: Credits
+    url: https://pad.dsl.unibe.ch/Pccv0jyDQIuq0ENqbjinxQ
+    synced: 2026-10-06
+
   - page: about-bit-philology
     title: About Bit Philology
     url: https://pad.dsl.unibe.ch/IMcrjOtPTSuAKrw46RXggg
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: team
     title: Team
     url: https://pad.dsl.unibe.ch/eXfd9t1LQui9OWZKRwYY0A
-    synced: 2026-10-05
+    synced: 2026-10-06
 
 # The events: /events/<page>
 events:
   - page: digital-forensics-in-the-humanities
     title: Digital Forensics in the Humanities
     url: https://pad.dsl.unibe.ch/ghrdFbhVQy-herciaypa8Q
-    synced: 2026-10-05
+    synced: 2026-10-06
 
 # The publications: /publications/<page>
 publications:
   - page: reparer-ce-qui-ne-peut-l-etre-outils-et-approches-de-l
     title: "Réparer ce qui ne peut l’être : outils et approches de l’établissement de textes nativement numériques"
     url: https://pad.dsl.unibe.ch/idRHfXJOTK6WttOfUjS_fg
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: description-edition-and-analysis-of-born-digital-literary
     title: "Description, edition and analysis of born-digital literary sources: case studies from the Bit Philology project"
     url: https://pad.dsl.unibe.ch/KO1IWPVqQ5ubc2MPBMkymQ
-    synced: 2026-10-05
+    synced: 2026-10-06
+
+  - page: archivi-letterari-nativi-digitali-modelli-descrittivi-ed
+    title: "Archivi letterari nativi digitali: modelli descrittivi ed edizioni sperimentali"
+    url: https://pad.dsl.unibe.ch/v66-dbipQ6msO0vn9NcMtw
+    synced: 2026-10-06
 
   - page: les-defis-du-born-digital-de-l-acquisition-des-corpus-a-l
     title: Les défis du born-digital de l'acquisition des corpus à l'édition numérique
     url: https://pad.dsl.unibe.ch/LVHdIwSuS2isE3pDWPLJnA
-    synced: 2026-10-05
+    synced: 2026-10-06
 
 # The artifacts: /artifacts/<page>
 artifacts:
@@ -77,24 +86,24 @@ home-image-fillers:
   - page: project-logo
     title: Project Logo
     url: https://pad.dsl.unibe.ch/xWS9Ih-jSIK4zzKLOiEyug
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: floppy-disk
     title: Floppy Disk
     url: https://pad.dsl.unibe.ch/Dx1dAyfARmWInM8OKl4hRQ
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: folder-archive
     title: Folder Archive
     url: https://pad.dsl.unibe.ch/vcxAR7YjT2Grh9yPDwjbhg
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: magnetic-field
     title: Magnetic Field
     url: https://pad.dsl.unibe.ch/cfiNjBbwRy2FBIV4EHTcVA
-    synced: 2026-10-05
+    synced: 2026-10-06
 
   - page: hard-drive
     title: Hard Drive
     url: https://pad.dsl.unibe.ch/sLHtAaHLQZel4gJtZnkI3w
-    synced: 2026-10-05
+    synced: 2026-10-06

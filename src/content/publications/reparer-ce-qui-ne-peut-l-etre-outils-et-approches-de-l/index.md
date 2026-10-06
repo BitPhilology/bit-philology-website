@@ -36,7 +36,7 @@ location: Sorbonne University, Paris
 
 # ── PUBLICATIONS AND ARTIFACTS ONLY ───────────────────────────────────
 # Who made it, for example: E. Spadini, E. Barchielli.
-authors:
+authors: "S. Willemin"
 # Publications only: what it is, for example: Poster, Oral Communication, Article.
 publication-type: Oral Communication
 # Publications only: the DOI (10.5281/zenodo.1234567) or its link.
@@ -91,7 +91,7 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/idRHfXJOTK6WttOfUjS_fg
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 [no-lead]The Bit Philology project team will held a talk entitled "Réparer ce qui ne peut l’être : outils et approches de l’établissement de textes nativement numériques" at the Congrès international conclusif du consortium Huma-Numa ARIANE, held 12–14 November 2026 at the Sorbonne University, Paris.

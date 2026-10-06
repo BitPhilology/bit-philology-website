@@ -21,7 +21,7 @@ title: Floppy Disk
 accent: about
 # Where the image sits in the Home grid: 1 is the first tile, 2 the second…
 # Two images cannot have the same position.
-position: 3
+position: 4
 
 # ── TECHNICAL SETTINGS ────────────────────────────────────────────────
 # Leave it empty: the name of the image's folder is computed from its title when the image is imported.
@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/Dx1dAyfARmWInM8OKl4hRQ
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 ![BitPhilology logo: the word "BitPhilology" in a black pixelated monospaced typeface, centered between two stacks of horizontal black lines. The lines swell and taper like lens shapes, forming a roughly circular disc in the upper and lower halves. The top-left corner of the overall outline is cut diagonally, giving the shape of a floppy disk.](./assets/7d1c45a7-b83a-468b-bf08-07afd53af52f.png "The BitPhilology logo. The pixelated monospaced lettering recalls the writing environments of the first digital devices, on which many literary works were composed. The overall outline, with its cut corner, takes the shape of a floppy disk, one of the main storage media of the period the project investigates. The lines of varying thickness evoke the magnetic tracks of storage devices from the 1980s to the early 2000s, and together they form the circular magnetic disc housed inside the square plastic casing.")

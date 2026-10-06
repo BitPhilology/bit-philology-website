@@ -36,7 +36,7 @@ location: University of Wuppertal
 
 # ── PUBLICATIONS AND ARTIFACTS ONLY ───────────────────────────────────
 # Who made it, for example: E. Spadini, E. Barchielli.
-authors: "Elena Barchielli, Simon Willemin, Elena Spadini"
+authors: "E. Barchielli, S. Willemin, E. Spadini"
 # Publications only: what it is, for example: Poster, Oral Communication, Article.
 publication-type: Oral Communication
 # Publications only: the DOI (10.5281/zenodo.1234567) or its link.
@@ -91,7 +91,7 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/KO1IWPVqQ5ubc2MPBMkymQ
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 [no-lead]The team partake the conference Editopia conference, held 2–4 September 2026 at the University of Wuppertal, with a paper presentation.

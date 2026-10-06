@@ -107,7 +107,7 @@ tags: website/team-page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/eXfd9t1LQui9OWZKRwYY0A
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 The team working on the research project is composed by experts in Philology, Digital Archives, Born-Digital Materials, Information Visualization, and Digital Design.

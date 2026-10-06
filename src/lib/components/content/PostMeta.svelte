@@ -1,6 +1,7 @@
 <!--
-	Post meta (Figma "Post" › Post Meta): the top row of a post card, the icon of the post type in an
-	icon pill on the left and the pills on the right. When the pills do not fit, the last one is cut
+	Post meta (Figma "Post" › Post Meta): the bottom row of a post card, the icon of the post type in
+	an icon pill on the left and the pills on the right. It sits above the fade of long text and
+	lets the pointer through to the link that covers the card. When the pills do not fit, the last one is cut
 	with an ellipsis.
 -->
 <script lang="ts">
@@ -17,7 +18,7 @@
 	let { icon, label, pills }: Props = $props();
 </script>
 
-<div class="flex shrink-0 items-center justify-between gap-2">
+<div class="pointer-events-none relative flex shrink-0 items-center justify-between gap-2">
 	<Pill variant="icon" {icon} {label} />
 	{#if pills.length}
 		<ul class="flex min-w-0 gap-2 overflow-hidden">

@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/xWS9Ih-jSIK4zzKLOiEyug
-importedAt: 2026-10-05T21:57:04Z
+importedAt: 2026-10-06T11:30:36Z
 ---
 
 ![Logo di Bit Philology: il nome del progetto in carattere pixelato a spaziatura fissa, compreso tra due matrici di asterischi che passano dal grigio chiaro ai bordi al nero pieno al centro, come in una retinatura. Le matrici di asterischi formano la sagoma di un floppy disk](./assets/911d771e-1991-49e4-9941-d9a6f1dffe88.png "Il logo di Bit Philology.")

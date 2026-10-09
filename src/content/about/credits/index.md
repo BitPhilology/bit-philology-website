@@ -69,7 +69,7 @@ excerpt:
 # Empty: the cards follow their date, newest first.
 position: -1
 # Write "true" to not display the content in the home page (e.g., as done for the "credits" page).
-hidden-from-home:
+hidden-from-home: true
 
 # ── TECHNICAL SETTINGS ────────────────────────────────────────────────
 # Leave it empty: the address of the page is computed from its title when the page is imported.

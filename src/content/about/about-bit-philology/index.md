@@ -68,10 +68,6 @@ advisory-board:
   affiliation: University of Virginia
   external-url: https://english.as.virginia.edu/people/matthew-kirschenbaum
 
-- name: Elena Pierazzo
-  affiliation: Université de Tours
-  external-url: https://cesr.cnrs.fr/membre/pierazzo-elena/
-
 - name: Thorsten Ries
   affiliation: The University of Texas at Austin
   external-url: https://liberalarts.utexas.edu/eue/faculty/tr24969

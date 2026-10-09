@@ -37,13 +37,6 @@ jobs:
         run: npm ci
 
       - name: Build site
-        env:
-          # The path the site is served under, read by svelte.config.js (kit.paths.base).
-          # GitHub Pages reports it: "/<repository>" for a project site such as
-          # https://bitphilology.github.io/bit-philology-website/, and nothing for a site at the
-          # root of its domain. So there is nothing to remove once the custom domain is active:
-          # the value becomes empty by itself.
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: npm run build
 
       - name: Upload Pages artifact

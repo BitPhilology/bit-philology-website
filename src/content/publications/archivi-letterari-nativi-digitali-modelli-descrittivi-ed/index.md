@@ -7,7 +7,7 @@ keywords:
   - analysis
 date: 2026-06-03
 venue: AIUCD 2026, Cagliari
-authors: Elena Barchielli, Simon Willemin, Elena Spadini
+authors: E. Barchielli, S. Willemin, E. Spadini
 publication-type: Poster
 hidden-from-home: false
 ---

@@ -14,16 +14,12 @@ The pages are kept as files in the repository of the website, on GitHub (`src/co
 
 You need a GitHub account that can write to the repository `BitPhilology/bit-philology-website`: ask the maintainer to add you.
 
-For now the CMS asks for a **personal access token**, a password that you create once on GitHub:
+1. Open https://bitphilology.dh.unibe.ch/admin/ and press **Sign In with GitHub**.
+2. The first time, GitHub asks whether the content manager may act for you on public repositories: press **Authorize**.
 
-1. On GitHub, open **Settings → Developer settings → Personal access tokens → Fine-grained tokens** and press **Generate new token**.
-2. Give it a name and an expiration date. As **Resource owner** choose `BitPhilology`.
-3. Under **Repository access** choose **Only select repositories**, and pick `bit-philology-website`.
-4. Under **Permissions → Repository permissions**, set **Contents** to **Read and write**.
-5. Press **Generate token** and copy the token.
-6. In the CMS, press **Sign In Using Access Token** and paste it.
+The browser remembers you, so this is done once per browser. Press **Sign Out**, in the menu of your account, on a computer that is not yours.
 
-The browser remembers the token, so this is done once per browser, until the token expires. Treat it like a password: whoever has it can change the website. Sign in with a token only on your own computer.
+If the button does not work, you can sign in with a **personal access token** instead, a password that you create on GitHub: open **Settings → Developer settings → Personal access tokens → Fine-grained tokens**, generate a token for the repository `bit-philology-website` of `BitPhilology` with **Contents** set to **Read and write**, then press **Sign In Using Access Token** in the CMS and paste it. Treat it like a password.
 
 ## Creating, editing and deleting a page
 

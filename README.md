@@ -21,7 +21,7 @@ The site is static: the pages are Markdown files in this repository, edited in t
 - Tailwind CSS v4 through `@tailwindcss/vite`
 - Fonts self-hosted with Fontsource (Mona Sans, Bitcount Prop Single, JetBrains Mono); icons from `pixelarticons`
 - Markdown rendered at build time with unified (remark and rehype)
-- Content edited with Sveltia CMS: two static files in `static/admin/`, no server of our own
+- Content edited with Sveltia CMS: two static files in `static/admin/`, and a small sign-in service on Cloudflare Workers
 - Design source: the Figma file linked in [CLAUDE.md](CLAUDE.md)
 
 ## Working on the site
@@ -62,7 +62,7 @@ static/           files copied as they are into the site: robots.txt, and admin/
 
 The pages are the Markdown files of [`src/content`](src/content): one folder per page, with its text in `index.md` and its images in `assets/`. This repository is their only source.
 
-They are edited with [Sveltia CMS](https://sveltiacms.app), a content manager that runs in the browser, at https://bitphilology.dh.unibe.ch/admin/. An editor signs in with a GitHub account that can write to this repository, fills in a form and saves. Each save is a commit on `main`, made by the browser through the GitHub API, and it starts the deployment like any other push. There are no drafts and no pull requests.
+They are edited with [Sveltia CMS](https://sveltiacms.app), a content manager that runs in the browser, at https://bitphilology.dh.unibe.ch/admin/. An editor signs in with a GitHub account that can write to this repository, fills in a form and saves. The sign-in goes through [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth), a small service on Cloudflare Workers that is set up outside this repository (see [CLAUDE.md](CLAUDE.md#the-cms-staticadmin)). Each save is a commit on `main`, made by the browser through the GitHub API, and it starts the deployment like any other push. There are no drafts and no pull requests.
 
 The content manager is two static files, in [`static/admin/`](static/admin):
 

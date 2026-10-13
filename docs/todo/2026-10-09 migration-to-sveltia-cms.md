@@ -1,6 +1,6 @@
 # To do: migrate the content from HedgeDoc to Sveltia CMS
 
-- **Status:** implemented on 2026-10-13 (steps 1 to 4, with Sveltia CMS 0.236.0); the manual steps are left, see [Left to do](#left-to-do)
+- **Status:** implemented on 2026-10-13 (steps 1 to 4, with Sveltia CMS 0.236.0) and online since 2026-10-14; the sign-in with GitHub was set up on 2026-10-14 (step 5). See [Left to do](#left-to-do)
 - **Added:** 2026-10-09
 
 The plan below is kept as it was written. Where the implementation differs, the next section wins.
@@ -9,7 +9,7 @@ The plan below is kept as it was written. Where the implementation differs, the 
 
 - **`public_folder: ./assets`, not `assets`.** With `public_folder: assets` Sveltia writes `/assets/<file>`, a path of the site that `resolveAsset` cannot resolve. With `./assets` it writes `./assets/<file>`, the form the pages already had, so the image links of the bodies and the `photo` fields were not rewritten.
 - **The global `media_folder` is `src/content/assets`**, not `src/content`: an image uploaded from the Assets page of the CMS is then linked as `/src/content/assets/<file>`, which `resolveAsset` resolves.
-- **Sign-in with a token for now**: `auth_methods: [token]`, and `base_url` left as a comment, until the Worker of step 5 exists. Without `base_url` the GitHub button of the CMS cannot work.
+- **Sign-in**: the site went online with the token sign-in only (`auth_methods: [token]`); since 2026-10-14 it is OAuth through the Worker `bp-sveltia-cms-auth` (`base_url`), with `auth_scope: public_repo`, and the token as a fallback.
 - **Form of the files**, as Sveltia writes them: `hidden-from-home` is always written (`false` on every page but the credits), and a bare year is in quotes (`date: '2026'`). The migration wrote both, so that a save from the CMS changes nothing else.
 - `members` is required on the Team page; `caption` of a Home image is a `text` field.
 - **No `excerpt` field**: no page used it, so it was removed from the CMS and from the loader. A card shows the first paragraph of the page.
@@ -21,8 +21,8 @@ The plan below is kept as it was written. Where the implementation differs, the 
 ## Left to do
 
 1. **In a browser** (verification 3 below, which needs Chrome or Edge and "Work with Local Repository"): every page appears in its collection, with its images; an edit to one page of each type changes only what was edited in `git diff` (the CMS has no Save without a change); a test publication with an accented title and an image lands in `publications/<slug>/` with its image in `assets/`; the image button of the Text field inserts `![…](./assets/<file>)`.
-2. **OAuth** (step 5 below), then `base_url` in `config.yml` and the removal of `auth_methods`; then verification 4.
-3. **Editors**: write access to the repository, and a personal access token each until OAuth works (docs/CONTENT.md).
+2. **Sign in on the published site** with the GitHub button, make a test edit, and check the commit on `main` and the deployment (verification 4 below).
+3. **Editors**: write access to the repository (docs/CONTENT.md tells them how to sign in).
 
 ## Context
 

@@ -16,12 +16,13 @@ backend:
   name: github
   repo: BitPhilology/bit-philology-website
   branch: main
-  # Sign-in. For now editors sign in with a personal access token ("Sign In Using Access Token").
-  # To let them sign in with their GitHub account instead, deploy the OAuth client (Sveltia CMS
-  # Authenticator, see docs/todo/2026-10-09 migration-to-sveltia-cms.md, step 5), write its URL in
-  # `base_url` and delete the `auth_methods` line. Without `base_url` the GitHub button cannot work.
-  auth_methods: [token]
-  # base_url: https://<name of the Worker>.workers.dev
+  # Sign-in. Editors press "Sign In with GitHub": the sign-in goes through a small OAuth client,
+  # Sveltia CMS Authenticator, which runs as a Cloudflare Worker at this address (see CLAUDE.md,
+  # "The CMS"). Signing in with a personal access token still works, as a fallback.
+  base_url: https://bp-sveltia-cms-auth.tommaso-elli.workers.dev
+  # The repository is public, so the CMS asks an editor for access to public repositories only,
+  # instead of the default `repo`, which also covers the private ones.
+  auth_scope: public_repo
 
 # Every save is published at once: no drafts, no pull requests.
 publish_mode: simple

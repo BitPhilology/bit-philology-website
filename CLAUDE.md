@@ -141,9 +141,9 @@ Every type of page has its own collection in the CMS, with only the fields that 
 
 | `type` | Collection | Folder | Fields, in the order of the file |
 | --- | --- | --- | --- |
-| `about` | About | `about/<slug>` | `title`, `subtitle`, `keywords`, `date`, `position`, `hidden-from-home` |
-| `about` | About Bit Philology (one file) | `about/about-bit-philology` | `title`, `subtitle`, `keywords`, `date`, `advisory-board`, `position`, `hidden-from-home` |
-| `team` | Team (one file) | `about/team` | `title`, `subtitle`, `keywords`, `date`, `members`, `position`, `hidden-from-home` |
+| `about` | About | `about/<slug>` | `title`, `subtitle`, `keywords`, `date`, `position`, `hidden-from-home`, `menu-position` |
+| `about` | About Bit Philology (one file) | `about/about-bit-philology` | `title`, `subtitle`, `keywords`, `date`, `advisory-board`, `position`, `hidden-from-home`, `menu-position` |
+| `team` | Team (one file) | `about/team` | `title`, `subtitle`, `keywords`, `date`, `members`, `position`, `hidden-from-home`, `menu-position` |
 | `event` | Events | `events/<slug>` | `title`, `subtitle`, `keywords`, `date`, `venue`, `location`, `position`, `hidden-from-home` |
 | `publication` | Publications | `publications/<slug>` | `title`, `keywords`, `date`, `venue`, `location`, `authors`, `publication-type`, `doi`, `download-link`, `position`, `hidden-from-home` |
 | `artifact` | Artifacts | `artifacts/<slug>` | `title`, `subtitle`, `keywords`, `date`, `authors`, `kind`, `position`, `hidden-from-home` |
@@ -155,10 +155,11 @@ Every type of page has its own collection in the CMS, with only the fields that 
 - An empty optional field is not written (`output.omit_empty_optional_fields`), and the loader treats an empty field as a missing one. `hidden-from-home` is the exception: the CMS always writes it, `true` or `false`.
 - `keywords` holds three entries at most (`max: 3`). The limit is in the CMS only: the site shows every keyword of a file.
 - `date` is `YYYY-MM-DD` or `YYYY`. It is a text field with a pattern, since the date field of the CMS does not take a bare year. The CMS writes a bare year in quotes (`date: '2026'`).
-- `members` (entries with `name` and `role`, both required, and `affiliation`, `photo`, `external-url`) and `advisory-board` (`name`, required, and `affiliation`, `external-url`) are lists, shown in the body where it has `{{team}}` or `{{advisory-board}}`. Each belongs to one page: `members` to the Team page, `advisory-board` to the About Bit Philology page.
+- `members` (entries with `name` and `role`, both required, and `affiliation`, `photo`, `size`, `external-url`; `size` is the size of the photo, `large`, `medium` or `small`, and a member without it is medium) and `advisory-board` (`name`, required, and `affiliation`, `external-url`) are lists, shown in the body where it has `{{team}}` or `{{advisory-board}}`. Each belongs to one page: `members` to the Team page, `advisory-board` to the About Bit Philology page.
 - The loader reads the same fields whatever the type (`toPost`); a field that the type does not use is simply not in its collection. To add a field, add it to `static/admin/config.yml`, to the loader (`src/lib/content/`) and to the table of docs/CONTENT.md. The CMS keeps a field it does not know, and writes it after the others.
 - There is no field for the text of a card: the card of an About, Team or Artifact page shows the first paragraph of its body.
 - **To place a page in the Home grid, set `position:`.** `1` is the first tile, `2` the second…; `-1` is the last tile, and several pages with `-1` all go to the bottom. Without a position a page follows its date, newest first. `0` fails the build. The full rule is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule).
+- **To order the About menu, set `menu-position:`** on its pages: `1` is the first. The pages without it follow, newest first. The other menus of the dock list their pages newest first: the loader reads the field on any page, but only the About pages have it in the CMS.
 - **To keep a page out of the Home grid, set `hidden-from-home: true`.** Without it every page has a card on Home. A hidden page keeps its URL and its place in the dock's list of its category.
 - The credits page is the About page titled "Credits" (so `about/credits`, URL `/about/credits`) with `hidden-from-home: true`. The "Credits" link of the footer's colophon appears only when that page exists.
 

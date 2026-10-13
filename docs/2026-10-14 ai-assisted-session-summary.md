@@ -2,9 +2,9 @@
 
 - **Date of the summary:** 2026-10-14
 - **Model used in this session:** Claude Opus 5.5, in Claude Code (VS Code)
-- **Previous summary:** [2026-10-06 ai-assisted-session-summary.md](2026-10-06%20ai-assisted-session-summary.md). Its open points are followed up in section 8.
+- **Previous summary:** [2026-10-06 ai-assisted-session-summary.md](2026-10-06%20ai-assisted-session-summary.md). Its open points are followed up in section 9.
 
-This document covers one session, from the evening of 13 October to the night of 14 October, in which the content of the website moved from HedgeDoc to Sveltia CMS and the content manager went online. Section 1 fills the gap since the previous summary: it is rebuilt from the git history, so it lists what changed, not the conversations.
+This document covers one session, from the evening of 13 October to the night of 14 October, in which the content of the website moved from HedgeDoc to Sveltia CMS, the content manager went online, and the issues open on GitHub were dealt with. Section 1 fills the gap since the previous summary: it is rebuilt from the git history, so it lists what changed, not the conversations.
 
 ---
 
@@ -72,9 +72,23 @@ Both built pages were the same as before. Opening a page in the visual editor do
 - **`config.yml`** (`c90834b`): `base_url` is the address of the Worker; `auth_scope: public_repo` asks an editor for access to public repositories only, since the repository is public; the sign-in with a token stays as a fallback.
 - **Tried on the published site**: the maintainer created and deleted a test event with a pasted image (`6e0b1d3`, `90dfb95`, two commits made by the CMS, each followed by a deployment).
 
-The to-do of the migration was deleted once it was done: the plan can be read in the git history, as of `c90834b`. The other to-do of the folder was checked and brought up to date, and a new one lists the open issues of the repository.
+The to-do of the migration was deleted once it was done: the plan can be read in the git history, as of `c90834b`. The other to-do of the folder was checked and brought up to date.
 
-## 8. Open points
+## 8. The open issues of the repository
+
+Done after the rest of this summary was written. The seven issues open on GitHub, all written by Elena Spadini on 6 and 7 October, were listed in a to-do and all dealt with in the repository; the maintainer deleted the to-do once its points were done.
+
+- **The order of the About menu** (#1, `2340695`). The maintainer chose it: About Bit Philology, Team, Zenodo Community, Stay in touch, Credits. Each About page now has a `menu-position`, set in the CMS ("Position in the About menu"); the pages without it follow, newest first, as the other menus do.
+- **The footer** (#2, `2340695`). As the maintainer decided, the article of a page ends with 6 rem of padding, which sets the footer tiles apart from the content.
+- **"Our Events"** (#3, `0b7afe1`): the maintainer changed the label of the navigation by hand.
+- **"Paper", not "oral communication"** (#4) had already been settled by the migration: the template is gone and the CMS suggests "Paper".
+- **The size of a team photo** (#8, `75b7308`). It followed the role: large for the Principal Investigator, medium for the others. Now each member has a `size`, picked in the CMS: large, medium or small, the three sizes of the Figma component (a photo of 120, 96 or 60 px). The small one is new in the code; Figma draws it at half opacity, which the site does not do. The maintainer then gave the four members the same size.
+- **Authors with initials** (#6): the maintainer edited the one publication with full names, in the CMS.
+- **The favicon** (#9, `1c6508b`). The maintainer made the icons with RealFaviconGenerator from the logo of the project. They are files of `static/`, linked from the root layout through `asset()`, and the web app manifest names its icons from its own folder, so everything works under a base path too. The Svelte logo is gone.
+
+The maintainer also deleted the three pages of the first version of the site, `/events`, `/outputs` and `/team`, which dated from the first commit and which nothing linked to. Their addresses no longer exist; the Team page is `/about/team/`. A test page of the maintainer's own, `/bpa/test-artifact/`, was deleted as well.
+
+## 9. Open points
 
 - **Editors**: give the colleagues write access to the repository. `docs/CONTENT.md` tells them how to sign in.
 - **The size of the images**: the CMS uploads an image as it is (a test screenshot was 4.5 MB). Sveltia can shrink and convert images when they are uploaded; to be decided.
@@ -82,13 +96,14 @@ The to-do of the migration was deleted once it was done: the plan can be read in
 - **The Cloudflare dashboard** lists the Worker with "No active routes", although it answers at its `workers.dev` address. To check: the Production switch under Domains.
 - **Updating Sveltia CMS**: the version is pinned. After changing it, check in the CMS that a save still changes only what was edited.
 - **Text styles as utilities**: [docs/todo/2026-10-06 text-styles-as-utilities.md](todo/2026-10-06%20text-styles-as-utilities.md) is still to do.
-- **The open issues on GitHub**: seven small points, listed in [docs/todo/2026-10-14 open-issues.md](todo/2026-10-14%20open-issues.md).
+- **Close the issues on GitHub**: #1, #2, #3, #4, #8 and #9 are done in the repository (section 8) and still open; #6 is closed. One loose end: the Figma frames were not checked for the new space above the footer.
 - **From the previous summaries**: the photo of Tommaso Elli on the Team page is still a placeholder; the fit of the Home images and the style of long publication titles are still to be decided. Closed since then: the authors of the four publications are written, the Credits page exists, and the event note on HedgeDoc no longer matters.
 
-## 9. Notes on the way of working
+## 10. Notes on the way of working
 
 - **Every save from the CMS is a commit on `main`.** Run `git pull` before starting to work and before pushing. This replaces the earlier rule that imported pages are edited on HedgeDoc.
 - **What the assistant could not see.** Everything about the interface of the CMS came from its source and had to be confirmed in the browser by the maintainer. The one claim taken from the plan without a check, uploading an image in the raw mode, was wrong and had already been written in the guide. Such claims are to be marked as not checked until someone has seen them.
 - **Reading the source of the pinned version paid off**: the files were written in the right form at the first attempt, and the problem with `public_folder` was found before any file was written.
 - **Keep a copy before a test that lets a tool rewrite the content.** The two saves from the visual editor were judged by comparing the files with such a copy.
-- **Git**: the assistant never pushes and commits only when asked; the maintainer made every commit. Its attempts to delete the four old files were refused by the permission system, so the maintainer deleted them.
+- **Git**: the rule of the repository is that the assistant never pushes, and it commits only when asked. The maintainer made the commits of the session, except the last one, which the assistant made and pushed at the maintainer's explicit request. The rule stays as it is.
+- **Deleting files**: the assistant's first attempts, on the four old files of the import, were refused by its permission system, so the maintainer deleted those. Later deletions that the maintainer asked for by name went through.

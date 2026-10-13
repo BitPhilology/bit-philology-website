@@ -49,11 +49,12 @@ Every section shows only the fields it uses. Only the title is required.
 | Type of publication | publications | For example `Poster`, `Paper`, `Article` |
 | DOI, Download link | publications | The DOI (or its link), and the link to the file to download |
 | Kind | artifacts | What kind of object it is, for example `Tool` or `Dataset` |
-| Members | the Team page | The people of the team: name, role, affiliation, photo, web page |
+| Members | the Team page | The people of the team: name, role, affiliation, photo, the size of the photo (large, medium or small), web page |
 | Advisory board | the About Bit Philology page | The advisory board: name, affiliation, web page |
 | Text | every page | The text of the page |
 | Position on the Home page | every page | The place of the card in the Home grid (see below) |
 | Hide from the Home page | every page | Switch it on for a page without a card on the Home page, such as the credits |
+| Position in the About menu | About pages, Team | The place of the page in the About menu of the navigation: `1` is the first. Empty: after the numbered pages, newest first |
 
 ## Writing the text
 

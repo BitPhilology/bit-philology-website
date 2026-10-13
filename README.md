@@ -54,7 +54,7 @@ src/content/      the pages, as Markdown, each with its images
 src/lib/          the code: content loader, components, templates, styles
 src/routes/       the routes: Home, and one page per post
 docs/             the documentation
-static/           files copied as they are into the site: robots.txt, and admin/, the content manager
+static/           files copied as they are into the site: robots.txt, the icons of the site, and admin/, the content manager
 .github/workflows/deploy.yml   the deployment to GitHub Pages
 ```
 

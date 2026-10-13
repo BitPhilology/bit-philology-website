@@ -27,7 +27,7 @@ src/content/**/index.md
 | --- | --- |
 | `src/lib/categories.ts` | The category registry (see below) |
 | `src/lib/embeds.ts` | The embed registry: the `{{…}}` markers of markdown bodies (see below) |
-| `src/lib/content/` | The content model (`types.ts`) and pure helpers: `fields.ts`, `markdown.ts`, `markers.ts`, `dates.ts`, `posts.ts`, `fillers.ts`, `team.ts` (the Team member list, `memberSize`), `board.ts` (the advisory board list), `details.ts` (the lines of the post headers) |
+| `src/lib/content/` | The content model (`types.ts`) and pure helpers: `fields.ts`, `markdown.ts`, `markers.ts`, `dates.ts`, `posts.ts`, `fillers.ts`, `team.ts` (the Team member list), `board.ts` (the advisory board list), `details.ts` (the lines of the post headers) |
 | `src/lib/server/content.ts` | The loader: `getPosts`, `getPost`, `getPage`, `getFillers`, `getSheets` |
 | `src/lib/server/markdown.ts` | The body renderer (unified: remark, then rehype), build time only: body → blocks and headings |
 | `src/lib/server/notes.ts` | Footnotes → sidenotes: numbering, and pairing each note with the block that refers to it |
@@ -38,7 +38,7 @@ src/content/**/index.md
 | `src/lib/components/content/` | Blocks that show content: `PostCard`, `PostMeta`, `PostBody`, `PublicationBody`, `CardLink`, `CategorySignifier`, `CategoryTheme`, `ImageFiller`, `Colophon`, `PartnerLogo`; for post pages `PostMetaRow`, the headers `PageHeader`, `EventHeader`, `PublicationHeader`, the body `BodyBlocks`, `TextBlock`, `ImageFigure`, `SideNote`, the Team embeds `MemberList`, `TeamMember`, and the advisory board embed `BoardMemberList` |
 | `src/lib/components/layout/` | Page structure: `Container`, `TileGrid`, `PageShell`, `PageIndex`, `Footer`, `TopStroke`, `NavDock`, `NavDockItem`, `PageSheet` |
 | `src/lib/templates/` | `HomeTemplate`, `PostTemplate` (every post page), and `templates.ts` (the header of each post type) |
-| `src/routes/` | `+layout.*` (fonts, theme, top stroke, dock), `+page.*` (Home), `[...path]/` (one page per post) |
+| `src/routes/` | `+layout.*` (fonts, icons of the site, theme, top stroke, dock), `+page.*` (Home), `[...path]/` (one page per post) |
 | `static/admin/` | The content manager, served at `/admin/`: `index.html` (the Sveltia CMS script) and `config.yml` (the collections and their fields) |
 
 ## Content model
@@ -57,6 +57,7 @@ Front matter read by `toPost` (`src/lib/content/posts.ts`):
 | `date` | `YYYY-MM-DD` or `YYYY` | Order on Home and in the lists, newest first; card and page pills; the date lines of event and publication headers |
 | `position` | whole number, not 0 | The place of the card in the Home grid: `1` is the first tile, `-1` the last. Empty or missing: the post follows its date. Anything else fails the build |
 | `hidden-from-home` | `true`, also as text | `true` leaves the post out of the Home grid; it keeps its page and its place in the dock's page sheet |
+| `menu-position` | whole number from 1 up | The place of the post in the list of its category, in the dock's page sheet: `1` is the first. Empty or missing: after the numbered posts, newest first. Anything else fails the build. Only the About pages have the field in the CMS |
 | `venue`, `location` | string | Event and publication pills and headers |
 | `authors` | string | Publication and artifact cards; publication header |
 | `publication-type` | string | Publication pills |
@@ -66,7 +67,7 @@ Front matter read by `toPost` (`src/lib/content/posts.ts`):
 
 Every field except `title` may be missing: its pill or line is left out. The text of an About, Team or Artifact card is not a field: it is the first paragraph of the body, as plain text (`Post.excerpt`, from `firstParagraph`). Any other field of a file is ignored by the site, except the fields that embeds read (see [Markdown bodies and embeds](#markdown-bodies-and-embeds)).
 
-The Team page is the one file with `type: team`, `src/content/about/team/index.md` (URL `/about/team`). Its front matter holds the `members` list, whose entries have `name` and `role` (both required: the build fails without them), `affiliation`, `photo` and `external-url` (the member's page, linked from the name). A `photo` is a file of the page's `assets/` folder, which the CMS writes as `./assets/<file>`; `getPage` turns that path into the built URL. A photo given as a URL, such as a placeholder (`https://picsum.photos/…`), stays remote.
+The Team page is the one file with `type: team`, `src/content/about/team/index.md` (URL `/about/team`). Its front matter holds the `members` list, whose entries have `name` and `role` (both required: the build fails without them), `affiliation`, `photo`, `size` (the size of the photo, see [Component tree](#component-tree)) and `external-url` (the member's page, linked from the name). A `photo` is a file of the page's `assets/` folder, which the CMS writes as `./assets/<file>`; `getPage` turns that path into the built URL. A photo given as a URL, such as a placeholder (`https://picsum.photos/…`), stays remote.
 
 The advisory board is on the About page, `src/content/about/about-bit-philology/index.md`, as its last section. The front matter of that page holds the `advisory-board` list, whose entries have `name` (required: the build fails without it), `affiliation` and `external-url`. Each entry is a list item, `Name (Affiliation)` followed by an icon that links to `external-url`; an entry without `affiliation` or `external-url` is shown without the brackets or the icon. Any other field of an entry is ignored.
 
@@ -130,6 +131,8 @@ What the files of `src/content` hold, and how the renderer reads it. Editors fin
 
 From `lg` the article is a subgrid of the page grid (`grid-cols-subgrid`), and every block of the body is one row, itself a subgrid of the article: the block's content takes the content columns and its notes (or its caption) the notes column, **on the same row**. A note therefore starts at the top of the paragraph that calls it; a caption sits at the bottom of the row, 16 px above the bottom of its image. A caption keeps 64 px on its right, to set it apart from the notes, which use the full width of the column (Figma "Sidenotes & Captions"). Nothing is positioned absolutely. A long note makes its row taller, so the next paragraph moves down. Below `lg` the same row is a column: the notes or the caption follow the content.
 
+The article ends with 96 px of padding (`pb-24` in `PageShell`), which sets the footer tiles apart from the content of the page.
+
 The page index sits in column 1 at `xl` and sticks to the top while the article scrolls; it is hidden below `xl`, where the dock's page sheet lists the posts.
 
 ### Component tree
@@ -153,7 +156,7 @@ PostTemplate                         page = getPage(path)
 
 Reused from Home and Team: `CategoryTheme`, `CategorySignifier`, `Pill`, `ImagePanel`, `Container`, `TileGrid`, `Footer`, the dock and the top stroke, the embed registry and the Team embeds.
 
-**Team Member size.** `memberSize(role)` in `src/lib/content/team.ts` is the only place that picks the size, from the role: `Principal Investigator` is `large` (120 px photo), every other role is `medium` (96 px). Roles are matched without regard to case. `TeamMember` takes a typed `size` prop, after the Figma `Size` property; the Figma `small` size (60 px) is not implemented, since the advisory board is a plain list on the About page.
+**Team Member size.** Each member has its own size, the `size` of its entry in `members`: `large`, `medium` or `small`, after the Figma `Size` property (a photo of 120, 96 or 60 px). An editor picks it in the CMS. A member without the field is `medium`, and any other value fails the build (`toMembers` in `src/lib/content/team.ts`). `MemberList` passes the size to `TeamMember`, whose typed `size` prop only changes the photo.
 
 ### From content to layout
 
@@ -220,6 +223,7 @@ Each line is left out when its fields are missing. The text of the lines is buil
 - **The lead paragraph** is the first block of the body, not part of the header: it looks the same, and on an event it follows the Location and Date lines.
 - **Note calls** are underlined like every link of the body; Figma draws `[note 01]` as plain text.
 - **The meta row** lets the pills wrap on the right from `lg` when they do not fit on one line.
+- **The small Team Member** is drawn at half opacity in Figma. The site shows it like the other sizes, with a smaller photo: at half opacity its text would not have enough contrast.
 
 ### Adding a page type
 
@@ -262,7 +266,7 @@ The root layout themes the whole page with the active category (`activeCategory(
 
 - Styles by breakpoint only: phone (icon over label) below `lg`, wide (icon beside label) from `lg`. Below `lg` it turns compact (icons only, 48 px) while the page scrolls down, and back on scroll up; the transition is `motion-safe` only.
 - The icons and labels are in the category's darker colour. The active item has the category tint and a dithered cap over the whole cell, also in the darker colour, and carries `aria-current="page"`. Another item gets the tint alone, without the dither, under the pointer (on devices that can hover) or the keyboard focus. The top stroke (`TopStroke`) is the same dither at the top of the page, in the category's main colour (neutral on Home); it exists only below `lg`, since from `lg` the dock itself is at the top.
-- Home is a link. The other items are buttons (`aria-expanded`, `aria-controls`) that open a `PageSheet`: the list of all posts of the category (`getSheets`), full width above the dock on phones, a popover below the item from `lg`. It has no header and no close button: it starts with the rows. The sheet is a non-modal dialog that takes the focus on open; its dock item, Escape, a click outside or a navigation close it, and Escape gives the focus back to the item.
+- Home is a link. The other items are buttons (`aria-expanded`, `aria-controls`) that open a `PageSheet`: the list of all posts of the category (`getSheets`: the posts with a `menu-position` first, in that order, then the others, newest first), full width above the dock on phones, a popover below the item from `lg`. It has no header and no close button: it starts with the rows. The sheet is a non-modal dialog that takes the focus on open; its dock item, Escape, a click outside or a navigation close it, and Escape gives the focus back to the item.
 - The dock comes before the page in the markup (root layout), so the keyboard and screen readers reach the navigation first, at every breakpoint.
 
 ## Text styles
@@ -296,7 +300,8 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 
 - **Pages.** `Post.href`, `PostLink.href` and the `route` of a registry entry are paths inside the site (`/about/team/`), typed `Pathname`. The components that link to them call `resolve()` from `$app/paths`: `CardLink`, `PageSheet`, `NavDockItem`, `Colophon`, and `pageIndex()` for the page index. In the prerendered HTML these links are relative (`../../about/team/`); after hydration they are absolute, with the base path.
 - **Content.** `siteUrl()` (`src/lib/content/links.ts`) adds the base path to the URLs written in the content that start with `/`: the links of a body (`decorate` in `src/lib/server/markdown.ts`), the images that are not files of the page (`resolveAsset` in `src/lib/server/content.ts`), `download-link` and `external-url`.
-- **Assets.** The images of the content (`import.meta.glob` with `?url`), the partner logos, the favicon and the fonts are handled by Vite, which writes them under `<base>/_app/immutable/`.
+- **Assets.** The images of the content (`import.meta.glob` with `?url`), the partner logos and the fonts are handled by Vite, which writes them under `<base>/_app/immutable/`.
+- **Icons of the site.** The favicon in its three formats, the Apple touch icon and the web app manifest are files of `static/`, with the fixed names that browsers look for. The root layout links them through `asset()`, and the manifest names its two icons from its own folder, so both follow the base path.
 - **The current page.** `activeCategory()` reads the route (`page.route.id`, and the rest parameter of post pages) and not `page.url.pathname`, which holds the base path. With `trailingSlash = 'always'` the rest parameter ends with a slash: the `[...path]` loader removes it before looking the post up.
 
 ## Conventions
@@ -308,6 +313,7 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 
 ## Common changes
 
+- **Change the order of the About menu**: set the position in the menu of its pages in the CMS (`menu-position`).
 - **Move a card in the Home grid**: set the position of the page in the CMS, the `position` of its front matter (see [The Home tile rule](#the-home-tile-rule)).
 - **Change the Home order rule**: edit `composeHomeTiles` in `src/lib/config/home.ts`.
 - **Add a front matter field**: add it to `Post` in `src/lib/content/types.ts` and read it in `toPost`; then add it to the collections that use it in `static/admin/config.yml` and to the table of `docs/CONTENT.md`. Field names are lowercase with hyphens.
@@ -317,6 +323,6 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 - **Change which header a type shows**: edit `HEADERS` in `src/lib/templates/templates.ts`.
 - **Change the columns of post pages**: edit `GRID` in `src/lib/styles/grid.ts`.
 - **Add an embed**: add an entry to `EMBEDS` in `src/lib/embeds.ts`.
-- **Change which roles get which Team Member size**: edit `SIZE_BY_ROLE` in `src/lib/content/team.ts`.
+- **Change the size of a member's photo**: pick the size of the member in the CMS (the `size` of the entry). The sizes themselves are `PHOTO` in `TeamMember.svelte` and `MemberSize` in `src/lib/content/types.ts`.
 - **Style an element of the rendered markdown**: edit `MARKDOWN_CLASSES` in `src/lib/styles/markdown.ts`.
 - **Add a category**: add its colour tokens to `tokens.css`, its `[data-category]` block to `components.css`, and its entry to `categories.ts` (and its collection to `static/admin/config.yml`).

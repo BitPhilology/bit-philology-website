@@ -4,6 +4,7 @@ title: Zenodo Community
 date: '2026'
 position: -3
 hidden-from-home: false
+menu-position: 3
 ---
 
 ![A screenshot of the Zenodo Community listing some publications](./assets/3f228edf-5f9d-4adb-ad94-ee9bfb4b17a9.png)

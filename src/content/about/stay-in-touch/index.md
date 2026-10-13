@@ -4,6 +4,7 @@ title: Stay in touch
 date: '2026'
 position: -4
 hidden-from-home: false
+menu-position: 4
 ---
 
 To receive news and updates on the Bit Philology project, join our mailing list.

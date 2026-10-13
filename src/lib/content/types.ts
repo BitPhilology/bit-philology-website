@@ -25,6 +25,11 @@ export interface Post {
 	position?: number;
 	/** A post with `hidden-from-home: true` has no card on Home. */
 	hiddenFromHome: boolean;
+	/**
+	 * Where the post sits in the list of its category, in the dock's page sheet (the `menu-position`
+	 * field): 1 is the first. Without it the post comes after the numbered ones, newest first.
+	 */
+	menuPosition?: number;
 	/** Publications and artifacts, e.g. "E. Spadini, E. Barchielli". */
 	authors?: string;
 	/** Publication venue, or where an event takes place. */

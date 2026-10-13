@@ -3,7 +3,8 @@
 	layout of every post page, in the post's category colours. The meta row, the page index (xl
 	only), then the article: the header (a snippet, the type's header) and the body (children), whose
 	blocks are rows of the grid with their notes beside them. The footer tiles follow in their own
-	grid. The columns of each breakpoint are in src/lib/styles/grid.ts.
+	grid, set apart from the article by its bottom padding (96 px). The columns of each breakpoint
+	are in src/lib/styles/grid.ts.
 -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
@@ -30,7 +31,7 @@
 		<Container class={[GRID.page, 'pt-8 pb-4 text-(--cat-darker)']}>
 			<div class={GRID.meta}><PostMetaRow {category} {pills} /></div>
 			<!-- <PageIndex lists={index} class={GRID.index} /> -->
-			<article class={[GRID.article]}>
+			<article class={[GRID.article, 'pb-24']}>
 				<div class={GRID.header}>{@render header()}</div>
 				{@render children()}
 			</article>

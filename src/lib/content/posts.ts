@@ -39,6 +39,7 @@ export function toPost(path: string, data: FrontMatter, body: string): Post {
 		excerpt: firstParagraph(body),
 		position: toPosition(data.position, file),
 		hiddenFromHome: flag(data['hidden-from-home']),
+		menuPosition: toMenuPosition(data['menu-position'], file),
 		authors: text(data.authors),
 		venue: text(data.venue),
 		location: text(data.location),
@@ -53,6 +54,26 @@ export function toPost(path: string, data: FrontMatter, body: string): Post {
 /** Newest first; posts without a date last. Dates are `YYYY-MM-DD` or `YYYY`, so they sort as text. */
 export function byDate(a: Post, b: Post): number {
 	return (b.date ?? '').localeCompare(a.date ?? '') || a.title.localeCompare(b.title);
+}
+
+/**
+ * The order of the list of a category: the posts with a `menu-position` first, by position. The
+ * sort is stable, so the others, and the posts that share a position, keep the order they come in.
+ */
+export function byMenuPosition(a: Post, b: Post): number {
+	return (a.menuPosition ?? Number.MAX_SAFE_INTEGER) - (b.menuPosition ?? Number.MAX_SAFE_INTEGER);
+}
+
+/**
+ * The `menu-position` of a post in the list of its category: a whole number from 1 up, 1 being the
+ * first. An empty or missing field is no position. Anything else fails the build.
+ */
+function toMenuPosition(value: unknown, file: string): number | undefined {
+	if (value == null || value === '') return undefined;
+	if (typeof value === 'number' && Number.isInteger(value) && value >= 1) return value;
+	throw new Error(
+		`${file}: "menu-position" must be a whole number from 1 up, or be left empty (found ${JSON.stringify(value)}).`
+	);
 }
 
 /**

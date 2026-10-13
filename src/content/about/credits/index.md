@@ -4,6 +4,7 @@ title: Credits
 date: 2026-09-27
 position: -1
 hidden-from-home: true
+menu-position: 5
 ---
 
 [no-lead]The Bit Philology website stands on the work of many open-source communities, who made the typefaces, the icons and the software that you are using right now. Thank you.

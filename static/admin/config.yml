@@ -129,6 +129,15 @@ collections:
         default: false
         required: false
         hint: The page has no card on the Home page. It keeps its address and its place in the navigation.
+      # Only the About pages have it: the other menus list their pages newest first.
+      - &menu-position
+        name: menu-position
+        label: Position in the About menu
+        widget: number
+        value_type: int
+        min: 1
+        required: false
+        hint: 'The place of the page in the About menu of the navigation: 1 is the first. Empty: after the numbered pages, newest first.'
 
   - name: events
     label: Events
@@ -312,6 +321,7 @@ singletons:
       - *body
       - *position
       - *hidden-from-home
+      - *menu-position
 
   # The Team page, with the list of the members.
   - name: team
@@ -353,3 +363,4 @@ singletons:
       - *body
       - *position
       - *hidden-from-home
+      - *menu-position

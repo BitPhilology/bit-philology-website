@@ -26,6 +26,7 @@ advisory-board:
     external-url: https://jorisvanzundert.net/
 position: 2
 hidden-from-home: false
+menu-position: 1
 ---
 
 Today, much literature is created _digitally_. Literary archives, which preserve the manuscripts of writers, increasingly include digital documents and supports (known as _born-digital_), such as floppy disks, computers and hard drives. The Bit Philology project will propose innovative solutions for describing, editing and analysing digital literary archives, thereby meeting the scientific and societal needs of our digital age.

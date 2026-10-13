@@ -28,6 +28,7 @@ members:
     size: medium
 position: -1
 hidden-from-home: false
+menu-position: 2
 ---
 
 The team working on the research project is composed by experts in Digital Humanities, Textual Scholarship, Literary Studies, Born-Digital Archives, Information Visualization, and Digital Design.

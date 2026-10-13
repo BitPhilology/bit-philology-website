@@ -5,7 +5,7 @@ import { categoryOf, type Category } from '$lib/categories';
 import { toFiller } from '$lib/content/fillers';
 import { siteUrl } from '$lib/content/links';
 import { splitFrontMatter } from '$lib/content/markdown';
-import { byDate, toPost } from '$lib/content/posts';
+import { byDate, byMenuPosition, toPost } from '$lib/content/posts';
 import type { ImageFillerContent, Post, PostLink, PostPage } from '$lib/content/types';
 import { renderBody } from './markdown';
 
@@ -94,9 +94,14 @@ export function getPage(path: string): PostPage | undefined {
 	};
 }
 
-/** The posts of each dock category, newest first, for the page sheet. Team is listed under About. */
+/**
+ * The posts of each dock category, for the page sheet. Team is listed under About. The posts with
+ * a `menu-position` come first, in that order; the others follow, newest first.
+ */
 export function getSheets(): Partial<Record<Category, PostLink[]>> {
 	const sheets: Partial<Record<Category, PostLink[]>> = {};
-	for (const { type, title, href } of posts) (sheets[categoryOf(type)] ??= []).push({ title, href });
+	for (const { type, title, href } of [...posts].sort(byMenuPosition)) {
+		(sheets[categoryOf(type)] ??= []).push({ title, href });
+	}
 	return sheets;
 }

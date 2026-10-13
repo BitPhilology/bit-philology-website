@@ -101,7 +101,7 @@ export const POST_TYPES: Record<PostType, PostEntry> = {
 		icon: alarmClock,
 		route: '/events',
 		category: 'event',
-		dockLabel: 'Events',
+		dockLabel: 'Our Events',
 		sheet: true,
 		card: {
 			body: 'stacked',

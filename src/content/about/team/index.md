@@ -67,7 +67,7 @@ members:
   external-url: https://www.dh.unibe.ch/about_us/people/willemin_simon/index_eng.html
 
 - name: Tommaso Elli
-  role: Research Associate
+  role: Senior Research Associate
   affiliation: University of Bern
   photo: https://picsum.photos/200
   external-url:
@@ -107,7 +107,7 @@ tags: website/team-page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/eXfd9t1LQui9OWZKRwYY0A
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T09:42:41Z
 ---
 
 The team working on the research project is composed by experts in Digital Humanities, Textual Scholarship, Literary Studies, Born-Digital Archives, Information Visualization, and Digital Design.

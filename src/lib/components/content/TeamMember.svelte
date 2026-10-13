@@ -1,21 +1,21 @@
 <!--
 	Team member (Figma "Team Member"): a member's photo, name, role and affiliation on the subtle
 	surface, in the member list of the Team page. `size` follows the Figma "Size" property and only
-	changes the photo: 120 or 96 px. The photo takes the category colour, as in Figma: the image's
+	changes the photo: 120, 96 or 60 px. The photo takes the category colour, as in Figma: the image's
 	luminosity over a --cat-darker disc. The name links to the member's page when there is one.
 -->
 <script lang="ts">
 	import externalLink from 'pixelarticons/svg/external-link.svg?raw';
 	import Icon from '$lib/components/Icon.svelte';
-	import type { MemberSize } from '$lib/content/team';
-	import type { Member } from '$lib/content/types';
+	import type { Member, MemberSize } from '$lib/content/types';
 	import { TEXT } from '$lib/styles/text';
 
 	let { member, size }: { member: Member; size: MemberSize } = $props();
 
 	const PHOTO: Record<MemberSize, { class: string; pixels: number }> = {
 		large: { class: 'size-30', pixels: 120 },
-		medium: { class: 'size-24', pixels: 96 }
+		medium: { class: 'size-24', pixels: 96 },
+		small: { class: 'size-15', pixels: 60 }
 	};
 	const photo = $derived(PHOTO[size]);
 </script>

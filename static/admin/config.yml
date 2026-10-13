@@ -337,9 +337,18 @@ singletons:
         hint: 'The people of the team, shown where the text has `{{team}}` on a line of its own.'
         fields:
           - { name: name, label: Name }
-          - { name: role, label: Role, hint: 'For example: PhD Student. The Principal Investigator is shown larger.' }
+          - { name: role, label: Role, hint: 'For example: PhD Student.' }
           - { name: affiliation, label: Affiliation, required: false }
           - { name: photo, label: Photo, widget: image, required: false }
+          - name: size
+            label: Size of the photo
+            widget: select
+            options:
+              - { label: Large, value: large }
+              - { label: Medium, value: medium }
+              - { label: Small, value: small }
+            default: medium
+            hint: 'The photo is 120, 96 or 60 pixels wide.'
           - { name: external-url, label: Web page, required: false, hint: The link to the web page of the person. }
       - *body
       - *position

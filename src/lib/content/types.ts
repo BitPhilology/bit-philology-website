@@ -63,6 +63,9 @@ export interface PostLink {
 	href: Pathname;
 }
 
+/** The sizes of a Team Member, after the Figma "Size" property: the photo is 120, 96 or 60 px wide. */
+export type MemberSize = 'large' | 'medium' | 'small';
+
 /** A person in the member list of the Team page: an entry of `members`. */
 export interface Member {
 	name: string;
@@ -70,6 +73,8 @@ export interface Member {
 	affiliation?: string;
 	/** The image URL: a file of the page's assets/ folder, resolved to its built URL, or a remote image. */
 	photo?: string;
+	/** The size of the card (the `size` field); medium when the field is missing. */
+	size: MemberSize;
 	/** The member's page elsewhere (the `external-url` field), linked from the name. */
 	externalURL?: string;
 }

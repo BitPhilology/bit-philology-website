@@ -7,21 +7,25 @@ members:
     role: Principal Investigator
     affiliation: University of Bern
     photo: ./assets/ElenaSpadini_eng.jpg
+    size: medium
     external-url: https://www.dh.unibe.ch/about_us/people/prof_dr_spadini_elena/index_eng.html
   - name: Elena Barchielli
     role: PhD Student
     affiliation: University of Bern
     photo: ./assets/ElenaBarilli_eng.png
+    size: medium
     external-url: https://www.dh.unibe.ch/about_us/people/barchielli_elena/index_eng.html
   - name: Simon Willemin
     role: PhD Student
     affiliation: University of Bern
     photo: ./assets/portrait-660_SimonFrancoisWille_eng.png
+    size: medium
     external-url: https://www.dh.unibe.ch/about_us/people/willemin_simon/index_eng.html
   - name: Tommaso Elli
     role: Senior Research Associate
     affiliation: University of Bern
     photo: https://picsum.photos/200
+    size: medium
 position: -1
 hidden-from-home: false
 ---

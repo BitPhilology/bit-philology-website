@@ -8,7 +8,7 @@ The Bit Philology website: a static site built with SvelteKit and deployed to Gi
 
 - Svelte 5 and SvelteKit 2, TypeScript, Vite 8
 - `@sveltejs/adapter-static`: every route is prerendered (`export const prerender = true` in `src/routes/+layout.ts`) and the site is written to `build/`, one `<path>/index.html` per page (`trailingSlash = 'always'`)
-- The site may be served under a base path (a GitHub Pages project site) or at the root of a domain: `kit.paths.base` is `process.env.BASE_PATH ?? ''`, and the deploy workflow sets `BASE_PATH` from what GitHub Pages reports. Never hardcode the base path, and never write an internal link or asset as a bare absolute path (see [Links and assets](#links-and-assets))
+- The site is served at the root of its custom domain, https://bitphilology.dh.unibe.ch/, and the deploy workflow builds it without a base path. The code must keep working under a base path too (a GitHub Pages project site): `kit.paths.base` is `process.env.BASE_PATH ?? ''`. Never hardcode the base path or the domain, and never write an internal link or asset as a bare absolute path (see [Links and assets](#links-and-assets))
 - Tailwind CSS v4 through `@tailwindcss/vite`, with no plugins
 - Fonts self-hosted with Fontsource
 - Icons from `pixelarticons`

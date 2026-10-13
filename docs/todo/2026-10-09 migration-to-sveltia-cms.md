@@ -102,7 +102,7 @@ A temporary Node script rewrites the front matter of every `src/content/**/index
 ## 5. OAuth sign-in (manual steps for the maintainer)
 
 1. Deploy [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth) on Cloudflare Workers.
-2. Register a GitHub OAuth App in the BitPhilology organisation, with the callback `<URL of the Worker>/callback`; set `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` and `ALLOWED_DOMAINS` (the GitHub Pages domain and the future `bitphilology.dh.unibe.ch`) as variables of the Worker.
+2. Register a GitHub OAuth App in the BitPhilology organisation, with the callback `<URL of the Worker>/callback`; set `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` and `ALLOWED_DOMAINS` (`bitphilology.dh.unibe.ch`, the domain of the site) as variables of the Worker.
 3. Set `base_url` in `config.yml`.
 4. Give the editors write access to the repository.
 

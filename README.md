@@ -2,8 +2,7 @@
 
 The website of **Bit Philology**, a Swiss National Science Foundation Starting Grant project (2025–2030) on the textual scholarship of born-digital literary archives. The project is conducted at the Digital Humanities Center, part of the Walter Benjamin Kolleg at the University of Bern.
 
-- Live site: https://bitphilology.github.io/bit-philology-website/ (see [Where the site is served](#where-the-site-is-served))
-- Future address: http://bitphilology.dh.unibe.ch/ (see [Custom domain](#custom-domain))
+- Live site: https://bitphilology.dh.unibe.ch/ (see [Where the site is served](#where-the-site-is-served))
 
 The site is static: the pages are written as notes on HedgeDoc, copied into this repository as Markdown, and built into HTML with SvelteKit.
 
@@ -76,7 +75,7 @@ HedgeDoc may only be reachable from the network of the University of Bern (or it
 The site is published on **GitHub Pages** by a GitHub Actions workflow, [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
 1. A push to `main` starts the workflow. It can also be started by hand: on GitHub, **Actions → Deploy to GitHub Pages → Run workflow**.
-2. The `build` job checks out the repository, installs the dependencies with `npm ci` on Node 24, runs `npm run build` with the base path of the site (see below) and uploads the `build/` folder.
+2. The `build` job checks out the repository, installs the dependencies with `npm ci` on Node 24, runs `npm run build` and uploads the `build/` folder.
 3. The `deploy` job publishes that folder on GitHub Pages. The whole run takes about a minute; its result is in the **Actions** tab.
 
 So publishing a change means: commit, push to `main`, wait for the green tick.
@@ -88,34 +87,32 @@ Two things to know:
 
 ### Where the site is served
 
-GitHub Pages serves the site at the root of a domain or under a path, depending on the name of the repository:
+The site is served at https://bitphilology.dh.unibe.ch/, the custom domain of the GitHub Pages site. The old address, https://bitphilology.github.io/bit-philology-website/, redirects to it.
 
-| Repository | Address | Base path |
-| --- | --- | --- |
-| `bit-philology-website` (today) | https://bitphilology.github.io/bit-philology-website/ | `/bit-philology-website` |
-| a repository named `BitPhilology.github.io` | https://bitphilology.github.io/ | none |
-| any name, with a custom domain | the root of that domain | none |
+The domain is set up outside the code, following the [GitHub documentation on custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site):
 
-The base path is never written in the code. The build reads it from the `BASE_PATH` environment variable (`kit.paths.base` in [`svelte.config.js`](svelte.config.js), empty by default), and the workflow sets `BASE_PATH` to the path that GitHub Pages reports for the site, so renaming the repository or adding a custom domain needs no change. Every link and asset of the site follows the base path.
+- The IT service of the university keeps a DNS record of type `CNAME` for `bitphilology.dh.unibe.ch` that points to `bitphilology.github.io`.
+- The domain is entered under **Settings → Pages → Custom domain**, where **Enforce HTTPS** can also be ticked. With a deployment through GitHub Actions the domain is kept in the settings of the repository, so no `CNAME` file is needed in `static/`.
 
-To check a build under a base path on your computer:
+### Base path
+
+With the custom domain the site is at the root of its domain, so the workflow builds it without a base path. The code does not depend on that: the base path is never written in it. The build reads it from the `BASE_PATH` environment variable (`kit.paths.base` in [`svelte.config.js`](svelte.config.js), empty by default), and every link and asset of the site follows it.
+
+To check that the site still works under a base path, build it with one on your computer:
 
 ```sh
 BASE_PATH=/bit-philology-website npm run build
 BASE_PATH=/bit-philology-website npm run preview   # then open http://localhost:4173/bit-philology-website/
 ```
 
-Without `BASE_PATH`, as in `npm run dev`, the site is at the root.
+If the custom domain is ever removed, GitHub Pages serves the site under `/bit-philology-website` again, and the workflow has to pass that path to the build. Add this to the "Build site" step of [`deploy.yml`](.github/workflows/deploy.yml):
 
-### Custom domain
+```yaml
+env:
+  BASE_PATH: ${{ steps.pages.outputs.base_path }}
+```
 
-The site is going to be served at `bitphilology.dh.unibe.ch`. This is not set up yet; the steps, from the [GitHub documentation on custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site), are:
-
-1. The IT service of the university adds a DNS record of type `CNAME` for `bitphilology.dh.unibe.ch` that points to `bitphilology.github.io`.
-2. Under **Settings → Pages → Custom domain**, enter `bitphilology.dh.unibe.ch` and save. GitHub checks the DNS record.
-3. When the check passes and the certificate is ready, tick **Enforce HTTPS**.
-
-Nothing has to change in the code or in the workflow: with a custom domain GitHub Pages reports an empty base path, so the next build is made for the root of the domain. With a deployment through GitHub Actions the domain is kept in the settings of the repository, so no `CNAME` file is needed in `static/`. After the switch, `bitphilology.github.io` redirects to the new address.
+GitHub Pages reports an empty path for a site at the root of its domain, so this setting also works with the custom domain.
 
 ## Recreating the project
 

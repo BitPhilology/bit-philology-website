@@ -91,7 +91,7 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/KO1IWPVqQ5ubc2MPBMkymQ
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
 [no-lead]The team presented a paper at the conference Editopia, held 2–4 September 2026 at the University of Wuppertal.

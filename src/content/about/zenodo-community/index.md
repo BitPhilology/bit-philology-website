@@ -85,12 +85,11 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/lXG60JotSlmsBRo1Lg8TIw
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
-
-All publications in the Zenodo Community of the Bit Philology project can be found at https://zenodo.org/communities/bitphilology/.
 
 ![A screenshot of the Zenodo Community listing some publications](./assets/3f228edf-5f9d-4adb-ad94-ee9bfb4b17a9.png)
 
+All publications in the Zenodo Community of the Bit Philology project can be found at https://zenodo.org/communities/bitphilology/.
 
 

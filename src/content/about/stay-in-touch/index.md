@@ -85,10 +85,12 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/NaBPQbauRpm1zsB8-N4JhQ
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
-To receive news and updates on the Bit Philology project, join our mailing list: write a message with subject "Subscribe" to bitphilology.dh-request@lists.unibe.ch
+To receive news and updates on the Bit Philology project, join our mailing list.
+
+Write a message with subject "Subscribe" to *bitphilology.dh-request@lists.unibe.ch*
 
 
 

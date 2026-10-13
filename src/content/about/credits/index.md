@@ -89,7 +89,7 @@ tags: website/Credits Page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/Pccv0jyDQIuq0ENqbjinxQ
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
 [no-lead]The Bit Philology website stands on the work of many open-source communities, who made the typefaces, the icons and the software that you are using right now. Thank you.

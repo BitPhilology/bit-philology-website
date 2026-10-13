@@ -91,7 +91,7 @@ tags: website/publication
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/idRHfXJOTK6WttOfUjS_fg
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
 [no-lead]The Bit Philology project team will held a talk entitled "Réparer ce qui ne peut l’être : outils et approches de l’établissement de textes nativement numériques" at the Congrès international conclusif du consortium Huma-Numa ARIANE, held 12–14 November 2026 at the Sorbonne University, Paris.

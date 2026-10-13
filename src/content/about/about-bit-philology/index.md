@@ -68,6 +68,10 @@ advisory-board:
   affiliation: University of Virginia
   external-url: https://english.as.virginia.edu/people/matthew-kirschenbaum
 
+- name: Elena Pierazzo
+  affiliation: Université de Tours
+  external-url: https://cesr.cnrs.fr/membre/pierazzo-elena/
+
 - name: Thorsten Ries
   affiliation: The University of Texas at Austin
   external-url: https://liberalarts.utexas.edu/eue/faculty/tr24969
@@ -108,7 +112,7 @@ tags: website/page
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/IMcrjOtPTSuAKrw46RXggg
-importedAt: 2026-10-06T21:19:06Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
 Today, much literature is created *digitally*. Literary archives, which preserve the manuscripts of writers, increasingly include digital documents and supports (known as *born-digital*), such as floppy disks, computers and hard drives. The Bit Philology project will propose innovative solutions for describing, editing and analysing digital literary archives, thereby meeting the scientific and societal needs of our digital age.

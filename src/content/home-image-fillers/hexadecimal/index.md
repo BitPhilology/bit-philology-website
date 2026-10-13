@@ -42,7 +42,7 @@ tags: website/home-image-filler
 
 # ── ADDED BY THE IMPORT: DO NOT EDIT ──────────────────────────────────
 source: https://pad.dsl.unibe.ch/oBpgEWB5Tka8GkwiOd2TKg
-importedAt: 2026-10-06T21:23:59Z
+importedAt: 2026-10-13T14:55:00Z
 ---
 
 ![Image from an hexadecimal editor.](./assets/76d07e1d-3072-4c10-a15c-5dd57ae09fa1.png)

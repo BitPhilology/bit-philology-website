@@ -1,4 +1,5 @@
-// Small markdown helpers for the loader. They extract plain text and images; they do not render.
+// Small markdown helpers for the loader. They split a file into its front matter and its body, and
+// extract plain text; they do not render.
 
 const FRONT_MATTER = /^---[ \t]*\r?\n(?:([\s\S]*?)\r?\n)?---[ \t]*(?:\r?\n|$)/;
 
@@ -35,21 +36,4 @@ export function toPlainText(markdown: string): string {
 		.replace(/(^|[^\w])_([^_]+)_(?=[^\w]|$)/g, '$1$2')
 		.replace(/\s+/g, ' ')
 		.trim();
-}
-
-/**
- * The only content of a body that must be exactly one image. Returns the image, or the reason
- * why the body does not qualify.
- */
-export function soleImage(body: string): { src: string; alt: string } | { error: string } {
-	const images = [...body.matchAll(IMAGE)];
-	if (images.length !== 1) {
-		return { error: `the body must hold exactly one image, but it has ${images.length || 'none'}` };
-	}
-	const [image] = images;
-	const rest = (body.slice(0, image.index) + body.slice(image.index + image[0].length)).trim();
-	if (rest) return { error: `the body must hold only the image, but it also has "${rest.slice(0, 60)}"` };
-	const alt = image[1].trim();
-	if (!alt) return { error: 'the image has no alt text' };
-	return { src: image[2].replace(/^<|>$/g, ''), alt };
 }

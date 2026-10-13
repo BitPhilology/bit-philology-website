@@ -1,94 +1,91 @@
 # Writing the content of the website
 
-A guide for the people who write the pages of the Bit Philology website. No programming is needed: the pages are notes on HedgeDoc, and one command copies them into the website.
+A guide for the people who write the pages of the Bit Philology website. No programming is needed: the pages are written in a content manager, in the browser.
 
 ## How it works
 
-1. Every page is a **note on HedgeDoc** (https://pad.dsl.unibe.ch). A note has two parts: its **settings**, between two `---` lines at the top, and its **text**, below them.
-2. The file [`src/content/contents.yaml`](../src/content/contents.yaml) **lists the notes** of the website.
-3. The command `npm run syncFromHedgeDoc` **copies the notes** into this repository, with their images, and tidies the list.
-4. The website is built from those copies and published when the changes are pushed to GitHub.
+1. The content manager (a "CMS", [Sveltia CMS](https://sveltiacms.app)) is at https://bitphilology.dh.unibe.ch/admin/.
+2. You sign in, open a page (or create one), fill in a form and press **Save**.
+3. A save is published at once: there are no drafts. The website is rebuilt and the change is online after about a minute.
 
-The copies in `src/content` are overwritten when a note is fetched again: always edit the note on HedgeDoc, not its copy.
+The pages are kept as files in the repository of the website, on GitHub (`src/content`). The CMS is only a comfortable way of editing them: every save is recorded there, with your name, and can be undone by the maintainer.
 
-## Adding a page
+## Signing in
 
-1. On HedgeDoc, create a note and paste the template into it: [`templates/page.md`](templates/page.md).
-2. Fill in the settings and write the text (see below).
-3. Press **Publish** on HedgeDoc and copy the link of the page that opens. It looks like `https://pad.dsl.unibe.ch/s/AbCdEfGhI`.
-4. Paste the link in the `new` list of `src/content/contents.yaml`, on a line of its own, after `- `:
+You need a GitHub account that can write to the repository `BitPhilology/bit-philology-website`: ask the maintainer to add you.
 
-   ```yaml
-   new:
-     - https://pad.dsl.unibe.ch/s/AbCdEfGhI
-   ```
+For now the CMS asks for a **personal access token**, a password that you create once on GitHub:
 
-5. Run `npm run syncFromHedgeDoc`.
+1. On GitHub, open **Settings → Developer settings → Personal access tokens → Fine-grained tokens** and press **Generate new token**.
+2. Give it a name and an expiration date. As **Resource owner** choose `BitPhilology`.
+3. Under **Repository access** choose **Only select repositories**, and pick `bit-philology-website`.
+4. Under **Permissions → Repository permissions**, set **Contents** to **Read and write**.
+5. Press **Generate token** and copy the token.
+6. In the CMS, press **Sign In Using Access Token** and paste it.
 
-The command fetches the note, files it under its section of the list (with its title, the link of its note and the day it was fetched) and empties `new`. At the end it prints a summary: read the **Errors** and **Warnings**, which say in plain words what to fix in a note.
+The browser remembers the token, so this is done once per browser, until the token expires. Treat it like a password: whoever has it can change the website. Sign in with a token only on your own computer.
 
-## The settings
+## Creating, editing and deleting a page
 
-Every page has the same settings. Some only apply to some types of page: on the other types they are ignored, so they can be left empty or deleted. Lines that start with `#` are notes for the writer and are ignored too.
-
-| Setting | Used by | What it is |
-| --- | --- | --- |
-| `type` | every page | `about`, `team`, `event`, `publication` or `artifact`. It decides the section, the colours and the layout |
-| `title` | every page | The title of the page and of its card on the Home page. With a colon inside, write it in quotes: `"Archives: a survey"` |
-| `subtitle` | all but publications | A line under the title |
-| `keywords` | every page | The topics of the page, one per line after `- `, shown as `#keyword` labels |
-| `date` | every page | `2026-05-08`, or only the year. The day of the event, or when the page or the publication came out |
-| `venue`, `location` | events, publications | The institution, conference or journal; and the room or the city |
-| `authors` | publications, artifacts | For example `E. Spadini, E. Barchielli` |
-| `publication-type` | publications | For example `Poster`, `Oral Communication`, `Article` |
-| `doi`, `download-link` | publications | The DOI (or its link), and the link to the file to download |
-| `kind` | artifacts | What kind of object it is, for example `Tool` or `Dataset` |
-| `members` | the Team page | The people of the team: `name`, `role`, `affiliation`, `photo`, `external-url` |
-| `advisory-board` | the About page | The advisory board: `name`, `affiliation`, `external-url` |
-| `excerpt` | About, Team, artifacts | The text on the card of the Home page. Empty: the first paragraph of the page |
-| `position` | every page | The place of the card in the Home grid (see below) |
-| `hidden-from-home` | every page | Write `true` to not display the content in the home page (e.g., as done for the "credits" page) |
-| `slug` | – | Leave it empty: the address of the page is computed from its title |
-| `tags` | – | Used by HedgeDoc to group the notes: leave it as it is |
-
-The names must be written exactly as above. When a name is wrong, the summary of the command says so and suggests the right one.
-
-## Writing the text
-
-The text is Markdown, as everywhere on HedgeDoc.
-
-- **First paragraph.** It is the lead of the page and is shown bigger than the others. To have a normal first paragraph, start it with `[no-lead]`.
-- **Headings.** Use `###` or `####` for the sections of the page: the title of the page comes from the settings, never from a `#` heading.
-- **Images.** Always upload an image to HedgeDoc, and never link to an image that is on another website: the link would break as soon as that website changes.
-  1. Put the cursor on an empty line of the text.
-  2. Press the **Upload Image** button in the toolbar of HedgeDoc. HedgeDoc writes a line like `![](https://pad.dsl.unibe.ch/uploads/1a2b3c4d.png)`.
-  3. Complete that line with a description and a caption: `![A hand-drawn map of the archive](https://pad.dsl.unibe.ch/uploads/1a2b3c4d.png "The archive in 1998")`.
-
-  The description, between the square brackets, is read aloud to people who cannot see the image: always write it. The caption, between the quotes and after a space, is the text shown beside the image; it can be left out. An image on a line of its own is shown large, in a frame. The command warns about images without a description and about images that were not uploaded to HedgeDoc.
-- **Notes.** Write `[^a-label]` in the text where the note is called, and the note as a paragraph of its own, anywhere in the text: `[^a-label]: The text of the note.` The website numbers the notes and shows them beside the text.
-- **Lists of people.** `{{team}}` on a line of its own shows the `members` of the settings at that point of the page; `{{advisory-board}}` shows the `advisory-board`. Move the line to move the list.
-
-## The Home page
-
-Every page has a card on the Home page.
-
-- **Order.** Without a `position`, the cards follow their date, newest first. `position: 1` is the first tile of the grid, `2` the second, and so on; `position: -1` is the last tile. Several pages with `-1` all go to the bottom.
-- **Hiding a card.** `hidden-from-home: true` leaves the page out of the Home page. The page keeps its address and stays in the list of its section in the navigation.
-- **Images of the grid.** The image tiles between the cards are notes too, made from [`templates/home-image-filler.md`](templates/home-image-filler.md): a title, a colour (`accent`), a `position` and one image. The image is uploaded and described as in a page, and the note holds nothing else. They are added to `contents.yaml` like any page. Two images cannot have the same position.
-- **The credits page.** A page titled `Credits`, of type `about`, with `hidden-from-home: true`. The "Credits" link at the bottom of every page appears when this page exists.
-
-## Updating and removing pages
+The menu on the left lists the sections of the website: **About**, **Events**, **Publications**, **Artifacts** and **Home images**, then two pages that are edited on their own, **About Bit Philology** and **Team**.
 
 | To… | Do this |
 | --- | --- |
-| see what the command would do, without changing anything | `npm run syncFromHedgeDoc -- --dry-run` |
-| fetch one page again, after editing its note | `npm run syncFromHedgeDoc -- --force events/<page>` (the section and the name of the page, as in the list) |
-| fetch every page again | `npm run syncFromHedgeDoc -- --refresh` |
-| remove a page | delete its entry from `contents.yaml`, then run `npm run syncFromHedgeDoc -- --prune` |
-| repair a damaged `contents.yaml` | `npm run syncFromHedgeDoc -- --rebuild-list` writes it again from the pages of the repository |
+| create a page | Open its section and press **New**. Fill in the form and press **Save** |
+| edit a page | Open its section, click the page, change it and press **Save** |
+| delete a page | Open the page and choose **Delete Entry** from its menu |
+| edit the About Bit Philology page or the Team page | Click its name in the menu: each is a single page, with its list of people (the advisory board, the members). They are not in the list of **About** |
 
-Without `--prune` nothing is ever deleted: a page taken off the list is only reported in the summary.
+**The address of a page** comes from its title, when the page is created: "Digital Forensics in the Humanities" becomes `/events/digital-forensics-in-the-humanities/`. You can change it while you create the page (the **Slug** field), and not afterwards: changing the title later does not change the address, so links to the page keep working.
 
-`contents.yaml` is written again at every run. Only the links matter: the titles and the dates are read from the pages, and comments added to the file are not kept. A link pasted in the wrong place, for example inside a section, is moved to the right one.
+## The fields
 
-HedgeDoc may only be reachable from the network of the University of Bern: when the command says that it cannot reach the server, connect to that network or to its VPN and run it again.
+Every section shows only the fields it uses. Only the title is required.
+
+| Field | In | What it is |
+| --- | --- | --- |
+| Title | every page | The title of the page and of its card on the Home page |
+| Subtitle | all but publications | A line under the title |
+| Keywords | every page | The topics of the page, shown as `#keyword` labels. Three at most |
+| Date | every page | `2026-05-08`, or only the year. The day of the event, or when the page or the publication came out |
+| Venue, Location | events, publications | The institution, conference or journal; and the room or the city |
+| Authors | publications, artifacts | For example `E. Spadini, E. Barchielli` |
+| Type of publication | publications | For example `Poster`, `Paper`, `Article` |
+| DOI, Download link | publications | The DOI (or its link), and the link to the file to download |
+| Kind | artifacts | What kind of object it is, for example `Tool` or `Dataset` |
+| Members | the Team page | The people of the team: name, role, affiliation, photo, web page |
+| Advisory board | the About Bit Philology page | The advisory board: name, affiliation, web page |
+| Text | every page | The text of the page |
+| Position on the Home page | every page | The place of the card in the Home grid (see below) |
+| Hide from the Home page | every page | Switch it on for a page without a card on the Home page, such as the credits |
+
+## Writing the text
+
+The **Text** field opens in a visual editor, with a toolbar for headings, bold, links, lists and images. The text is saved as Markdown: the button with the Markdown sign, at the right end of the toolbar, shows it as plain Markdown and back. Some things can only be typed as they are, in either view: `[no-lead]`, the notes and the lines for the lists of people (see below).
+
+- **First paragraph.** It is the lead of the page and is shown bigger than the others. To have a normal first paragraph, start it with `[no-lead]`.
+- **Headings.** Use the headings of the toolbar (in Markdown, `###` or `####`) for the sections of the page: the title of the page comes from the Title field, never from a `#` heading.
+- **Images.** Put the cursor on an empty line and press the image button of the toolbar. Choose the file on your computer, and write its description and its title. The CMS uploads the file next to the page when you save, renamed without spaces, accents or capital letters; in Markdown the image is a line like `![A hand-drawn map of the archive](./assets/map.png "The archive in 1998")`. An image can only be uploaded in the visual editor: in the Markdown view the image button writes an empty `![]()`.
+
+  The description, between the square brackets, is read aloud to people who cannot see the image: always write it. The title, between the quotes, is the caption shown beside the image; it can be left out. An image on a line of its own is shown large, in a frame. Do not link to an image that is on another website: the link would break as soon as that website changes.
+- **Notes.** Write `[^a-label]` in the text where the note is called, and the note as a paragraph of its own, anywhere in the text: `[^a-label]: The text of the note.` The website numbers the notes and shows them beside the text.
+- **Lists of people.** `{{team}}` on a line of its own shows the Members at that point of the page; `{{advisory-board}}` shows the Advisory board. Move the line to move the list. Do not delete the line while the list has entries, and do not empty the list while the line is there.
+
+## The Home page
+
+Every page has a card on the Home page. The card of an About, Team or Artifact page shows the first paragraph of its text.
+
+- **Order.** Without a position, the cards follow their date, newest first. Position `1` is the first tile of the grid, `2` the second, and so on; `-1` is the last tile. Several pages with `-1` all go to the bottom. `0` is not a position.
+- **Hiding a card.** "Hide from the Home page" leaves the page out of the Home page. The page keeps its address and stays in the list of its section in the navigation.
+- **Images of the grid.** The image tiles between the cards are in **Home images**: a name, a colour (the one of a section), a position, one image and its description. Two images cannot have the same position.
+- **The credits page.** The About page titled `Credits`, hidden from the Home page. The "Credits" link at the bottom of every page appears when this page exists.
+
+## When a change does not show up
+
+A save is online after about a minute. If it is not, the website could not be built from the new content, and it stays as it was before your save. The usual reasons:
+
+- a position of `0`;
+- two Home images with the same position;
+- `{{team}}` or `{{advisory-board}}` in a text whose list is empty, written twice, or not on a line of its own.
+
+Fix the page and save again. The maintainer can see the exact reason on GitHub, in the **Actions** tab of the repository.

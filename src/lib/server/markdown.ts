@@ -79,8 +79,8 @@ export function renderBody(markdown: string, { file, data, resolveAsset }: Optio
 
 /**
  * Body headings start at h2, under the page's h1 (the title): the highest level the editor used
- * becomes h2 and the others keep their distance from it, down to h6. Notes on HedgeDoc often use
- * #### for sections; on the page they are h2, so the outline has no gaps.
+ * becomes h2 and the others keep their distance from it, down to h6. Editors often use #### for
+ * sections; on the page they are h2, so the outline has no gaps.
  */
 function normalizeHeadings(root: MdastRoot) {
 	const headings: MdastHeading[] = [];

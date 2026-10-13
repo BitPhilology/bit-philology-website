@@ -1,6 +1,6 @@
 # Architecture
 
-How the site turns the Markdown files of `src/content` into pages. Read `CLAUDE.md` first for the stack, the CSS layers, the tokens and the import script; this file covers the code in `src/lib` and `src/routes`.
+How the site turns the Markdown files of `src/content` into pages. Read `CLAUDE.md` first for the stack, the CSS layers, the tokens and the content rules (the files and the CMS that writes them); this file covers the code in `src/lib` and `src/routes`.
 
 ## From content to page
 
@@ -9,7 +9,7 @@ src/content/**/index.md
   └─ src/lib/server/content.ts        reads and parses every file at build time
        ├─ posts    ─ src/lib/content/posts.ts     front matter → Post
        │    └─ src/lib/server/markdown.ts         body → blocks and headings (notes.ts: footnotes → sidenotes)
-       └─ fillers  ─ src/lib/content/fillers.ts   front matter + body → ImageFillerContent (validated)
+       └─ fillers  ─ src/lib/content/fillers.ts   front matter → ImageFillerContent (validated)
             └─ src/lib/config/home.ts             the Home tile rule
                  └─ src/routes/*/+page.server.ts  thin loaders
                       └─ src/lib/templates/*      page templates
@@ -19,6 +19,7 @@ src/content/**/index.md
 - Parsing runs only on the server (`src/lib/server`), so the YAML library and the Markdown never reach the browser. Every route is prerendered.
 - Routes stay thin: a loader calls one function, a page renders one template.
 - Logic lives in `.ts` modules; components only lay out what they receive.
+- The files of `src/content` are written by the content manager, Sveltia CMS. It is not part of the SvelteKit app: `static/admin/` holds its page and its configuration, copied as they are into the build (see `CLAUDE.md`). The site only reads the files.
 
 ## Folders
 
@@ -38,24 +39,24 @@ src/content/**/index.md
 | `src/lib/components/layout/` | Page structure: `Container`, `TileGrid`, `PageShell`, `PageIndex`, `Footer`, `TopStroke`, `NavDock`, `NavDockItem`, `PageSheet` |
 | `src/lib/templates/` | `HomeTemplate`, `PostTemplate` (every post page), and `templates.ts` (the header of each post type) |
 | `src/routes/` | `+layout.*` (fonts, theme, top stroke, dock), `+page.*` (Home), `[...path]/` (one page per post) |
+| `static/admin/` | The content manager, served at `/admin/`: `index.html` (the Sveltia CMS script) and `config.yml` (the collections and their fields) |
 
 ## Content model
 
-A post is `src/content/<section>/<slug>/index.md`; its URL is its folder, with a trailing slash, e.g. `/events/<slug>/` (`Post.href`). That is a path inside the site: the base path of the deployment is added when the link is rendered (see [Links and the base path](#links-and-the-base-path)). The `[...path]` route prerenders one page per post (`entries` lists them). Home image fillers have no page. `src/content/contents.yaml`, the list of the HedgeDoc notes, belongs to the import script: the site never reads it (see `CLAUDE.md`).
+A post is `src/content/<section>/<slug>/index.md`; its URL is its folder, with a trailing slash, e.g. `/events/<slug>/` (`Post.href`). That is a path inside the site: the base path of the deployment is added when the link is rendered (see [Links and the base path](#links-and-the-base-path)). The `[...path]` route prerenders one page per post (`entries` lists them). Home image fillers have no page.
 
-Every page has the same front matter, the one of `docs/templates/page.md`. A field that does not apply to the type of the page is ignored, and an empty field counts as missing: the readers of `src/lib/content/fields.ts` (`text`, `list`, `flag`) turn empty values into nothing.
+The front matter of a page holds the fields of its collection in the CMS (`static/admin/config.yml`): each type of page has only the fields it uses. `toPost` reads the same fields whatever the type, so a field that a type does not use is simply never set. An empty field counts as missing: the readers of `src/lib/content/fields.ts` (`text`, `list`, `flag`) turn empty values into nothing.
 
 Front matter read by `toPost` (`src/lib/content/posts.ts`):
 
 | Field | Type | Used for |
 | --- | --- | --- |
-| `type` | `about`, `team`, `event`, `publication`, `artifact` | Category and card layout. Unknown or missing → `about`, as in the import script |
+| `type` | `about`, `team`, `event`, `publication`, `artifact` | Category and card layout. The CMS sets it from the collection. Unknown or missing → `about` |
 | `title` | string, may hold Markdown | Card and page title (the page's `h1`), shown as plain text. **Required**: the build fails, naming the file, without it |
 | `subtitle` | string | Event cards; the subtitle of the page header |
 | `date` | `YYYY-MM-DD` or `YYYY` | Order on Home and in the lists, newest first; card and page pills; the date lines of event and publication headers |
 | `position` | whole number, not 0 | The place of the card in the Home grid: `1` is the first tile, `-1` the last. Empty or missing: the post follows its date. Anything else fails the build |
 | `hidden-from-home` | `true`, also as text | `true` leaves the post out of the Home grid; it keeps its page and its place in the dock's page sheet |
-| `excerpt` | string | Card text; otherwise the first paragraph of the body |
 | `venue`, `location` | string | Event and publication pills and headers |
 | `authors` | string | Publication and artifact cards; publication header |
 | `publication-type` | string | Publication pills |
@@ -63,13 +64,13 @@ Front matter read by `toPost` (`src/lib/content/posts.ts`):
 | `doi` | `10.…` or a URL | Publication header, linked to `https://doi.org/…` |
 | `download-link` | URL | Publication header, the Download pill |
 
-Every field except `title` may be missing: its pill or line is left out. Other fields (`tags`, `source`, `importedAt`, …) are kept in the file and ignored by the site, except the fields that embeds read (see [Markdown bodies and embeds](#markdown-bodies-and-embeds)).
+Every field except `title` may be missing: its pill or line is left out. The text of an About, Team or Artifact card is not a field: it is the first paragraph of the body, as plain text (`Post.excerpt`, from `firstParagraph`). Any other field of a file is ignored by the site, except the fields that embeds read (see [Markdown bodies and embeds](#markdown-bodies-and-embeds)).
 
-The Team page is the one file with `type: team`, `src/content/about/team/index.md` (URL `/about/team`). Its front matter holds the `members` list, whose entries have `name` and `role` (both required: the build fails without them), `affiliation`, `photo` and `external-url` (the member's page, linked from the name). The import script downloads the `photo` files into the page's `assets/` and writes `./assets/<file>`; `getPage` turns that path into the built URL. Placeholder images (`https://picsum.photos/…`) stay remote.
+The Team page is the one file with `type: team`, `src/content/about/team/index.md` (URL `/about/team`). Its front matter holds the `members` list, whose entries have `name` and `role` (both required: the build fails without them), `affiliation`, `photo` and `external-url` (the member's page, linked from the name). A `photo` is a file of the page's `assets/` folder, which the CMS writes as `./assets/<file>`; `getPage` turns that path into the built URL. A photo given as a URL, such as a placeholder (`https://picsum.photos/…`), stays remote.
 
 The advisory board is on the About page, `src/content/about/about-bit-philology/index.md`, as its last section. The front matter of that page holds the `advisory-board` list, whose entries have `name` (required: the build fails without it), `affiliation` and `external-url`. Each entry is a list item, `Name (Affiliation)` followed by an icon that links to `external-url`; an entry without `affiliation` or `external-url` is shown without the brackets or the icon. Any other field of an entry is ignored.
 
-A Home image filler (`type: home-image-filler`) is validated at build time by `toFiller`; the build fails, naming the file, when `accent` is not `about`, `event`, `publication` or `artifact`, when `position` is not a whole number from 1 up, or when the body is not exactly one `![alt](url "caption")` image with a non-empty alt text.
+A Home image filler (`type: home-image-filler`) is validated at build time by `toFiller`; the build fails, naming the file, when `accent` is not `about`, `event`, `publication` or `artifact`, when `position` is not a whole number from 1 up, when `image` is missing, or when `alt` is empty. A filler has no body: its image is the `image` field (`./assets/<file>`), described by `alt`; `caption` is kept in the file and not shown.
 
 ## The Home tile rule
 
@@ -83,9 +84,9 @@ A Home image filler (`type: home-image-filler`) is validated at build time by `t
 
 Posts that share a position keep their date order, newest first. The footer tiles (colophon, partner logos) follow in the same grid.
 
-The logo is content, not code: it is the image filler at position 1. The build fails when two fillers share a position, or when the `position` of a post is not a whole number other than 0. Fix the note on HedgeDoc and re-import it with `--force`.
+The logo is content, not code: it is the image filler at position 1. The build fails when two fillers share a position, or when the `position` of a post is not a whole number other than 0. Fix the page in the CMS and save it again.
 
-**The credits page** is the post at `CREDITS_PATH` (`src/lib/config/footer.ts`): `src/content/about/credits/index.md`, an About note with `slug: credits` and `hidden-from-home: true`. The root layout's load passes its URL to every page (`credits`), and the `Colophon` shows its "Credits" link only when the page exists, so the footer never links to a missing page.
+**The credits page** is the post at `CREDITS_PATH` (`src/lib/config/footer.ts`): `src/content/about/credits/index.md`, the About page titled "Credits", with `hidden-from-home: true`. The root layout's load passes its URL to every page (`credits`), and the `Colophon` shows its "Credits" link only when the page exists, so the footer never links to a missing page.
 
 ## Post cards and image tiles
 
@@ -106,10 +107,10 @@ Under the pointer or the keyboard focus a post card comes forward: it grows by 5
 
 ## How the content is written
 
-What the files of `src/content` hold, and how the renderer reads it. The notes on HedgeDoc carry the same rules in their front matter comments.
+What the files of `src/content` hold, and how the renderer reads it. Editors find the same rules in the hints of the fields of the CMS and in `docs/CONTENT.md`.
 
 - **Headings and paragraphs**: plain Markdown. The first paragraph is the **lead** (`body/lead-paragraph`), unless it starts with `[no-lead]`; an image or a heading in first position means there is no lead. Editors write section headings as `###` or `####`; the renderer moves them up so that the highest level of the body is `h2` (the title is the `h1`), keeping the distance between levels.
-- **Images**: `![alt text](./assets/file.png "Caption")`. The alt text is for screen readers; the title is the visible caption. An image alone in its paragraph is a **figure** (an Image Container with its caption); an image inside text stays inline. The import script downloads the images into `assets/`. An image without alt text gives a warning in the build output.
+- **Images**: `![alt text](./assets/file.png "Caption")`. The alt text is for screen readers; the title is the visible caption. An image alone in its paragraph is a **figure** (an Image Container with its caption); an image inside text stays inline. The CMS uploads the images into the `assets/` folder of the page. An image without alt text gives a warning in the build output.
 - **Notes**: GFM footnotes. The text has `[^label]` where the note is called, and the note is a paragraph of its own anywhere in the body: `[^label]: Text of the note`. Labels are any unique word; the page numbers the notes in the order of their first call (`[note 01]`, `Note 01—…`). A note that nothing calls is left out, with a warning.
 - **Embeds**: a marker `{{name}}` alone in its paragraph places a component that renders a front matter field (see [Markdown bodies and embeds](#markdown-bodies-and-embeds)). Today: `{{team}}` on the Team page and `{{advisory-board}}` on the About page.
 
@@ -222,9 +223,9 @@ Each line is left out when its fields are missing. The text of the lines is buil
 
 ### Adding a page type
 
-1. Add the type to `PostType` and its entry to `POST_TYPES` in `src/lib/categories.ts` (label, icon, route, category, card, `page.pills`), and to the `type` mapping of `scripts/syncFromHedgeDoc.js`. A new colour also needs its tokens and its `[data-category]` block (see [Common changes](#common-changes)).
+1. Add the type to `PostType` and its entry to `POST_TYPES` in `src/lib/categories.ts` (label, icon, route, category, card, `page.pills`), and add its collection, with a hidden `type` field, to `static/admin/config.yml`. A new colour also needs its tokens and its `[data-category]` block (see [Common changes](#common-changes)).
 2. If its header differs, add `XHeader.svelte` in `src/lib/components/content/` (compose `PageHeader` when it only adds lines; put the text of the lines in `details.ts`) and list it in `HEADERS` in `src/lib/templates/templates.ts`. Otherwise map the type to `PageHeader`.
-3. New front matter fields: add them to `Post` and read them in `toPost`.
+3. New front matter fields: add them to `Post`, read them in `toPost` and add them to the collection in `static/admin/config.yml`.
 
 The shell, the grid, the body blocks and the page index need no change.
 
@@ -232,7 +233,7 @@ The shell, the grid, the body blocks and the page index need no change.
 
 `renderBody` (`src/lib/server/markdown.ts`) renders a body at build time with unified: `remark-parse` and `remark-gfm` read the markdown (GFM footnotes included), `remark-rehype` turns it into HTML (dropping raw HTML), `rehype-slug` gives the headings ids, so that the page index and links can point to a section. There is no mdsvex: the HTML is plain data, injected by `TextBlock` and `SideNote` with `{@html}`. Links and images with unsafe URL schemes are dropped, and the classes of `src/lib/styles/markdown.ts` are added to the elements (`LEAD_CLASSES` to the lead). It returns `blocks` and `headings` (see [Blocks and notes](#blocks-and-notes)).
 
-**Markers.** A marker is `{{name}}`, spaces inside the braces allowed, alone in its paragraph (a blank line before and after). The markers are handled on the markdown tree, before any HTML exists: a marker paragraph becomes an embed block, between the blocks of the text around it. Editors move a marker above or below any paragraph or heading to move its embed. The build fails, naming the file, for a marker that is not in the registry, a marker used twice, a marker inside other text, a list or a quote, and a marker whose front matter field is missing. A front matter list without its marker is not shown, with a warning in the build output; an empty list field, as in the page template, counts as missing. Markers in code (`` `{{team}}` ``) are text.
+**Markers.** A marker is `{{name}}`, spaces inside the braces allowed, alone in its paragraph (a blank line before and after). The markers are handled on the markdown tree, before any HTML exists: a marker paragraph becomes an embed block, between the blocks of the text around it. Editors move a marker above or below any paragraph or heading to move its embed. The build fails, naming the file, for a marker that is not in the registry, a marker used twice, a marker inside other text, a list or a quote, and a marker whose front matter field is missing. A front matter list without its marker is not shown, with a warning in the build output; an empty list field counts as missing. Markers in code (`` `{{team}}` ``) are text.
 
 **The embed registry** is `EMBEDS` in `src/lib/embeds.ts`: each marker name gives the front matter field, a `parse` function that validates it at build time, and the component that renders it, which receives the parsed value as `data`. `{{team}}` renders `members` with `MemberList` (parser `toMembers`), and `{{advisory-board}}` renders `advisory-board` with `BoardMemberList` (parser `toBoardMembers`), a bulleted list in the style of the lists of the body. A marker works on any post page whose front matter holds its field. To add an embed, add one entry (and, if needed, its parser and component).
 
@@ -307,9 +308,9 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 
 ## Common changes
 
-- **Move a card in the Home grid**: set `position` in the note's front matter (see [The Home tile rule](#the-home-tile-rule)).
+- **Move a card in the Home grid**: set the position of the page in the CMS, the `position` of its front matter (see [The Home tile rule](#the-home-tile-rule)).
 - **Change the Home order rule**: edit `composeHomeTiles` in `src/lib/config/home.ts`.
-- **Add a front matter field**: add it to `Post` in `src/lib/content/types.ts` and read it in `toPost`; then to `docs/templates/page.md`, to `PAGE_FIELDS` in `scripts/syncFromHedgeDoc.js` and to the table of `docs/CONTENT.md`. Field names are lowercase with hyphens.
+- **Add a front matter field**: add it to `Post` in `src/lib/content/types.ts` and read it in `toPost`; then add it to the collections that use it in `static/admin/config.yml` and to the table of `docs/CONTENT.md`. Field names are lowercase with hyphens.
 - **Change a card's pills, description line or alignment**: edit the `card` of the post type in `src/lib/categories.ts`.
 - **Change a text style**: edit `TEXT` in `src/lib/styles/text.ts`; for the axes of the pixel font, the `--font-pixel*` tokens in `src/lib/styles/tokens.css`.
 - **Change the pills of a post page**: edit the `page.pills` of the post type in `src/lib/categories.ts`.
@@ -318,4 +319,4 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 - **Add an embed**: add an entry to `EMBEDS` in `src/lib/embeds.ts`.
 - **Change which roles get which Team Member size**: edit `SIZE_BY_ROLE` in `src/lib/content/team.ts`.
 - **Style an element of the rendered markdown**: edit `MARKDOWN_CLASSES` in `src/lib/styles/markdown.ts`.
-- **Add a category**: add its colour tokens to `tokens.css`, its `[data-category]` block to `components.css`, and its entry to `categories.ts` (and to the `type` mapping of `scripts/syncFromHedgeDoc.js`).
+- **Add a category**: add its colour tokens to `tokens.css`, its `[data-category]` block to `components.css`, and its entry to `categories.ts` (and its collection to `static/admin/config.yml`).

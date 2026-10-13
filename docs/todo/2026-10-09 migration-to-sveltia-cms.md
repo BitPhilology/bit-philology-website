@@ -1,7 +1,28 @@
 # To do: migrate the content from HedgeDoc to Sveltia CMS
 
-- **Status:** to do, not started
+- **Status:** implemented on 2026-10-13 (steps 1 to 4, with Sveltia CMS 0.236.0); the manual steps are left, see [Left to do](#left-to-do)
 - **Added:** 2026-10-09
+
+The plan below is kept as it was written. Where the implementation differs, the next section wins.
+
+## What was done differently
+
+- **`public_folder: ./assets`, not `assets`.** With `public_folder: assets` Sveltia writes `/assets/<file>`, a path of the site that `resolveAsset` cannot resolve. With `./assets` it writes `./assets/<file>`, the form the pages already had, so the image links of the bodies and the `photo` fields were not rewritten.
+- **The global `media_folder` is `src/content/assets`**, not `src/content`: an image uploaded from the Assets page of the CMS is then linked as `/src/content/assets/<file>`, which `resolveAsset` resolves.
+- **Sign-in with a token for now**: `auth_methods: [token]`, and `base_url` left as a comment, until the Worker of step 5 exists. Without `base_url` the GitHub button of the CMS cannot work.
+- **Form of the files**, as Sveltia writes them: `hidden-from-home` is always written (`false` on every page but the credits), and a bare year is in quotes (`date: '2026'`). The migration wrote both, so that a save from the CMS changes nothing else.
+- `members` is required on the Team page; `caption` of a Home image is a `text` field.
+- **No `excerpt` field**: no page used it, so it was removed from the CMS and from the loader. A card shows the first paragraph of the page.
+- **The body is not raw-only**: `modes: [raw, rich_text]`. The raw mode of Sveltia cannot upload an image (its image button writes an empty `![]()`, and a dropped or pasted file is ignored), contrary to what the plan says below, so the text opens in the visual editor, with the raw Markdown as the second mode. Checked on 2026-10-14 by saving two pages from the visual editor: on About Bit Philology the save changed `*italic*` to `_italic_` and some blank lines, and kept the notes, `{{advisory-board}}`, the HTML comment, the lists and the headings; on the event page it kept the 11 hard line breaks (`\`). Both built pages were the same as before. Uploaded files are renamed like a slug (`slugify_filename`).
+- **The About Bit Philology page is a singleton too**, like Team, and only it has the `advisory-board` field: a collection gives the same fields to all its pages, so the other About pages offered an advisory board as well.
+- The repository had 17 pages and 15 images, not 16 and 14.
+- **Regression check**: the rendered markup of the 16 HTML pages is identical before and after. The page data embedded in them lost the four values listed in step 2 (`venue` and `publication-type` on two About pages, `authors` on the event), which no page showed.
+
+## Left to do
+
+1. **In a browser** (verification 3 below, which needs Chrome or Edge and "Work with Local Repository"): every page appears in its collection, with its images; an edit to one page of each type changes only what was edited in `git diff` (the CMS has no Save without a change); a test publication with an accented title and an image lands in `publications/<slug>/` with its image in `assets/`; the image button of the Text field inserts `![…](./assets/<file>)`.
+2. **OAuth** (step 5 below), then `base_url` in `config.yml` and the removal of `auth_methods`; then verification 4.
+3. **Editors**: write access to the repository, and a personal access token each until OAuth works (docs/CONTENT.md).
 
 ## Context
 

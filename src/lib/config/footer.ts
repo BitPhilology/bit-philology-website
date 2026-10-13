@@ -7,8 +7,8 @@ export const COLOPHON =
 	'Bit Philology is a SNSF Starting Grant project running from 2025 to 2030. It is conducted at the Digital Humanities Center, part of the Walter Benjamin Kolleg at the University of Bern.';
 
 /**
- * The credits page, src/content/about/credits/index.md (a note with `slug: credits`): the Colophon
- * links to it when it exists.
+ * The credits page, src/content/about/credits/index.md (the About page titled "Credits"): the
+ * Colophon links to it when it exists.
  */
 export const CREDITS_PATH = 'about/credits';
 

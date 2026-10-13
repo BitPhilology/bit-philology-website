@@ -1,17 +1,16 @@
 // Turns a Home image filler file into its data, and fails the build when the file is invalid.
-import { soleImage } from './markdown';
+import { text } from './fields';
 import type { FillerAccent, ImageFillerContent } from './types';
 
 const ACCENTS: FillerAccent[] = ['about', 'event', 'publication', 'artifact'];
 
 /**
- * A filler from its file, front matter and body. `resolveImage` turns the image path of the
- * markdown (./assets/…, localised by the import script) into a URL.
+ * A filler from its file and front matter. `resolveImage` turns the path of the `image` field
+ * (./assets/…, a file of the filler's folder) into a URL.
  */
 export function toFiller(
 	file: string,
 	data: Record<string, unknown>,
-	body: string,
 	resolveImage: (src: string) => string
 ): ImageFillerContent {
 	const problems: string[] = [];
@@ -23,11 +22,13 @@ export function toFiller(
 	if (typeof position !== 'number' || !Number.isInteger(position)) {
 		problems.push(`position must be a whole number (found ${JSON.stringify(position)})`);
 	}
-	const image = soleImage(body);
-	if ('error' in image) problems.push(image.error);
+	const src = text(data.image);
+	if (!src) problems.push('the front matter has no "image"');
+	const alt = text(data.alt);
+	if (!alt) problems.push('the image has no alt text');
 
-	if (problems.length || 'error' in image) {
+	if (problems.length || !src || !alt) {
 		throw new Error(`Invalid Home image filler ${file}: ${problems.join('; ')}.`);
 	}
-	return { file, accent, position: position as number, image: { src: resolveImage(image.src), alt: image.alt } };
+	return { file, accent, position: position as number, image: { src: resolveImage(src), alt } };
 }

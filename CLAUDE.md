@@ -12,6 +12,7 @@ The Bit Philology website: a static site built with SvelteKit and deployed to Gi
 - Tailwind CSS v4 through `@tailwindcss/vite`, with no plugins
 - Fonts self-hosted with Fontsource
 - Icons from `pixelarticons`
+- Content edited with Sveltia CMS, served at `/admin/` from `static/admin/` (see [Content](#content))
 - Node 24 (LTS) and npm
 
 How the code in `src/lib` and `src/routes` turns the content into pages (loader, Home tile rule, category registry and theming, components, navigation dock) is described in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Read it before changing that code, and keep it up to date.
@@ -24,7 +25,6 @@ How the code in `src/lib` and `src/routes` turns the content into pages (loader,
 | `npm run build` | Builds the static site into `build/` |
 | `npm run preview` | Serves the build locally |
 | `npm run check` | Runs `svelte-kit sync` and `svelte-check` (types and Svelte diagnostics) |
-| `npm run syncFromHedgeDoc` | Imports the missing pages from HedgeDoc (see [Content](#content)) |
 
 ## General rules
 
@@ -114,7 +114,9 @@ The icons come from [pixelarticons](https://pixelarticons.com) (`pixelarticons` 
 
 ## Content
 
-The guide for the people who write the pages is [docs/CONTENT.md](docs/CONTENT.md); the templates of the notes are in [docs/templates/](docs/templates/). Keep both in step with the rules below.
+The guide for the people who write the pages is [docs/CONTENT.md](docs/CONTENT.md). Keep it in step with the rules below.
+
+The repository is the only source of the content. The pages are edited with [Sveltia CMS](https://sveltiacms.app), served at `/admin/`: an editor signs in, fills in a form and saves. Every save is a commit on `main`, which starts the deployment: there are no drafts and no pull requests. A page can also be edited by hand, as a file.
 
 ### Structure
 
@@ -122,113 +124,85 @@ The pages are Markdown files grouped by section, so that the folder tree mirrors
 
 ```
 src/content/
-  contents.yaml               the HedgeDoc notes of the website, filed by section
   <section>/<slug>/index.md   a page
   <section>/<slug>/assets/    its images, linked as ./assets/<file>
   home-image-fillers/<slug>/index.md   a Home image filler (see below)
+  assets/                     images uploaded from the Assets page of the CMS (see The CMS)
 ```
 
-- Sections: `events`, `publications`, `artifacts`, `about` (which also holds the team page, a note with `type: team`, normally `about/team`, that lists the members in its front matter), and `home-image-fillers` for the image tiles of the Home grid.
-- The files in `src/content` are data: the import script never touches `src/routes` or any other code.
-- A page with `source:` in its front matter was imported from HedgeDoc. To change it, edit the note on HedgeDoc and re-import it with `--force` (or `--refresh`): local edits to an imported page are lost on re-import.
-- A `.md` file without `source:` is hand-written. Never touch it, and neither does the script. It is not listed in `contents.yaml`.
-- An imported page is the note as it is, byte for byte, comments included: only its image links are rewritten, and `source:` and `importedAt:` are added at the end of its front matter.
+- Sections: `events`, `publications`, `artifacts`, `about` (which also holds the team page, `about/team`, the one page with `type: team`, that lists the members in its front matter), and `home-image-fillers` for the image tiles of the Home grid.
+- The files in `src/content` are data: the CMS never touches `src/routes` or any other code.
+- **The URL of a page** is its section and its slug, the name of its folder. The CMS computes the slug from the title when the page is created (accents removed, lowercase, only `a-z`, `0-9` and hyphens, at most 60 characters) and lets the editor change it at that moment only. Changing the title of a page later does not change its URL. To change a URL, rename the folder by hand.
+- A file holds what the CMS writes, and nothing else: the fields of its collection in the order of `config.yml`, without comments, then a blank line and the body. When editing a file by hand, keep to that form, so that the next save from the CMS changes only what the editor changed.
 
-### Notes on HedgeDoc
+### Front matter
 
-The notes live on a HedgeDoc 1.x server, https://pad.dsl.unibe.ch, which may only be reachable from the University of Bern network. Every note has two URL forms:
+Every type of page has its own collection in the CMS, with only the fields that the type uses:
 
-- edit: `https://pad.dsl.unibe.ch/<id>` (raw Markdown on `/<id>/download`). `https://pad.dsl.unibe.ch/<id>` is the canonical source of a page.
-- published: `https://pad.dsl.unibe.ch/s/<shortid>` (raw Markdown on `/s/<shortid>/download`); `/s/<shortid>/edit` redirects to `/<id>`. This is the link that editors paste in the list, after pressing "Publish".
+| `type` | Collection | Folder | Fields, in the order of the file |
+| --- | --- | --- | --- |
+| `about` | About | `about/<slug>` | `title`, `subtitle`, `keywords`, `date`, `position`, `hidden-from-home` |
+| `about` | About Bit Philology (one file) | `about/about-bit-philology` | `title`, `subtitle`, `keywords`, `date`, `advisory-board`, `position`, `hidden-from-home` |
+| `team` | Team (one file) | `about/team` | `title`, `subtitle`, `keywords`, `date`, `members`, `position`, `hidden-from-home` |
+| `event` | Events | `events/<slug>` | `title`, `subtitle`, `keywords`, `date`, `venue`, `location`, `position`, `hidden-from-home` |
+| `publication` | Publications | `publications/<slug>` | `title`, `keywords`, `date`, `venue`, `location`, `authors`, `publication-type`, `doi`, `download-link`, `position`, `hidden-from-home` |
+| `artifact` | Artifacts | `artifacts/<slug>` | `title`, `subtitle`, `keywords`, `date`, `authors`, `kind`, `position`, `hidden-from-home` |
+| `home-image-filler` | Home images | `home-image-fillers/<slug>` | `title`, `accent`, `position`, `image`, `alt`, `caption` |
 
-Every page uses the same front matter, the one of `docs/templates/page.md`: `type`, `title`, `subtitle`, `keywords`, `date` (`YYYY-MM-DD` or `YYYY`), `venue`, `location`, `authors`, `publication-type`, `doi`, `download-link`, `kind`, `members`, `advisory-board`, `excerpt`, `position`, `hidden-from-home`, `slug`, `tags`. A field that does not apply to the type of the page is ignored; an empty field counts as missing. The page title is the `title` field, not a `#` heading in the body.
-
-- Names are lowercase with hyphens, and only these names are read: there are no aliases for older spellings (`externalURL`, `advisory_board`, `pinned`). To add a field, add it to the template, to `PAGE_FIELDS` in the script, to the loader (`src/lib/content/`) and to the table of docs/CONTENT.md.
-- **The URL of a page** is its section and its slug. The slug is computed at import from `title`; `slug:` is left empty in the template, and only overrides the title when it is filled in.
-- **To place a page in the Home grid, set `position:`.** `1` is the first tile, `2` the second…; `-1` is the last tile, and several pages with `-1` all go to the bottom. Without a position (or with an empty one) a page follows its date, newest first. The full rule is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule).
+- `type` is the first field of every file. The collection sets it (a hidden field): editors never see it.
+- In the form of the CMS the Text comes before `position` and `hidden-from-home`, the two fields about the Home page. The body is not in the front matter, so its place in `config.yml` does not change the files.
+- Names are lowercase with hyphens. The page title is the `title` field, not a `#` heading in the body; `title` is the only required field of a page.
+- An empty optional field is not written (`output.omit_empty_optional_fields`), and the loader treats an empty field as a missing one. `hidden-from-home` is the exception: the CMS always writes it, `true` or `false`.
+- `keywords` holds three entries at most (`max: 3`). The limit is in the CMS only: the site shows every keyword of a file.
+- `date` is `YYYY-MM-DD` or `YYYY`. It is a text field with a pattern, since the date field of the CMS does not take a bare year. The CMS writes a bare year in quotes (`date: '2026'`).
+- `members` (entries with `name` and `role`, both required, and `affiliation`, `photo`, `external-url`) and `advisory-board` (`name`, required, and `affiliation`, `external-url`) are lists, shown in the body where it has `{{team}}` or `{{advisory-board}}`. Each belongs to one page: `members` to the Team page, `advisory-board` to the About Bit Philology page.
+- The loader reads the same fields whatever the type (`toPost`); a field that the type does not use is simply not in its collection. To add a field, add it to `static/admin/config.yml`, to the loader (`src/lib/content/`) and to the table of docs/CONTENT.md. The CMS keeps a field it does not know, and writes it after the others.
+- There is no field for the text of a card: the card of an About, Team or Artifact page shows the first paragraph of its body.
+- **To place a page in the Home grid, set `position:`.** `1` is the first tile, `2` the second…; `-1` is the last tile, and several pages with `-1` all go to the bottom. Without a position a page follows its date, newest first. `0` fails the build. The full rule is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule).
 - **To keep a page out of the Home grid, set `hidden-from-home: true`.** Without it every page has a card on Home. A hidden page keeps its URL and its place in the dock's list of its category.
-- The credits page is an About note titled "Credits" (so `about/credits`, URL `/about/credits`) with `hidden-from-home: true`. The "Credits" link of the footer's colophon appears only when that page exists.
+- The credits page is the About page titled "Credits" (so `about/credits`, URL `/about/credits`) with `hidden-from-home: true`. The "Credits" link of the footer's colophon appears only when that page exists.
 
-### The list: `src/content/contents.yaml`
+### The CMS: `static/admin/`
 
-The list of the notes of the website. The import script reads the links from it and writes the whole file again at every run:
+Two static files, copied as they are into the site:
 
-```yaml
-new:
-  - https://pad.dsl.unibe.ch/s/AbCdEfGhI   # a link still to import
+- `index.html` loads the Sveltia CMS script from unpkg, **with the version pinned** (`@sveltia/cms@<version>`), and asks search engines not to index the page (`static/robots.txt` disallows `/admin/` too). To update the CMS, change the version, then check in the CMS that a page still opens and that a save changes only what was edited.
+- `config.yml` is the configuration. The CMS loads it from the folder of the page, so it also works under a base path. It is checked against the schema named in its first line.
 
-about:
-  - page: about-bit-philology              # the slug: the folder and the last part of the URL
-    title: About Bit Philology
-    url: https://pad.dsl.unibe.ch/<id>     # the canonical URL of the note
-    synced: 2026-09-30                     # the day it was fetched
-events:
-publications:
-artifacts:
-home-image-fillers:
-```
+What `config.yml` sets, and why:
 
-- The only input is the links: a plain link under `new` (or dropped anywhere else) or the `url` of an entry. `page`, `title` and `synced` are read from the pages at every run, so editing them has no effect. The comment at the top of the file belongs to the script (`LIST_HEADER`); other comments are not kept.
-- The sections are in the order of the website; pages are sorted newest first, fillers by position. A label is always a slug or a title, never a note id.
-- A link that could not be imported (an error, a conflict, no network) stays under `new`.
-- A page whose link is taken off the list is kept and reported; `--prune` deletes it. Hand-written pages are never listed and never deleted.
-- If the file cannot be parsed, the script stops before touching anything and names the line; `--rebuild-list` writes the file again from the imported pages.
+- **Backend**: the GitHub repository and the `main` branch, with `publish_mode: simple`. No `skip_ci`: every save must start the deployment.
+- **Sign-in**: with a personal access token for now (`auth_methods: [token]`). The maintainer's plan is OAuth through Sveltia CMS Authenticator on Cloudflare Workers: when the Worker exists, write its URL in `base_url` and delete `auth_methods`. An editor needs a GitHub account with write access to the repository either way.
+- **Collections**: one per type of page, with `folder: src/content/<section>`, `path: '{{slug}}/index'` and `format: yaml-frontmatter`. The two pages with a list of people are singletons, `src/content/about/about-bit-philology/index.md` and `src/content/about/team/index.md`: a collection gives the same fields to all its pages, and these lists belong to one page only. The CMS gives a file to its singleton, so the About collection does not list these two; if one of the folders is renamed, change the `file` of its singleton too. The fields shared by every type are written once, in the About collection, and reused through YAML anchors (`&title`, `*title`).
+- **Images**: `media_folder: assets` with `public_folder: ./assets`, on every collection and on both singletons. An image is uploaded into the `assets/` folder of its page and linked as `./assets/<file>`, which `resolveAsset` resolves. Keep the `./`: with `public_folder: assets` the CMS writes `/assets/<file>`, a path of the site that leads nowhere. The global `media_folder`, which the CMS requires, is `src/content/assets`: an image uploaded from the Assets page goes there and is linked as `/src/content/assets/<file>`, which `resolveAsset` resolves as well. An uploaded file is renamed like a slug (`slugify_filename`), so new names have no spaces or accents; for the names that have them, a link of the text encodes them (`photo%20one.jpg`) and `resolveAsset` looks the file up under the decoded path too.
+- **Slugs**: `slug: { template: '{{title}}', editable: [create] }` on every collection, and the global `slug` options (`encoding: ascii`, `clean_accents`, `maxlength: 60`).
+- **The body** is a `richtext` field with `modes: [rich_text, raw]`: it opens in the visual editor, and the Markdown button of its toolbar switches to the raw Markdown. The visual editor comes first because it is the only place where an image can be uploaded: in the raw mode the image button writes an empty `![]()`, and a dropped or pasted file is ignored. Opening a page, or changing its other fields, leaves the text as it is; a change made in the visual editor rewrites the Markdown of the whole text in the editor's own style. A save of the About page from the visual editor (2026-10-14) changed `*italic*` to `_italic_` and some blank lines, and kept the notes (`[^label]`), the marker (`{{advisory-board}}`), the HTML comment, the lists and the headings: the built page was identical. The same check on the event page kept its hard line breaks (`\`). The visual editor shows as plain text what only the site understands: notes, markers, `[no-lead]`, and the content of an HTML comment, which it does not hide. It reads an image only when it is on one line, `![alt](src "title")`: with the title on the next line the image is shown as text.
+- **Output**: `omit_empty_optional_fields: true`, and the YAML options (`quote: none`, two spaces, indented lists). With these the CMS writes strings without quotes, except where YAML needs them or where the text could be read as a number or a boolean; then it uses single quotes.
 
-### Importing: `scripts/syncFromHedgeDoc.js`
-
-Run it by hand; there is no GitHub Action. Pass options after `--`:
-
-```sh
-npm run syncFromHedgeDoc                                 # import the notes that are missing
-npm run syncFromHedgeDoc -- --dry-run                    # show what would happen, write nothing
-npm run syncFromHedgeDoc -- --force events/<slug>        # re-import one page (path relative to src/content)
-npm run syncFromHedgeDoc -- --refresh                    # re-import every page of the list
-npm run syncFromHedgeDoc -- --prune                      # also delete the imported pages taken off the list
-npm run syncFromHedgeDoc -- --rebuild-list               # write contents.yaml again from the pages, offline
-```
-
-For each link of `contents.yaml` (both URL forms work, with or without `?edit`, `?view`, `?both` or `#fragment`), the script:
-
-1. Finds the canonical note id; a published URL is followed through `/s/<shortid>/edit`. A canonical URL needs no request.
-2. Skips the note, without touching anything, if any `index.md` already has that `source:` (unless `--refresh`).
-3. Downloads the Markdown from `/<id>/download`.
-4. Picks the section from `type` (lowercase, no spaces): `event` → `events`, `publication` → `publications`, `artifact` → `artifacts`, `about` and `team` → `about`, `home-image-filler` → `home-image-fillers`. A missing or unknown type falls back to `about`, with a warning.
-5. Computes the slug from `slug:` or else from the title: Markdown and accents removed, lowercase, only `a-z`, `0-9` and hyphens, cut at a hyphen around 60 characters. A page without a title is refused. A folder is never named after a note id (see Home image fillers for the fallback).
-6. Checks the front matter and reports, as warnings in plain words, the names it does not know (with the right name when it is an old or a mistyped one), and the dates, positions and `hidden-from-home` values that the site cannot read. The note is imported all the same.
-7. Never overwrites: if `<section>/<slug>/index.md` exists with another source or without `source:`, it reports a conflict and moves on.
-8. Downloads every linked image, from HedgeDoc or elsewhere, into `assets/` and rewrites the links as `./assets/<file>`, keeping alt text and title. It handles `![alt](url "title")`, the HedgeDoc size syntax `url =WxH`, reference definitions `[id]: url` and `<img src="…">`, and ignores code. It also downloads the images of the front matter fields named `photo`, at any depth (e.g. the `photo` of each entry in the team's `members` list), and sets the field to `./assets/<file>`; to download other fields, add their name to `IMAGE_FIELDS` in the script. Images from placeholder services (`picsum.photos`, `placehold.co`, `placeholder.com`, `dummyimage.com`, `loremflickr.com`, `placekitten.com`, `fakeimg.pl`, and their subdomains) are not downloaded: their URL stays as it is, and they are listed in the summary. If an image fails, the original link stays and it is reported. Editors are told to upload every image to HedgeDoc ("Upload Image") and to describe it: an image hosted elsewhere, and an image without alt text, are imported but reported as warnings.
-9. Writes `index.md`: the front matter of the note as text, untouched apart from the `photo` links, followed by `source:` (canonical URL) and `importedAt:` (ISO timestamp) under a "do not edit" comment; then the body, identical apart from the image links (and a final newline). The `yaml` library only reads the front matter: the text is never written again from the parsed values, which would move the comments of empty fields.
-10. Writes `contents.yaml` again.
-
-`--force <path>` and `--refresh` re-import a page and replace its `index.md` and `assets/`. If the note's type or slug changed, the page moves to the new place: the old `index.md` and `assets/` are deleted, and the old folder too if nothing else is left in it.
-
-Requests time out (15 s for notes, 60 s for images). An error on one note does not stop the others, but if the server is unreachable the script stops and says so. At the end it prints the pages added, re-imported, skipped and in conflict, the errors, the warnings, the images downloaded or failed, the placeholder images kept as links, the links to other HedgeDoc notes found in the text (not rewritten yet), the imported pages that are no longer in the list (kept, or deleted with `--prune`) and whether the list was written again. The exit code is 1 if there were errors, conflicts or failed images.
+To try the CMS without signing in, run `npm run dev`, open `http://localhost:5173/admin/` in Chrome or Edge, press "Work with Local Repository" and pick the root folder of the repository: the CMS then reads and writes the local files, and commits nothing. The dev server does not serve the `index.html` of a folder of `static/` by itself: the `adminPage` plugin of `vite.config.ts` sends `/admin/` to the file.
 
 ### Home image fillers
 
-A Home image filler is a note that only holds an image for a tile of the Home grid. Its link goes in `contents.yaml` like any other note. The note is `docs/templates/home-image-filler.md`:
+A Home image filler is a file that only holds an image for a tile of the Home grid. It is edited in the "Home images" collection of the CMS:
 
 ```markdown
 ---
 type: home-image-filler
 title: Floppy Disk       # a short name: it names the folder, it is not shown
 accent: about            # about | event | publication | artifact
-position: 2              # position in the Home grid
-slug:                    # left empty
-tags: website/home-image-filler
+position: 4              # position in the Home grid
+image: ./assets/floppy-disk.png
+alt: The description of the image, for screen readers
+caption: Optional (kept, but not shown on Home)
 ---
-
-![alt text for screen readers](https://pad.dsl.unibe.ch/uploads/<id>.webp
- "Optional caption (ignored on Home)")
 ```
 
-- It is written to `src/content/home-image-fillers/<slug>/index.md`, with the image in `assets/`. The slug comes from `slug:` or the `title`; without them, from the name of the image file or, when that is an upload id, from the first words of the alt text; as a last resort `image-<position>`.
-- The script refuses a filler, reports it as an error and moves on, when:
-  - `accent` is not one of `about`, `event`, `publication`, `artifact`;
-  - `position` is not a whole number from 1 up (a quoted `"3"` is not a number), or another filler already has it. Fillers already imported keep their position; within one run, the first filler in the list wins; fillers that the same run re-imports later (`--refresh`) do not count, since their position may change;
-  - the body does not hold exactly one image written as `![alt text](url "caption")`, holds anything else (text, headings, a second image), or the alt text is empty.
+(The comments are here to explain the fields: the CMS writes none.)
+
+- It is written to `src/content/home-image-fillers/<slug>/index.md`, with the image in `assets/`. It has no body and no page of its own.
 - `position` is the 1-based index in the Home grid. Any position is allowed, 1 included: position 1 is the first tile and holds the logo filler.
-- The Home loader reads the fillers from `src/content/home-image-fillers/` and validates them again at build time: an invalid filler or two fillers with the same position fail the build (see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule)).
+- The CMS requires every field but `caption`, offers the four accents and refuses a position below 1. It does not check that a position is free.
+- The Home loader reads the fillers from `src/content/home-image-fillers/` and validates them at build time: a filler with an unknown `accent`, a `position` that is not a whole number from 1 up, no `image` or no `alt`, or two fillers with the same position, fail the build (see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule)).
 
 ## Svelte
 

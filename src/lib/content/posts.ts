@@ -24,7 +24,7 @@ const plain = (value: unknown) => {
  * required field is missing: `title`, the page's h1. Every other field may be missing.
  */
 export function toPost(path: string, data: FrontMatter, body: string): Post {
-	// `about` is the fallback type, as in the import script.
+	// `about` is the fallback type: the CMS sets the type of every page it creates.
 	const type = isPostType(data.type) ? data.type : 'about';
 	const title = plain(data.title);
 	const file = `src/content/${path}/index.md`;
@@ -36,7 +36,7 @@ export function toPost(path: string, data: FrontMatter, body: string): Post {
 		title,
 		subtitle: plain(data.subtitle),
 		date: text(data.date),
-		excerpt: text(data.excerpt) ?? firstParagraph(body),
+		excerpt: firstParagraph(body),
 		position: toPosition(data.position, file),
 		hiddenFromHome: flag(data['hidden-from-home']),
 		authors: text(data.authors),

@@ -12,7 +12,7 @@ import { renderBody } from './markdown';
 const CONTENT = '/src/content/';
 
 const files = import.meta.glob<string>('/src/content/**/index.md', { eager: true, query: '?raw', import: 'default' });
-// Images localised by the import script, as built asset URLs.
+// The images of the pages (the assets/ folder of each page), as built asset URLs.
 const assets = import.meta.glob<string>('/src/content/**/assets/*', { eager: true, query: '?url', import: 'default' });
 
 /** A post with what its page needs: the front matter and the markdown body. */
@@ -36,7 +36,7 @@ for (const [path, markdown] of Object.entries(files)) {
 	const data = (yaml.toJS() ?? {}) as Record<string, unknown>;
 
 	if (data.type === 'home-image-filler') {
-		fillers.push(toFiller(path, data, body, (src) => resolveAsset(folder, src)));
+		fillers.push(toFiller(path, data, (src) => resolveAsset(folder, src)));
 	} else {
 		sources.set(folder, { post: toPost(folder, data, body), file, folder, data, body });
 	}
@@ -44,13 +44,28 @@ for (const [path, markdown] of Object.entries(files)) {
 const posts = [...sources.values()].map(({ post }) => post).sort(byDate);
 
 /**
- * The built URL of a file of a content folder, such as ./assets/photo.jpg (localised by the import
- * script). A URL with a scheme, such as a placeholder image, stays as it is; a path of the site,
- * such as a file of static/, gets the base path of the deployment.
+ * The built URL of an image of a page, written as the CMS writes it: ./assets/photo.jpg, a file of
+ * the page's own folder, or /src/content/assets/photo.jpg, a file of the shared folder. A URL with a
+ * scheme, such as a placeholder image, stays as it is; a path of the site, such as a file of
+ * static/, gets the base path of the deployment.
+ *
+ * The name of a file may hold spaces or accents. A link of the text then has them encoded
+ * (photo%20one.jpg), and a URL encodes the ones written as they are, so the file is looked up under
+ * the decoded path as well.
  */
 function resolveAsset(folder: string, src: string): string {
 	if (/^[a-z][a-z\d+.-]*:/i.test(src)) return src;
-	return assets[new URL(src, `file://${CONTENT}${folder}/`).pathname] ?? siteUrl(src);
+	const { pathname } = new URL(src, `file://${CONTENT}${folder}/`);
+	return assets[pathname] ?? assets[decodePath(pathname)] ?? siteUrl(src);
+}
+
+/** "photo%20one.jpg" → "photo one.jpg"; a path that is not a valid encoding stays as it is. */
+function decodePath(path: string): string {
+	try {
+		return decodeURIComponent(path);
+	} catch {
+		return path;
+	}
 }
 
 /** Every post, newest first. */

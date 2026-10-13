@@ -4,16 +4,15 @@ The website of **Bit Philology**, a Swiss National Science Foundation Starting G
 
 - Live site: https://bitphilology.dh.unibe.ch/ (see [Where the site is served](#where-the-site-is-served))
 
-The site is static: the pages are written as notes on HedgeDoc, copied into this repository as Markdown, and built into HTML with SvelteKit.
+The site is static: the pages are Markdown files in this repository, edited in the browser with a content manager ([Sveltia CMS](https://sveltiacms.app), at `/admin/`), and built into HTML with SvelteKit.
 
 ## Documentation
 
 | File | For | What it covers |
 | --- | --- | --- |
-| [docs/CONTENT.md](docs/CONTENT.md) | people who write the pages | Adding, updating and removing pages; the settings of a note; images, notes, the Home page |
-| [docs/templates/](docs/templates/) | people who write the pages | The templates of the notes: a page, and an image of the Home grid |
+| [docs/CONTENT.md](docs/CONTENT.md) | people who write the pages | Signing in to the content manager; creating, editing and deleting pages; the fields; images, notes, the Home page |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | developers | How the code turns the content into pages: loader, components, theming, text styles |
-| [CLAUDE.md](CLAUDE.md) | developers and the AI coding assistant | The rules of the repository: stack, CSS layers, design tokens, content and import rules |
+| [CLAUDE.md](CLAUDE.md) | developers and the AI coding assistant | The rules of the repository: stack, CSS layers, design tokens, the content and the configuration of the content manager |
 
 ## Stack
 
@@ -22,6 +21,7 @@ The site is static: the pages are written as notes on HedgeDoc, copied into this
 - Tailwind CSS v4 through `@tailwindcss/vite`
 - Fonts self-hosted with Fontsource (Mona Sans, Bitcount Prop Single, JetBrains Mono); icons from `pixelarticons`
 - Markdown rendered at build time with unified (remark and rehype)
+- Content edited with Sveltia CMS: two static files in `static/admin/`, no server of our own
 - Design source: the Figma file linked in [CLAUDE.md](CLAUDE.md)
 
 ## Working on the site
@@ -42,33 +42,36 @@ npm run dev -- --open   # …and open the site in a new browser tab
 | `npm run check` | Checks the types and the Svelte components |
 | `npm run build` | Builds the production site into `build/` |
 | `npm run preview` | Serves the built site locally, to check it before publishing |
-| `npm run syncFromHedgeDoc` | Copies the pages from HedgeDoc into `src/content` (see [Content](#content)) |
+
+The editors publish through the content manager, and each of their saves is a commit on `main`: run `git pull` before you start working and before you push.
 
 Before pushing, run `npm run check` and `npm run build`: the build fails, naming the file, when a page has a problem (a missing title, a wrong position, a misplaced marker).
 
 ### Where things are
 
 ```
-src/content/      the pages, as Markdown, and contents.yaml, the list of the HedgeDoc notes
+src/content/      the pages, as Markdown, each with its images
 src/lib/          the code: content loader, components, templates, styles
 src/routes/       the routes: Home, and one page per post
-scripts/          syncFromHedgeDoc.js, the import script
-docs/             the documentation and the templates of the notes
-static/           files copied as they are into the site (robots.txt)
+docs/             the documentation
+static/           files copied as they are into the site: robots.txt, and admin/, the content manager
 .github/workflows/deploy.yml   the deployment to GitHub Pages
 ```
 
 ## Content
 
-The pages are not written in this repository. Each page is a note on the HedgeDoc server of the University of Bern (https://pad.dsl.unibe.ch); [`src/content/contents.yaml`](src/content/contents.yaml) lists the notes, and one command copies them here, with their images:
+The pages are the Markdown files of [`src/content`](src/content): one folder per page, with its text in `index.md` and its images in `assets/`. This repository is their only source.
 
-```sh
-npm run syncFromHedgeDoc
-```
+They are edited with [Sveltia CMS](https://sveltiacms.app), a content manager that runs in the browser, at https://bitphilology.dh.unibe.ch/admin/. An editor signs in with a GitHub account that can write to this repository, fills in a form and saves. Each save is a commit on `main`, made by the browser through the GitHub API, and it starts the deployment like any other push. There are no drafts and no pull requests.
 
-To add a page, paste the link of its published note under `new` in `contents.yaml` and run the command; the changes it makes to `src/content` are then committed and pushed like any other change. The whole procedure, with the settings of a note and the options of the command, is in [docs/CONTENT.md](docs/CONTENT.md).
+The content manager is two static files, in [`static/admin/`](static/admin):
 
-HedgeDoc may only be reachable from the network of the University of Bern (or its VPN). The import is always run by hand: the deployment does not contact HedgeDoc, it publishes what is in the repository.
+- `index.html` loads the Sveltia CMS script, with its version pinned;
+- `config.yml` describes the repository, the sections of the website and the fields of each type of page.
+
+To try it on your computer without signing in, run `npm run dev`, open http://localhost:5173/admin/ in Chrome or Edge, press **Work with Local Repository** and pick the folder of the repository: the content manager then edits the local files, and commits nothing.
+
+The guide for the editors, with the fields and the way of signing in, is [docs/CONTENT.md](docs/CONTENT.md); the rules of the files and of the configuration are in [CLAUDE.md](CLAUDE.md#content).
 
 ## Deployment
 
@@ -78,7 +81,7 @@ The site is published on **GitHub Pages** by a GitHub Actions workflow, [`.githu
 2. The `build` job checks out the repository, installs the dependencies with `npm ci` on Node 24, runs `npm run build` and uploads the `build/` folder.
 3. The `deploy` job publishes that folder on GitHub Pages. The whole run takes about a minute; its result is in the **Actions** tab.
 
-So publishing a change means: commit, push to `main`, wait for the green tick.
+So publishing a change means: commit, push to `main`, wait for the green tick. A save in the content manager is such a commit.
 
 Two things to know:
 

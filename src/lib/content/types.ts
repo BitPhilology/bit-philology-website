@@ -16,7 +16,7 @@ export interface Post {
 	subtitle?: string;
 	/** `YYYY-MM-DD`, or `YYYY`. */
 	date?: string;
-	/** The `excerpt:` field, or else the first paragraph of the body as plain text. */
+	/** The first paragraph of the body, as plain text: the text of the card of About, Team and Artifact pages. */
 	excerpt: string;
 	/**
 	 * Where the card sits in the Home grid (the `position` field): 1 is the first tile, -1 the last.
@@ -46,7 +46,7 @@ export interface Post {
 /** The categories an image filler can take its colour from. */
 export type FillerAccent = Exclude<Category, 'home'>;
 
-/** A Home image filler: src/content/home-image-fillers/<note id>/index.md, whose body is one image. */
+/** A Home image filler: src/content/home-image-fillers/<slug>/index.md, whose front matter names one image. */
 export interface ImageFillerContent {
 	/** The markdown file, for error messages. */
 	file: string;
@@ -68,7 +68,7 @@ export interface Member {
 	name: string;
 	role: string;
 	affiliation?: string;
-	/** The image URL: a localised ./assets/ file, resolved to its built URL, or a remote placeholder. */
+	/** The image URL: a file of the page's assets/ folder, resolved to its built URL, or a remote image. */
 	photo?: string;
 	/** The member's page elsewhere (the `external-url` field), linked from the name. */
 	externalURL?: string;

@@ -1,0 +1,345 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+# The configuration of the content manager, Sveltia CMS (https://sveltiacms.app), served at /admin/.
+#
+# The pages of the website are the Markdown files of src/content: one collection below per section,
+# with the fields that the type of page uses. Every save in the CMS is a commit on `main`, which
+# starts the deployment. The rules are in CLAUDE.md ("Content"); the guide for the editors is
+# docs/CONTENT.md.
+#
+# To add a field: add it here, to the loader (src/lib/content/) and to the table of docs/CONTENT.md.
+# The order of the fields is the order of the form, and of the front matter in the files. The Text
+# is not in the front matter (it is the body of the file), so it can sit anywhere in the form: it
+# comes before the two fields about the Home page.
+
+backend:
+  name: github
+  repo: BitPhilology/bit-philology-website
+  branch: main
+  # Sign-in. For now editors sign in with a personal access token ("Sign In Using Access Token").
+  # To let them sign in with their GitHub account instead, deploy the OAuth client (Sveltia CMS
+  # Authenticator, see docs/todo/2026-10-09 migration-to-sveltia-cms.md, step 5), write its URL in
+  # `base_url` and delete the `auth_methods` line. Without `base_url` the GitHub button cannot work.
+  auth_methods: [token]
+  # base_url: https://<name of the Worker>.workers.dev
+
+# Every save is published at once: no drafts, no pull requests.
+publish_mode: simple
+
+app_title: Bit Philology
+
+# Required by the CMS. The images of a page live beside it, in its own assets/ folder (see
+# `media_folder` in the collections); this shared folder is only used by an image uploaded from
+# the Assets page. Such an image is linked as /src/content/assets/<file>, which the loader resolves.
+media_folder: src/content/assets
+
+# An uploaded file is renamed like a slug: "Screenshot 2026-10-13 at 17.04.25.png" becomes
+# "screenshot-2026-10-13-at-17-04-25.png". Names without spaces or accents make plain links.
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+
+# How the address of a new page is computed from its title: a-z, 0-9 and hyphens, at most 60 characters.
+slug:
+  encoding: ascii
+  clean_accents: true
+  maxlength: 60
+
+output:
+  # An empty field counts as missing: it is not written in the file.
+  omit_empty_optional_fields: true
+  yaml:
+    quote: none
+    indent_size: 2
+    indent_sequences: true
+
+# The fields that every type of page has are written once, in the About collection, and reused in
+# the others (`&name` names a field, `*name` reuses it). `type` is not shown: it is set by the
+# collection.
+collections:
+  - name: about
+    label: About
+    label_singular: About page
+    icon: smart_toy
+    description: The pages of the About section. The About Bit Philology page and the Team page are edited on their own, below.
+    folder: src/content/about
+    # A page is a folder named after its slug, with index.md and its images in assets/.
+    path: '{{slug}}/index'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    # The slug comes from the title and can be changed when the page is created, not afterwards:
+    # the address of a page stays the same.
+    slug: { template: '{{title}}', editable: [create] }
+    filter: { field: type, value: about }
+    sortable_fields: { fields: [date, title], default: { field: date, direction: descending } }
+    fields:
+      - { name: type, widget: hidden, default: about }
+      - &title
+        name: title
+        label: Title
+        hint: The title of the page, also shown on its card on the Home page.
+      - &subtitle
+        name: subtitle
+        label: Subtitle
+        required: false
+        hint: A line under the title.
+      - &keywords
+        name: keywords
+        label: Keywords
+        label_singular: Keyword
+        widget: list
+        required: false
+        max: 3
+        hint: 'The topics of the page, shown as `#keyword` labels. Three at most.'
+      - &date
+        name: date
+        label: Date
+        required: false
+        pattern: ['^\d{4}(-\d{2}-\d{2})?$', 'Write YEAR-MONTH-DAY (2026-05-08) or only the year (2026).']
+        hint: The day of the event, or when the page or the publication came out. Write YEAR-MONTH-DAY (2026-05-08) or only the year (2026).
+      - &body
+        name: body
+        label: Text
+        widget: richtext
+        # The text opens in the visual editor (the first mode), the only place where an image can
+        # be uploaded: the raw mode, reached with the Markdown button of the toolbar, has no upload.
+        # Opening a page leaves its text as it is; a change made in the visual editor rewrites the
+        # Markdown of the whole text in the editor's own style (_italic_, blank lines). Checked on
+        # the About page and on the event page on 2026-10-14: the notes ([^label]), the marker
+        # ({{advisory-board}}), the HTML comment, the lists, the headings and the hard line breaks
+        # (\) came back intact, and the built pages were the same.
+        modes: [rich_text, raw]
+        required: false
+        hint: 'The text of the page. The first paragraph is shown bigger than the others; start it with `[no-lead]` for a normal one. The Markdown button, on the right of the toolbar, shows the text as Markdown.'
+      - &position
+        name: position
+        label: Position on the Home page
+        widget: number
+        value_type: int
+        required: false
+        hint: 'Where the card sits in the Home grid: 1 is the first tile, 2 the second…; -1 is the last one. 0 is not a position. Empty: the cards follow their date, newest first.'
+      - &hidden-from-home
+        name: hidden-from-home
+        label: Hide from the Home page
+        widget: boolean
+        default: false
+        required: false
+        hint: The page has no card on the Home page. It keeps its address and its place in the navigation.
+
+  - name: events
+    label: Events
+    label_singular: Event
+    icon: alarm
+    folder: src/content/events
+    path: '{{slug}}/index'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    slug: { template: '{{title}}', editable: [create] }
+    sortable_fields: { fields: [date, title], default: { field: date, direction: descending } }
+    fields:
+      - { name: type, widget: hidden, default: event }
+      - *title
+      - *subtitle
+      - *keywords
+      - *date
+      - name: venue
+        label: Venue
+        required: false
+        hint: The institution that hosts the event.
+      - name: location
+        label: Location
+        required: false
+        hint: The room or the city, when it adds something to the venue.
+      - *body
+      - *position
+      - *hidden-from-home
+
+  - name: publications
+    label: Publications
+    label_singular: Publication
+    icon: print
+    folder: src/content/publications
+    path: '{{slug}}/index'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    slug: { template: '{{title}}', editable: [create] }
+    sortable_fields: { fields: [date, title], default: { field: date, direction: descending } }
+    fields:
+      - { name: type, widget: hidden, default: publication }
+      - *title
+      - *keywords
+      - *date
+      - name: venue
+        label: Venue
+        required: false
+        hint: The conference or the journal.
+      - name: location
+        label: Location
+        required: false
+        hint: The institution or the city, when it adds something to the venue.
+      - name: authors
+        label: Authors
+        required: false
+        hint: 'Who wrote it, for example: E. Spadini, E. Barchielli.'
+      - name: publication-type
+        label: Type of publication
+        required: false
+        hint: 'What it is, for example: Poster, Paper, Article.'
+      - name: doi
+        label: DOI
+        required: false
+        hint: The DOI (10.5281/zenodo.1234567) or its link.
+      - name: download-link
+        label: Download link
+        required: false
+        hint: The link to the file to download.
+      - *body
+      - *position
+      - *hidden-from-home
+
+  - name: artifacts
+    label: Artifacts
+    label_singular: Artifact
+    icon: auto_awesome
+    folder: src/content/artifacts
+    path: '{{slug}}/index'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    slug: { template: '{{title}}', editable: [create] }
+    sortable_fields: { fields: [date, title], default: { field: date, direction: descending } }
+    fields:
+      - { name: type, widget: hidden, default: artifact }
+      - *title
+      - *subtitle
+      - *keywords
+      - *date
+      - name: authors
+        label: Authors
+        required: false
+        hint: 'Who made it, for example: E. Spadini, E. Barchielli.'
+      - name: kind
+        label: Kind
+        required: false
+        hint: 'What kind of object it is, for example: Tool, Dataset.'
+      - *body
+      - *position
+      - *hidden-from-home
+
+  - divider: true
+
+  - name: home-image-fillers
+    label: Home images
+    label_singular: Home image
+    icon: image
+    description: The image tiles between the cards of the Home page. They have no page of their own.
+    folder: src/content/home-image-fillers
+    path: '{{slug}}/index'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    slug: { template: '{{title}}', editable: [create] }
+    summary: '{{position}} · {{title}}'
+    sortable_fields: { fields: [position, title], default: { field: position, direction: ascending } }
+    fields:
+      - { name: type, widget: hidden, default: home-image-filler }
+      - name: title
+        label: Name
+        hint: 'A short name for the image: it names its folder, and it is not shown on the website.'
+      - name: accent
+        label: Colour
+        widget: select
+        options: [about, event, publication, artifact]
+        hint: 'The colour of the tile: the one of a section of the website.'
+      - name: position
+        label: Position on the Home page
+        widget: number
+        value_type: int
+        min: 1
+        hint: 'The place of the tile in the Home grid: 1 is the first tile (the logo), 2 the second… Two images cannot have the same position.'
+      - name: image
+        label: Image
+        widget: image
+      - name: alt
+        label: Description
+        hint: The description of the image, read aloud to people who cannot see it.
+      - name: caption
+        label: Caption
+        widget: text
+        required: false
+        hint: Kept with the image, but not shown on the Home page.
+
+# The pages with a list of people are single files, each with the field of its list: a collection
+# gives the same fields to all its pages, and these lists belong to one page only. The CMS gives
+# these two files to the entries below, so the About collection does not list them.
+singletons:
+  # The About page, with the advisory board. If its folder is renamed, change `file` too.
+  - name: about-bit-philology
+    label: About Bit Philology
+    icon: info
+    file: src/content/about/about-bit-philology/index.md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    fields:
+      - { name: type, widget: hidden, default: about }
+      - *title
+      - *subtitle
+      - *keywords
+      - *date
+      - name: advisory-board
+        label: Advisory board
+        label_singular: Board member
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{name}}'
+        hint: 'The advisory board, shown where the text has `{{advisory-board}}` on a line of its own.'
+        fields:
+          - { name: name, label: Name }
+          - { name: affiliation, label: Affiliation, required: false }
+          - { name: external-url, label: Web page, required: false, hint: The link to the web page of the person. }
+      - *body
+      - *position
+      - *hidden-from-home
+
+  # The Team page, with the list of the members.
+  - name: team
+    label: Team
+    icon: group
+    file: src/content/about/team/index.md
+    format: yaml-frontmatter
+    media_folder: assets
+    public_folder: ./assets
+    fields:
+      - { name: type, widget: hidden, default: team }
+      - *title
+      - *subtitle
+      - *keywords
+      - *date
+      - name: members
+        label: Members
+        label_singular: Member
+        widget: list
+        collapsed: true
+        summary: '{{name}}, {{role}}'
+        thumbnail: photo
+        hint: 'The people of the team, shown where the text has `{{team}}` on a line of its own.'
+        fields:
+          - { name: name, label: Name }
+          - { name: role, label: Role, hint: 'For example: PhD Student. The Principal Investigator is shown larger.' }
+          - { name: affiliation, label: Affiliation, required: false }
+          - { name: photo, label: Photo, widget: image, required: false }
+          - { name: external-url, label: Web page, required: false, hint: The link to the web page of the person. }
+      - *body
+      - *position
+      - *hidden-from-home

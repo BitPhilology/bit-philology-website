@@ -7,7 +7,7 @@
 	import '@fontsource-variable/bitcount-prop-single/full.css';
 	// JetBrains Mono: weight axis only.
 	import '@fontsource-variable/jetbrains-mono/wght.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import { asset } from '$app/paths';
 	import CategoryTheme from '$lib/components/content/CategoryTheme.svelte';
 	import NavDock from '$lib/components/layout/NavDock.svelte';
 	import TopStroke from '$lib/components/layout/TopStroke.svelte';
@@ -18,8 +18,14 @@
 	const category = $derived(activeCategory());
 </script>
 
+<!-- The icons of the site and its web app manifest are files of static/, so they go through asset(). -->
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" type="image/png" href={asset('/favicon-96x96.png')} sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+	<link rel="shortcut icon" href={asset('/favicon.ico')} />
+	<link rel="apple-touch-icon" sizes="180x180" href={asset('/apple-touch-icon.png')} />
+	<meta name="apple-mobile-web-app-title" content="Bit Philology" />
+	<link rel="manifest" href={asset('/site.webmanifest')} />
 </svelte:head>
 
 <!-- The page theme: the active category colours the top stroke, the dock and the focus rings. -->

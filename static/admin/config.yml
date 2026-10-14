@@ -280,8 +280,8 @@ collections:
         label: Image
         widget: image
       - name: alt
-        label: Description
-        hint: The description of the image, read aloud to people who cannot see it.
+        label: Description (ALT text)
+        hint: The description of the image, read aloud (possibly by a screen reader application/device) to people who cannot see it.
       - name: caption
         label: Caption
         widget: text

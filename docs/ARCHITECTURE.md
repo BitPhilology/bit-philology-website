@@ -83,11 +83,11 @@ A Home image filler (`type: home-image-filler`) is validated at build time by `t
 4. A position past the end of the grid means the last free place.
 5. The posts without a position fill the places left, newest first; posts without a date come last.
 
-Posts that share a position keep their date order, newest first. The footer tiles (colophon, partner logos) follow in the same grid.
+Posts that share a position keep their date order, newest first. The footer tiles (colophon, partner logos) follow in the same grid, then the copyright line (the licence and the Credits link) across the whole grid.
 
 The logo is content, not code: it is the image filler at position 1. The build fails when two fillers share a position, or when the `position` of a post is not a whole number other than 0. Fix the page in the CMS and save it again.
 
-**The credits page** is the post at `CREDITS_PATH` (`src/lib/config/footer.ts`): `src/content/about/credits/index.md`, the About page titled "Credits", with `hidden-from-home: true`. The root layout's load passes its URL to every page (`credits`), and the `Colophon` shows its "Credits" link only when the page exists, so the footer never links to a missing page.
+**The credits page** is the post at `CREDITS_PATH` (`src/lib/config/footer.ts`): `src/content/about/credits/index.md`, the About page titled "Credits", with `hidden-from-home: true`. The root layout's load passes its URL to every page (`credits`), and the `Footer` shows its "Credits" link, at the end of the copyright line under the tiles, only when the page exists, so the footer never links to a missing page. The `Colophon` also has a "Credits" link in its bottom right corner, commented out for now; it still receives `credits`.
 
 ## Post cards and image tiles
 
@@ -131,7 +131,7 @@ What the files of `src/content` hold, and how the renderer reads it. Editors fin
 
 From `lg` the article is a subgrid of the page grid (`grid-cols-subgrid`), and every block of the body is one row, itself a subgrid of the article: the block's content takes the content columns and its notes (or its caption) the notes column, **on the same row**. A note therefore starts at the top of the paragraph that calls it; a caption sits at the bottom of the row, 16 px above the bottom of its image. A caption keeps 64 px on its right, to set it apart from the notes, which use the full width of the column (Figma "Sidenotes & Captions"). Nothing is positioned absolutely. A long note makes its row taller, so the next paragraph moves down. Below `lg` the same row is a column: the notes or the caption follow the content.
 
-The article ends with 96 px of padding (`pb-24` in `PageShell`), which sets the footer tiles apart from the content of the page.
+The article ends with 96 px of padding (`pb-24` in `PageShell`), which sets the footer tiles apart from the content of the page. On a page shorter than the viewport the footer sits at the bottom of the viewport: the wrapper of the root layout is a flex column at least as tall as the viewport (`min-h-dvh`, the dock's padding included), `<main>` grows to fill it, and an empty `grow` element between the article and the footer takes the height that is left. On a longer page that element is 0 px high.
 
 The page index sits in column 1 at `xl` and sticks to the top while the article scrolls; it is hidden below `xl`, where the dock's page sheet lists the posts.
 
@@ -298,7 +298,7 @@ Figma styles without markup of their own are not in `TEXT`: `body/italic` (the s
 
 The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`), so every page is `<path>/index.html`, and it may be deployed under a base path: `kit.paths.base` is the `BASE_PATH` environment variable, empty by default (`svelte.config.js`). Nothing in the code holds the base path.
 
-- **Pages.** `Post.href`, `PostLink.href` and the `route` of a registry entry are paths inside the site (`/about/team/`), typed `Pathname`. The components that link to them call `resolve()` from `$app/paths`: `CardLink`, `PageSheet`, `NavDockItem`, `Colophon`, and `pageIndex()` for the page index. In the prerendered HTML these links are relative (`../../about/team/`); after hydration they are absolute, with the base path.
+- **Pages.** `Post.href`, `PostLink.href` and the `route` of a registry entry are paths inside the site (`/about/team/`), typed `Pathname`. The components that link to them call `resolve()` from `$app/paths`: `CardLink`, `PageSheet`, `NavDockItem`, `Footer`, and `pageIndex()` for the page index. In the prerendered HTML these links are relative (`../../about/team/`); after hydration they are absolute, with the base path.
 - **Content.** `siteUrl()` (`src/lib/content/links.ts`) adds the base path to the URLs written in the content that start with `/`: the links of a body (`decorate` in `src/lib/server/markdown.ts`), the images that are not files of the page (`resolveAsset` in `src/lib/server/content.ts`), `download-link` and `external-url`.
 - **Assets.** The images of the content (`import.meta.glob` with `?url`), the partner logos and the fonts are handled by Vite, which writes them under `<base>/_app/immutable/`.
 - **Icons of the site.** The favicon in its three formats, the Apple touch icon and the web app manifest are files of `static/`, with the fixed names that browsers look for. The root layout links them through `asset()`, and the manifest names its two icons from its own folder, so both follow the base path.

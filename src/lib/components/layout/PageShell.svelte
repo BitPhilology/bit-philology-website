@@ -3,7 +3,8 @@
 	layout of every post page, in the post's category colours. The meta row, the page index (xl
 	only), then the article: the header (a snippet, the type's header) and the body (children), whose
 	blocks are rows of the grid with their notes beside them. The footer tiles follow in their own
-	grid, set apart from the article by its bottom padding (96 px). The columns of each breakpoint
+	grid, set apart from the article by its bottom padding (96 px); on a page shorter than the
+	viewport a spacer grows between them, so the footer sits at the bottom. The columns of each breakpoint
 	are in src/lib/styles/grid.ts.
 -->
 <script lang="ts">
@@ -27,7 +28,7 @@
 </script>
 
 <CategoryTheme {category}>
-	<main class="min-h-screen bg-surface-light-background">
+	<main class="flex grow flex-col bg-surface-light-background">
 		<Container class={[GRID.page, 'pt-8 pb-4 text-(--cat-darker)']}>
 			<div class={GRID.meta}><PostMetaRow {category} {pills} /></div>
 			<!-- <PageIndex lists={index} class={GRID.index} /> -->
@@ -36,6 +37,8 @@
 				{@render children()}
 			</article>
 		</Container>
+		<!-- Takes the height left in the viewport, if any, so that the footer sits at its bottom. -->
+		<div class="grow"></div>
 		<Container class="pb-4">
 			<TileGrid>
 				<Footer />

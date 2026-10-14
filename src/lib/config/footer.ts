@@ -8,7 +8,7 @@ export const COLOPHON =
 
 /**
  * The credits page, src/content/about/credits/index.md (the About page titled "Credits"): the
- * Colophon links to it when it exists.
+ * footer links to it when it exists.
  */
 export const CREDITS_PATH = 'about/credits';
 

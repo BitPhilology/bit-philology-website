@@ -161,7 +161,7 @@ Every type of page has its own collection in the CMS, with only the fields that 
 - **To place a page in the Home grid, set `position:`.** `1` is the first tile, `2` the second…; `-1` is the last tile, and several pages with `-1` all go to the bottom. Without a position a page follows its date, newest first. `0` fails the build. The full rule is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#the-home-tile-rule).
 - **To order the About menu, set `menu-position:`** on its pages: `1` is the first. The pages without it follow, newest first. The other menus of the dock list their pages newest first: the loader reads the field on any page, but only the About pages have it in the CMS.
 - **To keep a page out of the Home grid, set `hidden-from-home: true`.** Without it every page has a card on Home. A hidden page keeps its URL and its place in the dock's list of its category.
-- The credits page is the About page titled "Credits" (so `about/credits`, URL `/about/credits`) with `hidden-from-home: true`. The "Credits" link of the footer's colophon appears only when that page exists.
+- The credits page is the About page titled "Credits" (so `about/credits`, URL `/about/credits`) with `hidden-from-home: true`. The "Credits" link of the footer, at the end of its copyright line, appears only when that page exists.
 
 ### The CMS: `static/admin/`
 

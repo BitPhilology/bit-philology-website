@@ -33,8 +33,10 @@
 	<TopStroke />
 	<!-- Before the page in the markup, so the keyboard and screen readers reach the navigation first. -->
 	<NavDock sheets={data.sheets} active={category} />
-	<!-- The padding keeps the page clear of the fixed dock: its end below lg, its start from lg. -->
-	<div class="max-lg:pb-16 lg:pt-16">
+	<!-- The padding keeps the page clear of the fixed dock: its end below lg, its start from lg. The
+	     wrapper is at least as tall as the viewport, padding included, so a short page can grow into it
+	     and keep its footer at the bottom (PageShell). -->
+	<div class="flex min-h-dvh flex-col max-lg:pb-16 lg:pt-16">
 		{@render children()}
 	</div>
 </CategoryTheme>

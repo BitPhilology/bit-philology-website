@@ -1,7 +1,8 @@
 <!--
-	Colophon (Figma "Colophon"): the project statement, the first tile of the footer, with the link
-	to the credits page in its bottom right corner. `credits` is the path of that page inside the
-	site; without it (the page does not exist yet) the link is left out.
+	Colophon (Figma "Colophon"): the project statement, the first tile of the footer. Its link to the
+	credits page, in the bottom right corner, is commented out for now: the Footer has it, in the
+	copyright line. `credits` is the path of that page inside the site; without it (the page does not
+	exist yet) the link is left out.
 -->
 <script lang="ts">
 	import { resolve } from '$app/paths';

@@ -51,3 +51,18 @@ The full text of the licenses is included in the packages of each project.
 ###### Project and partners
 
 Bit Philology is a Starting Grant project of the [Swiss National Science Foundation](https://www.snf.ch/) running from 2025 to 2030. It is conducted at the [Digital Humanities Center](https://www.dh.unibe.ch/), part of the [Walter Benjamin Kolleg](https://www.wbkolleg.unibe.ch/) at the University of Bern. The logos of these institutions belong to them and are used here to acknowledge their support.
+
+###### License and reuse
+
+Unless otherwise stated, the content of this website, including texts, images, visualizations and data, is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+
+You are free to share (copy and redistribute) and adapt (remix, transform and build upon) the material for any purpose, including commercial use, under the following terms:
+
+- **Attribution**: you must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- **ShareAlike**: if you remix, transform or build upon the material, you must distribute your contributions under the same license.
+
+**Suggested credit:** “Bit Philology, University of Bern, https://bitphilology.dh.unibe.ch/, licensed under CC BY-NC-ND 4.0.”
+
+Logos, institutional marks and third-party materials remain subject to their own licenses and copyright. Where a different license applies to specific content, it is stated alongside that content.
+
+For other permission requests, contact the principal investigator.

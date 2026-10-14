@@ -12,6 +12,7 @@ menu-position: 5
 ###### Open-source Software
 
 * [Svelte](https://svelte.dev/) and [SvelteKit](https://svelte.dev/docs/kit), with its static adapter and the Vite plugin for Svelte: the framework. MIT license.
+* [Sveltia CMS](https://sveltiacms.app/) and [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth): the editing of the pages and the sign-in to it. MIT license.
 * [Vite](https://vite.dev/): the build tool. MIT license.
 * [Tailwind CSS](https://tailwindcss.com/): the styles. MIT license.
 * [TypeScript](https://www.typescriptlang.org/) and svelte-check: the language and its checks. Apache-2.0 and MIT licenses.

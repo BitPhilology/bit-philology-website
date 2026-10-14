@@ -15,7 +15,7 @@
 
 <a
 	href={resolve(href)}
-	class="after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-(--cat-darker)"
+	class="no-underline after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-(--cat-darker)"
 >
 	{@render children()}
 </a>

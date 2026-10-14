@@ -65,7 +65,7 @@
 					{@render content()}
 				</button>
 			{:else}
-				<a href={resolve(entry.route)} class={CELL} aria-current={active ? 'page' : undefined}>
+				<a href={resolve(entry.route)} class={[CELL, 'no-underline']} aria-current={active ? 'page' : undefined}>
 					{@render content()}
 				</a>
 			{/if}

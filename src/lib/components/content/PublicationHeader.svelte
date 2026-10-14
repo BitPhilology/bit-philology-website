@@ -25,7 +25,7 @@
 			{#if doi}
 				<!-- A DOI URL is longer than a phone is wide: it may break anywhere. -->
 				<p class={['min-w-0 wrap-anywhere', TEXT['code/code']]}>
-					DOI: <a href={doi} class="underline underline-offset-2">{doi}</a>
+					DOI: <a href={doi}>{doi}</a>
 				</p>
 			{/if}
 			{#if post.downloadLink}<Pill label="Download" href={post.downloadLink} />{/if}

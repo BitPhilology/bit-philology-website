@@ -3,6 +3,7 @@
 - **Status:** to do, not started
 - **Added:** 2026-10-06
 - **Checked:** 2026-10-14. Still to do as written: the migration to Sveltia CMS did not touch the styles or the components. The counts and the line numbers below were brought up to date.
+- **Extended:** 2026-10-14, with the rule on hand-written CSS (see [Hand-written CSS with `@apply`](#hand-written-css-with-apply)).
 
 ## Context
 
@@ -30,9 +31,28 @@ Step 0 is therefore a spike: add one `@utility` to tokens.css and run `npm run b
    - `docs/ARCHITECTURE.md`: the "Text styles" section (around lines 268–292, the table maps Figma style → utility), the conventions line near 306 and "Change a text style" near 315; the `src/lib/styles/` row of the file table, line 36 (no more `text.ts`).
    - Leave the dated session summaries as they are (history).
 
+## Hand-written CSS with `@apply`
+
+Decision taken (2026-10-14): in the hand-written stylesheets, a declaration that a Tailwind utility expresses is written with `@apply`, not as plain CSS. Plain CSS stays only where no utility fits (custom properties, `@theme` variables, a value that would need a long arbitrary value). The first rule written this way is the link underline in `components.css`:
+
+```css
+a {
+	@apply underline underline-offset-2;
+}
+```
+
+1. **`src/lib/styles/components.css`**:
+   - `:focus-visible`: `outline` and `outline-offset` become `@apply outline-2 outline-offset-2 …`. Check how to keep the `currentColor` fallback of `var(--cat-darker, currentColor)`: `outline-(--cat-darker)` drops it. `--cat-darker` is set on every page (the root layout wraps everything in `CategoryTheme`), so the fallback may not be needed; check before removing it.
+   - `.dither`: `background-color` becomes `bg-(--cat-main)` and `mask-repeat` becomes `mask-repeat-x`. The `mask-image` (an SVG data URL) and the `mask-size` stay plain CSS: as arbitrary values they would be harder to read. The comment says that a background utility on the element overrides the colour: check that it still does (it should, `@apply` keeps the rule in the `components` layer).
+   - The `[data-category]` blocks set custom properties only: they stay as they are.
+2. **`src/lib/styles/tokens.css`**: only `@theme` variables today, nothing to convert; the new text-style utilities of step 1 of [Changes](#changes) already use `@apply`.
+3. **`src/lib/styles/custom.css`** belongs to the maintainer: apply the rule there only when they ask.
+4. **Docs**: add the rule to the "CSS architecture" section of `CLAUDE.md`, and to the conventions of `docs/ARCHITECTURE.md` (the line "Component CSS that utilities cannot express goes in `components.css`" becomes: CSS that a class in the markup cannot express, written with `@apply` where a utility fits).
+
 ## Verification
 
 - `npm run check` (no leftover `TEXT` or `PAGE_TITLE` import) and `grep -rn "TEXT\[\|styles/text" src docs CLAUDE.md` returns nothing outside dated summaries.
 - `npm run build` and `BASE_PATH=/bit-philology-website npm run build`.
 - In the built CSS (`build/_app/immutable/assets/*.css`) every `text-…` utility appears once with the expected declarations; compare sizes, weights and leading with the table in ARCHITECTURE.md.
 - Look at Home, a page with a long body (lists, quote, code), a publication page, the Team page and the nav dock in `npm run dev`, before and after: the text must look identical (this is a refactor, no visual change expected).
+- For the `@apply` rule: the focus ring (Tab through a page) and the dithered strips (top stroke, the cap of the active dock item) look the same as before, and the built CSS has the same declarations for `:focus-visible` and `.dither`.

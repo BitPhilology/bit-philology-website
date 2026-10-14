@@ -40,7 +40,7 @@
 			<li>
 				<a
 					href={resolve(post.href)}
-					class={['flex min-h-13 items-center gap-3 px-4 py-3 text-(--cat-darker)', TEXT['body/strong']]}
+					class={['flex min-h-13 items-center gap-3 px-4 py-3 text-(--cat-darker) no-underline', TEXT['body/strong']]}
 				>
 					<span class="flex-1">{post.title}</span>
 					<Icon svg={arrowRight} class="shrink-0" />

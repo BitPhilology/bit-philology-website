@@ -17,6 +17,6 @@
 	surface="tinted"
 	class={['flex items-center justify-center px-12 text-center text-category-artifact-darker']}
 >
-	<p>{COLOPHON}</p>
-	{#if credits}<a href={resolve(credits)} class="absolute right-5 bottom-5 hover:underline">Credits</a>{/if}
+	<p class="text-sm">{COLOPHON}</p>
+	<!-- {#if credits}<a href={resolve(credits)} class="absolute right-5 bottom-5 text-xs">Credits</a>{/if} -->
 </Tile>

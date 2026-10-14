@@ -24,7 +24,7 @@
 						<a
 							href={link.href}
 							aria-current={link.current ? 'page' : undefined}
-							class={['hover:underline', link.current ? TEXT['body/strong'] : TEXT['body/body']]}
+							class={['no-underline hover:underline', link.current ? TEXT['body/strong'] : TEXT['body/body']]}
 						>
 							{link.title}
 						</a>

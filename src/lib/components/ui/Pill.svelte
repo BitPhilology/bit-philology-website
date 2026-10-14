@@ -35,7 +35,7 @@
 	{href}
 	aria-label={iconOnly && href ? label : undefined}
 	class={[
-		'inline-flex max-w-full shrink-0 items-center justify-center border border-(--cat-darker) bg-surface-white whitespace-nowrap text-(--cat-darker)',
+		'inline-flex max-w-full shrink-0 items-center justify-center border border-(--cat-darker) bg-surface-white whitespace-nowrap text-(--cat-darker) no-underline',
 		TEXT['pixel/metadata'],
 		VARIANTS[variant]
 	]}

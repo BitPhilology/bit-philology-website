@@ -40,6 +40,13 @@
 	outline-offset: 2px;
 }
 
+/* Every link is underlined (Tailwind's preflight removes the underline). A link that already looks
+   like one, such as a dock item, a card or a pill, opts out with `no-underline`: utilities win over
+   this layer. */
+a {
+	@apply underline underline-offset-2;
+}
+
 /* Dithered strip (top stroke, dock cap). Figma draws it as a 400 px wide image clipped by its
    frame, which would stop short on a wider cell. Here it is a 16 × 8 tile of 2 px pixels (a full
    row, then every 2nd, 4th and 8th pixel) repeated along x and clipped by the box, so it covers

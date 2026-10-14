@@ -33,7 +33,7 @@ src/content/**/index.md
 | `src/lib/server/notes.ts` | Footnotes → sidenotes: numbering, and pairing each note with the block that refers to it |
 | `src/lib/config/` | Site rules as data: `home.ts` (tile order), `footer.ts` (colophon, partners and the path of the credits page) |
 | `src/lib/navigation/` | `activeCategory.ts` (the category of the current page), `scrollDirection.ts` (dock compaction), `pageIndex.ts` (the page index of post pages) |
-| `src/lib/styles/` | `tokens.css`, `custom.css`, `components.css` (theming, focus ring, dither), `text.ts` (text styles), `markdown.ts` (classes of the rendered markdown) and `grid.ts` (the grid of post pages) |
+| `src/lib/styles/` | `tokens.css`, `custom.css`, `components.css` (theming, focus ring, link underline, dither), `text.ts` (text styles), `markdown.ts` (classes of the rendered markdown) and `grid.ts` (the grid of post pages) |
 | `src/lib/components/ui/` | Generic building blocks: `Tile`, `Pill`, `IconLabel`, `ImagePanel`, `ImageContainer`, `Dither` |
 | `src/lib/components/content/` | Blocks that show content: `PostCard`, `PostMeta`, `PostBody`, `PublicationBody`, `CardLink`, `CategorySignifier`, `CategoryTheme`, `ImageFiller`, `Colophon`, `PartnerLogo`; for post pages `PostMetaRow`, the headers `PageHeader`, `EventHeader`, `PublicationHeader`, the body `BodyBlocks`, `TextBlock`, `ImageFigure`, `SideNote`, the Team embeds `MemberList`, `TeamMember`, and the advisory board embed `BoardMemberList` |
 | `src/lib/components/layout/` | Page structure: `Container`, `TileGrid`, `PageShell`, `PageIndex`, `Footer`, `TopStroke`, `NavDock`, `NavDockItem`, `PageSheet` |
@@ -310,6 +310,7 @@ The site is prerendered with `trailingSlash = 'always'` (`src/routes/+layout.ts`
 - No `<style>` blocks. Component CSS that utilities cannot express goes in `src/lib/styles/components.css`.
 - Text styles come from `TEXT` in `src/lib/styles/text.ts`, named after the Figma text styles (`TEXT['heading/h1']`); see [Text styles](#text-styles). The columns of post pages come from `GRID` in `src/lib/styles/grid.ts`.
 - Colours only through semantic tokens or `--cat-*`; spacing and breakpoints are Tailwind's defaults.
+- Every link is underlined, by a rule on `a` in `components.css`. A link that already looks like one opts out with `no-underline`: the dock items and their sheet, the cards, the pills, the page index (underlined on hover) and the names of the team members, which have the external link icon.
 
 ## Common changes
 

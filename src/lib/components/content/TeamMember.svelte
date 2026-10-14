@@ -36,7 +36,7 @@
 	</span>
 	<div class="flex min-w-0 flex-col gap-1">
 		<!-- The icon is inline, so it follows the last word when a long name wraps. -->
-		<svelte:element this={member.externalURL ? 'a' : 'p'} href={member.externalURL} class={TEXT['heading/h3']}>
+		<svelte:element this={member.externalURL ? 'a' : 'p'} href={member.externalURL} class={[TEXT['heading/h3'], 'no-underline']}>
 			{member.name}
 			{#if member.externalURL}
 				<Icon svg={externalLink} label="(external link)" class="ml-1 inline-block align-top" />

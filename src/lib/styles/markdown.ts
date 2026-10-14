@@ -15,7 +15,6 @@ export const MARKDOWN_CLASSES: Partial<Record<string, string>> = {
 	blockquote: `${TEXT['body/blockquote']} border-l-2 border-(--cat-main) pl-4`,
 	pre: 'overflow-x-auto bg-surface-subtle p-4',
 	code: TEXT['code/code'],
-	a: 'underline underline-offset-2',
 	strong: 'font-bold',
 	del: 'line-through',
 	hr: 'border-(--cat-darker)',

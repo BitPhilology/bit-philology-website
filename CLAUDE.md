@@ -4,7 +4,7 @@ Instructions for the LLM coding assistant working on this repository. We use Cla
 
 ## Project
 
-The Bit Philology website: a static site built with SvelteKit and deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`.
+The Bit Philology website: a static site built with SvelteKit and deployed to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`, except a push that only changes the files in its `paths-ignore` list (the docs and other files that are not part of the site) or whose last commit has `[skip ci]` in its message. Keep that list in step with the repository: a file that the build reads must never be in it.
 
 - Svelte 5 and SvelteKit 2, TypeScript, Vite 8
 - `@sveltejs/adapter-static`: every route is prerendered (`export const prerender = true` in `src/routes/+layout.ts`) and the site is written to `build/`, one `<path>/index.html` per page (`trailingSlash = 'always'`)

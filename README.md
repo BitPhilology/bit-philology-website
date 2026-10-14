@@ -77,7 +77,9 @@ The guide for the editors, with the fields and the way of signing in, is [docs/C
 
 The site is published on **GitHub Pages** by a GitHub Actions workflow, [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-1. A push to `main` starts the workflow. It can also be started by hand: on GitHub, **Actions → Deploy to GitHub Pages → Run workflow**.
+1. A push to `main` starts the workflow. It can also be started by hand: on GitHub, **Actions → Deploy to GitHub Pages → Run workflow**. Two kinds of push do not start it:
+   - a push that only changes files that are not part of the site: `docs/`, `CLAUDE.md`, `README.md`, `LICENSE`, `.vscode/` and `.mcp.json` (the `paths-ignore` list of the workflow);
+   - a push whose last commit has `[skip ci]` in its message, for a change that can wait for the next deployment.
 2. The `build` job checks out the repository, installs the dependencies with `npm ci` on Node 24, runs `npm run build` and uploads the `build/` folder.
 3. The `deploy` job publishes that folder on GitHub Pages. The whole run takes about a minute; its result is in the **Actions** tab.
 

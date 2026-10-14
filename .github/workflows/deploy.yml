@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main
+    # A push that only changes these files does not deploy: they are not part of the site.
+    paths-ignore:
+      - 'docs/**'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - 'LICENSE'
+      - '.vscode/**'
+      - '.mcp.json'
   workflow_dispatch:
 
 permissions:
